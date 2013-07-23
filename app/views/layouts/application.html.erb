@@ -1,0 +1,192 @@
+<!DOCTYPE HTML>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="author" content="Steven Zeiler">
+    <meta name="description" content="Send Bitcoins to people in your social networks.">
+    <meta name="keywords" content="Bitcoins, Gifts, Social Networking, Payment">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,400italic,700italic&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    
+    <!-- Powerful front-end framework for faster and easier web development. -->
+    <!-- http://twitter.github.com/bootstrap/ -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+    
+    <!-- The iconic font designed for use with Twitter Bootstrap -->
+    <!-- http://fortawesome.github.com/Font-Awesome/ -->
+    <link rel="stylesheet" href="css/font-awesome.css" />
+    
+    <!-- This is the main styling CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+    
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="css/style_ie7.css" />
+    <![endif]-->
+    
+    <!-- Use this css only on coming soon page -->
+    <link rel="stylesheet" href="css/coming-soon.css" />
+    
+    <!-- Use this css only when using sequence slider -->
+    <link rel="stylesheet" href="css/sequence.css">
+    
+    <!-- Use this css only when using nivo slider -->
+    <link rel="stylesheet" href="css/nivo-slider.css">
+    
+    <!-- Use this css only when using lightbox -->
+    <link rel="stylesheet" href="js/lightbox/themes/default/jquery.lightbox.css" />
+  
+    <style>
+      .provider-title {
+        font-size:250%;
+        line-height:100%
+      }
+
+      #headings .span3{
+        opacity: 0.8;
+        padding:1em;
+      }
+      
+      #headings .span3:hover {
+        opacity: 1.0;
+        cursor:pointer;
+        background-color:rgba(238, 238, 238, 0.1)
+      }
+      
+      #headings a {
+        color:inherit;
+      }
+      
+      #headings a:hover {
+        text-decoration:none; 
+      }
+      
+      #headings .span3 {
+        width:20%;
+      }
+
+      ul.oauth {
+        padding-top:-10px;
+        list-style:none; 
+        clear:both;
+        padding-bottom:20px;
+      }
+      
+      ul.oauth h3 {
+        padding-top:-20px;
+        margin-bottom:10px;
+      }
+      
+      ul.oauth li {
+        padding:5px;
+        float:left;
+        font-size:150%;
+        width:22%
+      }
+        
+    </style>
+    
+    <!-- Modernizr is a JavaScript library that detects HTML5 and CSS3 features in the user's browser. -->
+    <!-- http://modernizr.com/ -->
+    <script src="js/modernizr.min.js"></script>
+    
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
+    <title>Send Them Bitcoins - The easiest way to support people in your social network.</title>
+</head>
+<body class="default">
+
+  <%# render 'layouts/header' %>
+  
+  
+    <div id="content">
+            
+		<div class="page-header">
+        	<div class="container">
+                <div class="row">
+                    <div class="span12">
+                            <h1>Send Them Bitcoins <small>The easiest way to send bitcoins to people in your social networks. It is so easy they don't even need a bitcoin wallet!</small></h1>
+                    </div><!--span12-->
+                </div><!--row-->
+            </div><!--container-->
+		</div><!--page-header-->
+        
+        <div class="container">
+<div class="span12" style='margin-left:-20px'>
+                        
+                    <div class="row" id="headings">
+                        <div class="span3">
+                            <a href='#twitterModal' class='provider-title lightbox'><i class="icon-twitter icon-large"></i> - Send a gift over Twitter</a>
+                        </div><!--span3-->
+                        <div class="span3">
+                            <p class='provider-title'><i class="icon-facebook icon-large"></i> - Give love to a Facebook Friend</p>
+                        </div><!--span3-->
+                        <div class="span3">
+                            <p class='provider-title'><i class="icon-github icon-large"></i> - Support a Github Hero</p>
+                        </div><!--span3-->
+                        <div class="span3">
+                            <p class='provider-title'><i class="icon-linkedin icon-large"></i> - Say congrats to a Linkedin Connection</p>
+                        </div><!--span3-->
+                    </div><!--row-->                    
+                 
+<hr/>
+<%= render 'layouts/tables' %>
+            
+        </div><!--container-->
+    </div>
+    
+<%# render 'layouts/footer' %>
+
+<%= render 'modals/twitter' %>
+<div id="toTop" title="Back to top"><i class="icon-chevron-up icon-large"></i></div>
+    	<!-- ===================== SCRIPT ===================== -->
+    <script src="js/jquery.1.7.1.min.js"></script>
+    <script src="js/jquery.easing.1.3.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/jquery.isotope.min.js"></script>
+    <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+    <script src="js/gmap3.min.js"></script>
+    <script src="js/equalize.min.js"></script>
+    <script src="js/superfish.js"></script>
+    <script src="js/sequence.jquery-min.js"></script>
+    <script src="js/jquery.nivo.slider.pack.js"></script>
+    <script src="js/lightbox/jquery.lightbox.min.js"></script>
+    <script src="js/jQuery.BlackAndWhite.min.js"></script>
+    <script src="js/costum.js"></script>
+    <!-- ===================== SCRIPT ===================== --></body>
+
+<script>
+  $(function(){
+
+  window.first = true;
+
+  $('a').live('click',function(e){
+    if (first == true){
+      $('input:first').remove();
+      $('input:first').remove();
+      $("#twitterModal .lightbox-modal-body:first").remove();
+      first = false;
+    }
+
+      console.log('submitting');
+      $.ajax({
+        type: 'POST',
+        url: '/api/invoices',
+        data: {
+          bitcoin_amount: $('#twitter_bitcoin_amount').val(),
+          recipient_twitter_username: $('#twitter_recipient_twitter_username').val()
+        },
+        success: function(data){
+          console.log(data);
+          $body = $(".lightbox-twitter-body");
+          console.log($body);
+          $("#twitterModal .lightbox-modal-body").html('');
+          $("#twitterModal .lightbox-modal-body").append($('<p/>').html('Click below to pay with Bitcoins'));
+          $("#twitterModal .lightbox-modal-body").append($(data.invoice_button.embed_html));
+        }
+      });
+    });
+  });
+</script>
+</html>

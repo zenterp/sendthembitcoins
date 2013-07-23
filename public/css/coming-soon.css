@@ -1,0 +1,60 @@
+#clock-heading {
+	margin-bottom:10px;
+	text-align:center;
+}
+#clock-heading #logo {
+	position:relative;
+	margin: 10px auto 50px;
+}
+#clock-container {
+	padding:30px 0;
+}
+#clock {
+	color:#FFFFFF; 
+	margin:0 auto; 
+	width: 720px; 
+	overflow: hidden; 
+	text-align: center;
+}
+#clock .block {
+	float: left; 
+	height: 120px; 
+	width: 120px; 
+	display:block;
+	color:#70C6FF;
+	-webkit-box-shadow: 5px 5px 5px #000000 inset; /* h-shadow v-shadow blur spread color inset; */
+       -moz-box-shadow: 5px 5px 5px #000000 inset; 
+            box-shadow: 5px 5px 5px #000000 inset; 
+	background-color: rgba(0,153,255,0.2);
+}
+.no-rgba #clock .block {
+	background:url(../images/layout/transp_20.png)
+}
+#clock .block span {
+	color:#FFFFFF;
+	display: block; 
+	font-size:70px; 
+	font-weight: bold; 
+	padding:10px 0 0 0; 
+	line-height:80px;
+}
+#clock div.space {
+	color: #ccc; 
+	display: block; 
+	line-height: 1.7em; 
+	font-size: 50px; 
+	float: left; 
+	height:120px; 
+	width: 30px; 
+}
+#clock-footer {
+	margin:20px 0;
+	text-align:center;
+}
+#clock-footer .social {
+	margin:30px auto;
+}
+#clock-footer .social li {
+	float:none;
+	display:inline-block;
+}

@@ -1,0 +1,51 @@
+    <div class="row" id="tables">
+                        <div class="span6">
+                            <h3>Gifts people sent to you via Twitter</h3>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Recipient</th>
+                                        <th>Amount</th>
+                                        <th>Sent At</th>
+                                        <th>Claim</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% @gifts.each do |gift| %>
+                                    <tr>
+                                        <td><%= gift.recipient_twitter_username %></td>
+                                        <td><%= gift.bitcoin_amount %> btc</td>
+                                        <td><%= gift.funded_at.strftime("%D at %H:%M:%S") %></td>
+                                      
+                                        <% if !gift.retrieved_at.nil? %>
+                                        <td><%= gift.retrieved_at.strftime("%D at %H:%M:%S") %></td>                                      
+                                        <% end %>
+
+                                      <td><button class='btn btn-positive'>Claim Gift</button></td>
+
+                                    </tr>
+                                    <% end %>
+                                </tbody>
+                            </table>
+                        </div><!--span6-->
+      
+      
+                        <div class="span6">
+                          <div class='hero-unit' style='padding-top:10px'>
+                            <h3>Authenticate with your Network to Claim Gifts:</h3><hr/>
+                            
+                            <ul class='oauth' style='list-style:none;'>
+                              <li><i class="icon-facebook icon-large">Facebook</i></li>
+                              <li><i class="icon-twitter icon-large">Twitter</i></li>
+                              <li><i class="icon-linkedin icon-large">LinkedIn</i></li>
+                              <li><i class="icon-github icon-large">Github</i></li>                              
+                            </ul>
+                          </div>
+                        </div><!--span6-->      
+                	</div><!--row-->
+                
+                
+
+				</div><!--span9-->
+
+			</div><!--row-->

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  coinbase_invoice_id: MyString
+  recipient_bitcoin_address: MyString
+  bitcoin_amount: 1.5
+  recipient_twitter_username: MyString
+  funded_at: 2013-07-21 23:58:08
+  retrieved_at: 2013-07-21 23:58:08
+  revoked_at: 2013-07-21 23:58:08
+
+two:
+  coinbase_invoice_id: MyString
+  recipient_bitcoin_address: MyString
+  bitcoin_amount: 1.5
+  recipient_twitter_username: MyString
+  funded_at: 2013-07-21 23:58:08
+  retrieved_at: 2013-07-21 23:58:08
+  revoked_at: 2013-07-21 23:58:08

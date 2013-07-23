@@ -1,0 +1,9 @@
+hr {
+height: 3px; /* IE6+7 need the total height */
+border:none;
+background:transparent url(../images/layout/hr-bg.png) repeat-x
+}
+
+ul#mainNav .dropdown .caret {
+    margin-top: 8px;
+}
