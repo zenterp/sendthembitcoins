@@ -3,7 +3,12 @@ class ApplicationController < ActionController::Base
 
   # GET / 
   def home
-    @gifts = Gift.where(recipient_twitter_username: 'stevenzeiler').reject!{|g| g.funded_at.nil? }
+    if session[:provider] && session[:uid]
+      @gifts = Gift.where(recipient_twitter_username: 'stevenzeiler', network: session[:provider]).reject!{|g| g.funded_at.nil? }
+    end
+    
+    @gifts = [] if @gifts.nil?
+
   end 
 
   # POST /oauth/twitter
@@ -40,7 +45,6 @@ class ApplicationController < ActionController::Base
       end 
     end 
   end 
-
 private
 
   def coinbase_client

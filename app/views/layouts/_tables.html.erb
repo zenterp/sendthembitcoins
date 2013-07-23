@@ -1,6 +1,10 @@
     <div class="row" id="tables">
-                        <div class="span6">
-                            <h3>Gifts people sent to you via Twitter</h3>
+                        <div class="span6" style='margin-top:58px'>
+                          <% if session[:provider].present? %>
+                            <% if  @gifts.count > 1 %>
+                              <h3>Gifts people sent to you via <%= session[:provider] %></h3>
+
+
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
@@ -27,20 +31,42 @@
                                     <% end %>
                                 </tbody>
                             </table>
+                            <% else %>
+                            <h3>You have no gifts over <%= session[:provider] %>. Try another network.</h3>
+                          <% end %>
+                            <% else %>
+                          <h3>Someone may have already sent you a gift! Sign in with your network to find out.</h3>
+                          <%= image_tag "https://si0.twimg.com/profile_images/1539488267/bitcoin.png", style: 'float:left;height:150px;width:150px;opacity:0.7;margin-right:50px;'  %>
+                          <%= image_tag "http://us.cdn4.123rf.com/168nwm/karenr/karenr0810/karenr081000213/3732646-blue-ribbon-and-blank-gift-tag-on-snowflake-background-with-bow-making-a-present-present.jpg", style: 'float:left;height:150px;width:150px;opacity:0.7;border-radius:5px' %>
+                            <% end %>
                         </div><!--span6-->
       
-      
-                        <div class="span6">
+                        <div class="span6" style='margin-top:58px'>      
+                        <% if session[:uid].present? && session[:provider].present? %>
+                          <div class='hero-unit' style='padding-top:10px'>
+                            <img style="float:right;margin-top:10px;border-radius:5px 5px 5px 5px; width:70px;height:70px;" src="<%= session[:image] %>"/>
+                            <h3><i class="icon-<%= session[:provider] %> icon-large"></i> You are signed in via  <%= session[:provider] %></h3>
+                            <a href='/sessions/destroy'>Sign out</a><hr/>
+                            
+                            <ul class='oauth' style='list-style:none;'>
+                              <li><a href='/auth/facebook'><i class="icon-facebook icon-large">Facebook</i></a></li>
+                              <li><a href='/auth/twitter'><i class="icon-twitter icon-large">Twitter</i></a></li>
+                              <li><a href='/auth/linkedin'><i class="icon-linkedin icon-large">LinkedIn</i></a></li>
+                              <li><a href='/auth/github'><i class="icon-github icon-large">Github</i></a></li>                              
+                            </ul>
+                          </div>
+                        <% else %>
                           <div class='hero-unit' style='padding-top:10px'>
                             <h3>Authenticate with your Network to Claim Gifts:</h3><hr/>
                             
                             <ul class='oauth' style='list-style:none;'>
-                              <li><i class="icon-facebook icon-large">Facebook</i></li>
-                              <li><i class="icon-twitter icon-large">Twitter</i></li>
-                              <li><i class="icon-linkedin icon-large">LinkedIn</i></li>
-                              <li><i class="icon-github icon-large">Github</i></li>                              
+                              <li><a href='/auth/facebook'><i class="icon-facebook icon-large">Facebook</i></a></li>
+                              <li><a href='/auth/twitter'><i class="icon-twitter icon-large">Twitter</i></a></li>
+                              <li><a href='/auth/linkedin'><i class="icon-linkedin icon-large">LinkedIn</i></a></li>
+                              <li><a href='/auth/github'><i class="icon-github icon-large">Github</i></a></li>                           
                             </ul>
                           </div>
+                        <% end %>
                         </div><!--span6-->      
                 	</div><!--row-->
                 

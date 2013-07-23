@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130721235808) do
+ActiveRecord::Schema.define(:version => 20130723183922) do
 
   create_table "gifts", :force => true do |t|
     t.string   "coinbase_invoice_id"
@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(:version => 20130721235808) do
     t.datetime "revoked_at"
     t.datetime "created_at",                 :null => false
     t.datetime "updated_at",                 :null => false
+    t.string   "recipient_uid"
+    t.string   "network"
   end
 
 end
