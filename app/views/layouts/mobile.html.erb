@@ -117,7 +117,42 @@
         <a href='' class='provider-title'><i class="icon-twitter icon-large"></i> Send a gift over Twitter</a>
       </div>
 
-      <p style='padding-top:20px;margin-top:20px;text-align:center; font-size:150%'>or <a href='/auth/twitter'>Login with Twitter</a> to Claim Gifts</p>
+      <% if (session[:provider] == 'twitter' || session[:provider] == :twitter) %>
+
+
+          <% if  @gifts.count > 1 %>
+          <p style='text-align:center'>You have received gifts; select to claim:</p>
+
+            <h3>Gifts people sent to you via <%= session[:provider] %></h3>
+
+            <table style='width:95%; margin:0 auto'class='table table-striped'>
+ 
+            </table>
+
+              <tbody>
+                  <% @gifts.each do |gift| %>
+                  <tr>
+                      <td><%= gift.recipient_twitter_username %></td>
+                      <td><%= gift.bitcoin_amount %> btc</td>
+                      <td><%= gift.funded_at.strftime("%D at %H:%M:%S") %></td>
+                    
+                      <% if !gift.retrieved_at.nil? %>
+                      <td><%= gift.retrieved_at.strftime("%D at %H:%M:%S") %></td>                                      
+                      <% end %>
+
+                    <td><button class='btn btn-positive'>Claim Gift</button></td>
+
+                  </tr>
+                  <% end %>
+              </tbody>
+          <% else %>
+          <p style='text-align:center;'>You have not received any gifts yet.</p>
+        <% end %>
+      <% else %>
+        <p style='padding-top:20px;margin-top:20px;text-align:center; font-size:150%'>or <a href='/auth/twitter'>Login with Twitter</a> to Claim Gifts</p>
+      <% end %>
+
+
         
     
 <%# render 'layouts/footer' %>
