@@ -8,6 +8,8 @@
     <meta name="author" content="Steven Zeiler">
     <meta name="description" content="Send Bitcoins to people in your social networks.">
     <meta name="keywords" content="Bitcoins, Gifts, Social Networking, Payment">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,400italic,700italic&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700&amp;subset=latin,latin-ext' rel='stylesheet' type='text/css'>
     
@@ -105,43 +107,21 @@
   
     <div id="content">
             
-		<div class="page-header">
-        	<div class="container">
-                <div class="row">
-                    <div class="span12">
-                            <h1>Send Them Bitcoins <small>The easiest way to send bitcoins to people in your social networks. It is so easy they don't even need a bitcoin wallet!</small></h1>
-                    </div><!--span12-->
-                </div><!--row-->
-            </div><!--container-->
-		</div><!--page-header-->
+		  <div class="page-header" style='padding:5px; text-align:center;'>
+        <h1 style='padding:0px; margin:0px width:80%; font-size:200%'>Send Them Bitcoins</h1>
+		  </div><!--page-header-->
+  
+      <h2 style='text-align:center'>It is so easy they don't even need a bitcoin wallet!</h2>
+
+      <div id='sendWithTwitterWell' class='well' style='margin-top:30px;font-size:80%'>
+        <a href='' class='provider-title'><i class="icon-twitter icon-large"></i> Send a gift over Twitter</a>
+      </div>
+
+      <p style='padding-top:20px;margin-top:20px;text-align:center; font-size:150%'>or <a href='/auth/twitter'>Login with Twitter</a> to Claim Gifts</p>
         
-        <div class="container">
-<div class="span12" style='margin-left:-20px'>
-                        
-                    <div class="row" id="headings">
-                        <div class="span3">
-                            <a href='#twitterModal' class='provider-title '><i class="icon-twitter icon-large"></i> - Send a gift over Twitter</a>
-                        </div><!--span3-->
-                        <div class="span3">
-                            <p class='provider-title'><i class="icon-facebook icon-large"></i> - Give love to a Facebook Friend</p>
-                        </div><!--span3-->
-                        <div class="span3">
-                            <p class='provider-title'><i class="icon-github icon-large"></i> - Support a Github Hero</p>
-                        </div><!--span3-->
-                        <div class="span3">
-                            <p class='provider-title'><i class="icon-linkedin icon-large"></i> - Say congrats to a Linkedin Connection</p>
-                        </div><!--span3-->
-                    </div><!--row-->                    
-                 
-<hr/>
-<%= render 'layouts/tables' %>
-            
-        </div><!--container-->
-    </div>
     
 <%# render 'layouts/footer' %>
 
-<%= render 'modals/twitter' %>
 <div id="toTop" title="Back to top"><i class="icon-chevron-up icon-large"></i></div>
     	<!-- ===================== SCRIPT ===================== -->
     <script src="js/jquery.1.7.1.min.js"></script>

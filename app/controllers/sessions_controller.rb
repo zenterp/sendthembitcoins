@@ -11,7 +11,14 @@ class SessionsController < ApplicationController
   def destroy
     reset_session
     redirect_to '/'
-  end 
+  end
+
+  # GET /sessions
+  def index
+    render json: {
+      provider: (session[:provider].nil? ? nil : session[:provider])
+    }.to_json
+  end
   
 private
   
