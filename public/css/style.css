@@ -1033,3 +1033,7 @@ a.thumbnail:hover {
 	left:0px;
 	right:0px;
 }
+
+iframe {
+	margin-left:23%;
+}

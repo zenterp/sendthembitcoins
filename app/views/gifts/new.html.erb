@@ -1,5 +1,5 @@
 <script type='text/template' id='invoiceTemplate'>
-  <iframe src='https://coinbase.com/inline_payments/{{= invoiceId }}' style='width: 100%; height: 160px; border: none; box-shadow: 0 1px 3px rgba(0,0,0,0.25); overflow: hidden;'scrolling='no' allowtransparency='true' frameborder='0'></iframe>
+  <p style='font-size:200%;line-height:150%;text-align:center;'>Click the button to send {{= bitcoinAmount }} bitcoins to @{{= twitterUsername }} on twitter<p>
 </script>
 
 <form method='post' id='newInvoice' style='margin-top:150px; text-align:center; font-size:150%' novalidate>
@@ -27,8 +27,13 @@
       };
       var invoiceTemplate = _.template($("#invoiceTemplate").html());
   
-      window.showInvoice = function(invoiceId){
-        $("#invoice").append(invoiceTemplate({ invoiceId: invoiceId }));
+      window.showInvoice = function(invoice){
+        $("#invoice").append(
+          invoiceTemplate({ 
+            twitterUsername: invoice.recipient_twitter_username,
+            bitcoinAmount: invoice.bitcoin_amount
+          })); 
+
       }
 
       window.createInvoice = function(twitterUsername, bitcoinAmount){
@@ -36,12 +41,13 @@
           type: 'POST',
           url: '/api/invoices',
           data: {
-            recipient_twitter_username: twitterUsername,
+            twitterUsername: twitterUsername,
             bitcoin_amount: bitcoinAmount
           },
           success: function(invoice){
             console.log(invoice);
-            showInvoice(invoice.coinbase_invoice_id);
+            showInvoice(invoice);
+            $("#invoice").append(invoice.invoice_button.embed_html); 
             $("form").remove();
           },
           error: function(err){
