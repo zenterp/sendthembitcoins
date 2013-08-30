@@ -1,0 +1,58 @@
+<script type='text/template' id='invoiceTemplate'>
+  <iframe src="https://coinbase.com/inline_payments/{{= invoiceId }}" style="width: 100%; height: 160px; border: none; box-shadow: 0 1px 3px rgba(0,0,0,0.25); overflow: hidden;" scrolling="no" allowtransparency="true" frameborder="0"></iframe>
+</script>
+
+<form method='post' id='newInvoice' style='margin-top:150px; text-align:center; font-size:150%' novalidate>
+  <p style='color:white; text-align:center;'>Twitter Username of Recipeient:</p>
+  <input name='twitterRecipient' step='0.001' min='0.001' required='true'style='padding:5px; padding-left:10px;font-size:120%;margin-top:20px;margin-bottom:50px' type='text'></input>
+
+  <p style='padding:20px;'>
+    <input type='number' style='width:25%;float:left;' name='amountInBitcoins'></input>
+    # of Bitcoins to Send
+  </p>
+
+  <br/><br/>
+
+  <input type='submit' value='generate invoice' style='font-size:100%;padding:10px;' class='button button-large'></input>
+</form>
+
+<div id='invoice'></div>
+
+<% content_for :javascripts do %>
+  <script>
+    $(function(){
+      var invoiceTemplate = _.template($("#invoiceTemplate").html());
+      _.templateSettings = {
+          interpolate: /\{\{\=(.+?)\}\}/g,
+          evaluate: /\{\{(.+?)\}\}/g
+      };
+  
+      window.showInvoice = function(invoiceId){
+        $("#invoice").append(invoiceTemplate({ invoiceId: invoiceId }));
+      }
+
+      window.createInvoice = function(twitterUsername, bitcoinAmount){
+        $.ajax({
+          type: 'POST',
+          url: '/api/invoices',
+          data: {
+            recipient_twitter_username: twitterUsername,
+            bitcoin_amount: bitcoinAmount
+          },
+          success: function(invoice){
+            console.log(invoice);
+            $("#invoice").append(invoice.invoice_button.embed_html);
+          },
+          error: function(err){
+            console.log(err);
+          }
+        })
+      };
+  
+      $('#newInvoice').on('submit', function(e){
+        e.preventDefault();
+        createInvoice('stevenzeiler',0.01);
+      })
+    })
+  </script>
+<% end %>

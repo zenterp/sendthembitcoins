@@ -78,6 +78,16 @@ h4, h5, h6 {
 	color: #FFFFFF;
 }
 
+.page-header-mask {
+	background-color: rgba(0,153,255,0.2);
+	z-index:300;
+	position:fixed;
+	top:0px;
+	right:0px;
+	left:0px;
+	height:80px;
+}
+
 .no-rgba .page-header {
 	background: url(../images/layout/transp_20.png) repeat;
 }
@@ -1014,4 +1024,12 @@ a.thumbnail:hover {
 	/*display:none;*/
 	color: #333333;
 	text-shadow: none;
+}
+
+.modal-header {
+	padding-top:15px;
+	position:fixed;
+	top:0px;
+	left:0px;
+	right:0px;
 }

@@ -15,30 +15,26 @@
     
     <!-- Powerful front-end framework for faster and easier web development. -->
     <!-- http://twitter.github.com/bootstrap/ -->
-    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="/css/bootstrap.css">
     
     <!-- The iconic font designed for use with Twitter Bootstrap -->
     <!-- http://fortawesome.github.com/Font-Awesome/ -->
-    <link rel="stylesheet" href="css/font-awesome.css" />
+    <link rel="stylesheet" href="/css/font-awesome.css" />
     
     <!-- This is the main styling CSS -->
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="/css/style.css" />
     
     <!--[if lt IE 8]>
     <link rel="stylesheet" href="css/style_ie7.css" />
     <![endif]-->
     
     <!-- Use this css only on coming soon page -->
-    <link rel="stylesheet" href="css/coming-soon.css" />
+    <link rel="stylesheet" href="/css/coming-soon.css" />
     
-    <!-- Use this css only when using sequence slider -->
-    <link rel="stylesheet" href="css/sequence.css">
-    
-    <!-- Use this css only when using nivo slider -->
-    <link rel="stylesheet" href="css/nivo-slider.css">
-    
-    <!-- Use this css only when using lightbox -->
-    <link rel="stylesheet" href="js/lightbox/themes/default/jquery.lightbox.css" />
+    <!-- Use this css only when u/sing sequence slider -->
+    <link rel="stylesheet" href="/css/sequence.css">
+    <!-- Use this css only when u/sing nivo slider -->
+    <link rel="stylesheet" href="/css/nivo-slider.css"/>
   
     <style>
       .provider-title {
@@ -95,116 +91,26 @@
     
     <!-- Modernizr is a JavaScript library that detects HTML5 and CSS3 features in the user's browser. -->
     <!-- http://modernizr.com/ -->
-    <script src="js/modernizr.min.js"></script>
+    <script src="/js/modernizr.min.js"></script>
     
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
     <title>Send Them Bitcoins - The easiest way to support people in your social network.</title>
 </head>
 <body class="default">
-
-  <%# render 'layouts/header' %>
+    <div class='header-underblock dark_mosaic' style='position:fixed;top:0px;left:0;right:0;height:70px'></div>
   
   
     <div id="content">
             
-		  <div class="page-header" style='padding:5px; text-align:center;'>
+		  <div class="page-header" style='margin-bottom:90px;position:fixed;top:0px;left:0;right:0;padding:5px; text-align:center;'>
         <h1 style='padding:0px; margin:0px width:80%; font-size:200%'>Send Them Bitcoins</h1>
 		  </div><!--page-header-->
   
-      <h2 style='text-align:center'>It is so easy they don't even need a bitcoin wallet!</h2>
+      <%= yield %>
+    </div>
+    <%= javascript_include_tag :application %>
+    <script src="/js/bootstrap.js"></script>
+    <%= yield :javascripts %>
+  </body>
 
-      <div id='sendWithTwitterWell' class='well' style='margin-top:30px;font-size:80%'>
-        <a href='' class='provider-title'><i class="icon-twitter icon-large"></i> Send a gift over Twitter</a>
-      </div>
-
-      <% if (session[:provider] == 'twitter' || session[:provider] == :twitter) %>
-
-
-          <% if  @gifts.count > 1 %>
-          <p style='text-align:center'>You have received gifts; select to claim:</p>
-
-            <h3>Gifts people sent to you via <%= session[:provider] %></h3>
-
-            <table style='width:95%; margin:0 auto'class='table table-striped'>
- 
-            </table>
-
-              <tbody>
-                  <% @gifts.each do |gift| %>
-                  <tr>
-                      <td><%= gift.recipient_twitter_username %></td>
-                      <td><%= gift.bitcoin_amount %> btc</td>
-                      <td><%= gift.funded_at.strftime("%D at %H:%M:%S") %></td>
-                    
-                      <% if !gift.retrieved_at.nil? %>
-                      <td><%= gift.retrieved_at.strftime("%D at %H:%M:%S") %></td>                                      
-                      <% end %>
-
-                    <td><button class='btn btn-positive'>Claim Gift</button></td>
-
-                  </tr>
-                  <% end %>
-              </tbody>
-          <% else %>
-          <p style='text-align:center;'>You have not received any gifts yet.</p>
-        <% end %>
-      <% else %>
-        <p style='padding-top:20px;margin-top:20px;text-align:center; font-size:150%'>or <a href='/auth/twitter'>Login with Twitter</a> to Claim Gifts</p>
-      <% end %>
-
-
-        
-    
-<%# render 'layouts/footer' %>
-
-<div id="toTop" title="Back to top"><i class="icon-chevron-up icon-large"></i></div>
-    	<!-- ===================== SCRIPT ===================== -->
-    <script src="js/jquery.1.7.1.min.js"></script>
-    <script src="js/jquery.easing.1.3.js"></script>
-    <script src="js/bootstrap.js"></script>
-    <script src="js/jquery.isotope.min.js"></script>
-    <script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
-    <script src="js/gmap3.min.js"></script>
-    <script src="js/equalize.min.js"></script>
-    <script src="js/superfish.js"></script>
-    <script src="js/sequence.jquery-min.js"></script>
-    <script src="js/jquery.nivo.slider.pack.js"></script>
-    <script src="js/lightbox/jquery.lightbox.min.js"></script>
-    <script src="js/jQuery.BlackAndWhite.min.js"></script>
-    <script src="js/costum.js"></script>
-    <!-- ===================== SCRIPT ===================== --></body>
-
-<script>
-  $(function(){
-
-  window.first = true;
-
-  $('a').live('click',function(e){
-    if (first == true){
-      $('input:first').remove();
-      $('input:first').remove();
-      $("#twitterModal .lightbox-modal-body:first").remove();
-      first = false;
-    }
-
-      console.log('submitting');
-      $.ajax({
-        type: 'POST',
-        url: '/api/invoices',
-        data: {
-          bitcoin_amount: $('#twitter_bitcoin_amount').val(),
-          recipient_twitter_username: $('#twitter_recipient_twitter_username').val()
-        },
-        success: function(data){
-          console.log(data);
-          $body = $(".lightbox-twitter-body");
-          console.log($body);
-          $("#twitterModal .lightbox-modal-body").html('');
-          $("#twitterModal .lightbox-modal-body").append($('<p/>').html('Click below to pay with Bitcoins'));
-          $("#twitterModal .lightbox-modal-body").append($(data.invoice_button.embed_html));
-        }
-      });
-    });
-  });
-</script>
 </html>

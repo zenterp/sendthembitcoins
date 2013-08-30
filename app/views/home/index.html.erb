@@ -1,0 +1,33 @@
+<h2 style='text-align:center;margin-top:90px'>It is so easy they don't even need a bitcoin wallet!</h2>
+
+<div id='sendWithTwitterWell' class='button' style='margin-top:30px;padding-right:10px;font-size:80%'>
+  <a href='/twitter/gifts/new' style='margin-right:10px' class='provider-title'><i style='margin-right:10px;left:10px;position:relative' class="icon-twitter icon-large"></i> Send a gift over Twitter</a>
+</div>
+
+<% if (session[:provider] == 'twitter' || session[:provider] == :twitter) %>
+    <% if  @gifts.count > 1 %>
+      <h3 style='overflow-y;hidden;text-align:center;max-height:40px;'><span style='width:100%'>Gifts people sent to you via <%= session[:provider] %></span></h3>
+
+      <table>
+        <tbody class='table table-striped'>
+            <% @gifts.flatten.each do |gift| %>
+            <tr>
+                <td><%= gift.recipient_twitter_username %></td>
+                <td><%= gift.bitcoin_amount %> btc</td>
+                <td><%= gift.funded_at.strftime("%D at %H:%M:%S") %></td>
+              
+                <% if !gift.retrieved_at.nil? %>
+                <td><%= gift.retrieved_at.strftime("%D at %H:%M:%S") %></td>                                      
+                <% end %>
+
+              <td><button class='btn btn-positive'>Claim Gift</button></td>
+
+            </tr>
+            <% end %>
+        </tbody>
+      </table>
+    <% else %>
+  <% end %>
+<% else %>
+  <p style='padding-top:20px;margin-top:20px;text-align:center; font-size:150%'>or <a href='/auth/twitter'>Login with Twitter</a> to Claim Gifts</p>
+<% end %>
