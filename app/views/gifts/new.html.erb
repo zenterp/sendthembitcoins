@@ -16,7 +16,7 @@
   <input type='submit' value='generate invoice' style='font-size:100%;padding:10px;' class='button button-large'></input>
 </form>
 
-<div id='invoice'></div>
+<div id='invoice' style='margin-top:100px;margin-left:auto;margin-right:auto;height:300px;'></div>
 
 <% content_for :javascripts do %>
   <script>
@@ -41,7 +41,8 @@
           },
           success: function(invoice){
             console.log(invoice);
-            $("#invoice").append(invoice.invoice_button.embed_html);
+            showInvoice(invoice.coinbase_invoice_id);
+            $("form").remove();
           },
           error: function(err){
             console.log(err);
