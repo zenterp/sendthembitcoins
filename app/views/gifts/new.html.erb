@@ -1,5 +1,5 @@
 <script type='text/template' id='invoiceTemplate'>
-  <iframe src="https://coinbase.com/inline_payments/{{= invoiceId }}" style="width: 100%; height: 160px; border: none; box-shadow: 0 1px 3px rgba(0,0,0,0.25); overflow: hidden;" scrolling="no" allowtransparency="true" frameborder="0"></iframe>
+  <iframe src='https://coinbase.com/inline_payments/{{= invoiceId }}' style='width: 100%; height: 160px; border: none; box-shadow: 0 1px 3px rgba(0,0,0,0.25); overflow: hidden;'scrolling='no' allowtransparency='true' frameborder='0'></iframe>
 </script>
 
 <form method='post' id='newInvoice' style='margin-top:150px; text-align:center; font-size:150%' novalidate>
@@ -21,11 +21,11 @@
 <% content_for :javascripts do %>
   <script>
     $(function(){
-      var invoiceTemplate = _.template($("#invoiceTemplate").html());
       _.templateSettings = {
           interpolate: /\{\{\=(.+?)\}\}/g,
           evaluate: /\{\{(.+?)\}\}/g
       };
+      var invoiceTemplate = _.template($("#invoiceTemplate").html());
   
       window.showInvoice = function(invoiceId){
         $("#invoice").append(invoiceTemplate({ invoiceId: invoiceId }));
