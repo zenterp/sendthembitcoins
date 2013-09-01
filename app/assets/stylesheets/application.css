@@ -28,6 +28,12 @@
      -webkit-box-shadow: #4f5673 0 10px 0;
      -moz-box-shadow: #4f5673 0 10px 0;
      box-shadow: #4f5673 0 10px 0;
+     -webkit-touch-callout: none;
+     -webkit-user-select: none;
+     -khtml-user-select: none;
+     -moz-user-select: -moz-none;
+     -ms-user-select: none;
+     user-select: none;
  }
  .sexyButton:active {
      -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0);
