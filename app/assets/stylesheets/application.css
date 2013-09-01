@@ -11,3 +11,91 @@
  *= require_self
  *= require_tree .
  */
+
+ .sexyButton{
+     width: 65%;
+     margin: 100px 15% 20px 15%;
+     font-size: 3em;
+     background: white;
+     color: #2e3242;
+     text-align: center;
+     padding: 2.5%;
+     -webkit-border-radius: 10px;
+     -moz-border-radius: 10px;
+     -ms-border-radius: 10px;
+     -o-border-radius: 10px;
+     border-radius: 10px;
+     -webkit-box-shadow: #4f5673 0 10px 0;
+     -moz-box-shadow: #4f5673 0 10px 0;
+     box-shadow: #4f5673 0 10px 0;
+ }
+ .sexyButton:active {
+     -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+     -moz-box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+     box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+     -webkit-transform: translate(0, 5px);
+     -moz-transform: translate(0, 5px);
+     -ms-transform: translate(0, 5px);
+     -o-transform: translate(0, 5px);
+     transform: translate(0, 5px);
+     background: #bbbdc7;
+     color: white;
+ }
+   
+ @media screen and (max-width: 768px) { //tablet
+  
+   .sexyButton {
+     font-size: 2em;
+     padding: 2.5%;
+     margin: 10% 20% 0;
+     width: 55%;
+     -webkit-box-shadow: #4f5673 0 8px 0;
+     -moz-box-shadow: #4f5673 0 8px 0;
+     box-shadow: #4f5673 0 8px 0;
+   }
+ }
+  
+ @media screen and (max-width: 400px) { //mobile
+  
+   .sexyButton {
+     font-size: 1.333em;
+     padding: 5%;
+     width: 80%;
+     margin: 10% 5% 10% 5%;
+     -webkit-box-shadow: #4f5673 0 5px 0;
+     -moz-box-shadow: #4f5673 0 5px 0;
+     box-shadow: #4f5673 0 5px 0;
+
+      &.small {
+        font-size:1em;
+      }
+   }
+
+   .input {
+     color:white; 
+     text-align:center;
+   }
+
+   input[type='text'], input[type='number'] {
+    font-size:100%;
+    padding:5px; 
+    padding-left:10px;
+    font-size:120%;
+   }
+
+   input[type='submit'] {
+    margin-top:0px;
+   }
+
+   .icon {
+     margin-right:10px;
+     left:10px;
+     position:relative
+   }
+
+   form {
+    margin-top:100px;
+    text-align:center; 
+    font-size:150%
+   }
+ }

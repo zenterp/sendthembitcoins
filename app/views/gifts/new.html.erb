@@ -2,18 +2,16 @@
   <p style='font-size:200%;line-height:150%;text-align:center;'>Click the button to send {{= bitcoinAmount }} bitcoins to @{{= twitterUsername }} on twitter<p>
 </script>
 
-<form method='post' id='newInvoice' style='margin-top:150px; text-align:center; font-size:150%' novalidate>
-  <p style='color:white; text-align:center;'>Twitter Username of Recipeient:</p>
-  <input name='twitterRecipient' step='0.001' min='0.001' required='true'style='padding:5px; padding-left:10px;font-size:120%;margin-top:20px;margin-bottom:50px' type='text'></input>
+<form method='post' id='newInvoice' style='' novalidate>
+  <p class='input'>Twitter Username of Recipeient:</p>
+  <input name='twitterRecipient' step='0.001' min='0.001' required='true' type='text'></input>
 
-  <p style='padding:20px;'>
-    <input type='number' style='width:25%;float:left;' name='amountInBitcoins'></input>
-    # of Bitcoins to Send
-  </p>
+  <p class='input'>Number of Bitcoins to Send</p>
+  <input type='number' name='amountInBitcoins'></input>
 
   <br/><br/>
 
-  <input type='submit' value='generate invoice' style='font-size:100%;padding:10px;' class='button button-large'></input>
+  <input type='submit' value='next' class='sexyButton small'></input>
 </form>
 
 <div id='invoice' style='margin-top:100px;margin-left:auto;margin-right:auto;height:300px;'></div>
