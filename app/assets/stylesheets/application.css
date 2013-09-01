@@ -14,7 +14,7 @@
 
  .sexyButton{
      width: 65%;
-     margin: 100px 15% 20px 15%;
+     margin: 10px 15% 20px 15%;
      font-size: 3em;
      background: white;
      color: #2e3242;
@@ -61,14 +61,14 @@
      font-size: 1.333em;
      padding: 5%;
      width: 80%;
+     margin-left:auto;
+     margin-right:auto;
+     text-align:center;
      margin: 10% 5% 10% 5%;
      -webkit-box-shadow: #4f5673 0 5px 0;
      -moz-box-shadow: #4f5673 0 5px 0;
      box-shadow: #4f5673 0 5px 0;
 
-      &.small {
-        font-size:1em;
-      }
    }
 
    .input {
@@ -97,5 +97,9 @@
     margin-top:100px;
     text-align:center; 
     font-size:150%
+   }
+
+   h2 { 
+     font-size: 200%;
    }
  }
