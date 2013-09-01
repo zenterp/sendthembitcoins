@@ -1,6 +1,6 @@
-<h2 style='text-align:center;margin-top:90px'>It is so easy they don't even need a bitcoin wallet!</h2>
+<h2 style='text-align:center;margin-top:150px; margin-bottom:70px'>It is so easy they don't even need a bitcoin wallet!</h2>
 
-  <div data-href='/twitter/gifts/new' class='sexyButton'><i class="icon-twitter icon-large icon"></i> Send via Twitter</div>
+  <div data-href='/twitter/gifts/new' class='sexyButton' style='margin-bottom:50px'><i class="icon-twitter icon-large icon"></i> Send via Twitter</div>
 
 <% if (session[:provider] == 'twitter' || session[:provider] == :twitter) %>
     <% if  @gifts.count > 1 %>
@@ -27,17 +27,24 @@
     <% else %>
   <% end %>
 <% else %>
-  <p style='padding-top:20px;margin-top:20px;text-align:center; font-size:150%'>or <a href='/auth/twitter'>Login with Twitter</a> to Claim Gifts</p>
+  <p style='padding-top:20px;margin-top:20px;text-align:center; font-size:150%'>or <a href='/auth/twitter' id='twitterLogin'>Login with Twitter</a> to Claim Gifts</p>
 <% end %>
 
 <% content_for :javascripts do %>
   <script>
     $(function(){
-      console.log("function");
       $('.sexyButton').on('click', function(){
-  
         document.location.href = $(this).data('href');
       });
+
+      if (window.plugins && window.plugins.childBrowser) {
+        $('#twitterLogin').on('click', function(e) {
+          e.preventDefault();
+          window.plugins.childBrowser.showWebPage('/auth/twitter', {
+            showLocationBar: true
+          });
+        })
+      }
     });
   </script>
 <% end %>
