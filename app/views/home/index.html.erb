@@ -37,6 +37,8 @@
         document.location.href = $(this).data('href');
       });
 
+      $('.sexyButton').disableSelection();
+
       if (window.plugins && window.plugins.childBrowser) {
         $('#twitterLogin').on('click', function(e) {
           e.preventDefault();
