@@ -30,14 +30,62 @@
   <p style='padding-top:20px;margin-top:20px;text-align:center; font-size:150%'>or <a href='/auth/twitter' id='twitterLogin'>Login with Twitter</a> to Claim Gifts</p>
 <% end %>
 
+<script id='formTemplate' type='text/template'>
+  <form method='post' id='newInvoice' style='' novalidate>
+    <p class='input'>Twitter Username of Recipeient:</p>
+    <input name='twitterRecipient' step='0.001' min='0.001' required='true' type='text'></input>
+
+    <p class='input'>Number of Bitcoins to Send</p>
+    <input type='number' name='amountInBitcoins'></input>
+
+    <br/><br/>
+
+    <input type='submit' value='next' class='sexyButton small'></input>
+  </form>
+</script>
+
 <% content_for :javascripts do %>
   <script>
+
     $(function(){
-      $('.sexyButton').on('click', function(){
-        document.location.href = $(this).data('href');
+
+      $(window).on('unload',function(e) {
+        alert(e);
+
+        e.preventDefault();
       });
 
-      $('.sexyButton').disableSelection();
+      var AppRouter = Backbone.Router.extend({
+        routes: {
+          '' : 'index',
+          '/twitter/gifts/new' : 'newGift'
+        },
+
+        index: function() {
+
+        },
+
+        newGift: function() {
+          console.log('new gift');
+          $('.page-content').html(template({}));
+        }
+      });
+
+      window.app = new AppRouter;
+
+      Backbone.history.start({
+        pushState: true,
+        silent: true
+      });
+
+      var template = _.template($('#formTemplate').html());
+
+      $('.sexyButton').on('click', function(e){
+        e.preventDefault();
+        console.log('about to new gift');
+        app.newGift();
+        app.navigate('twitter/gifts/new', {trigger: true, replace: true});
+      });
 
       if (window.plugins && window.plugins.childBrowser) {
         $('#twitterLogin').on('click', function(e) {

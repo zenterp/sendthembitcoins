@@ -91,12 +91,9 @@
   
   
     <div id="content">
-            
-		  <div class="page-header" style='margin-bottom:90px;position:fixed;top:0px;left:0;right:0;padding:5px; text-align:center;'>
-        <h1 style='padding:0px; margin:0px width:80%; font-size:200%'>Send Them Bitcoins</h1>
-		  </div><!--page-header-->
+		  <div class="page-header">Send Them Bitcoins</div>
   
-      <%= yield %>
+      <div class='page-content'><%= yield %></div>
     </div>
     <%= javascript_include_tag :application %>
     <script src="/js/bootstrap.js"></script>

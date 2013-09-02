@@ -12,6 +12,32 @@
  *= require_tree .
  */
 
+ * {
+   -webkit-touch-callout: none;
+   touch-callout: none;
+   -webkit-user-select: none;
+   user-select: none;
+ }
+
+.page-header {
+  margin-bottom:90px;
+  position:fixed;
+  top:0px;
+  left:0;
+  right:0;
+  padding:5px;
+  font-size:30px;
+
+  text-align:center;
+}
+
+h1 {
+  padding:0px; 
+  margin:0px; 
+  width:80%; 
+  font-size:30px;
+  text-align:center;
+}
  .sexyButton{
      width: 65%;
      margin: 10px 15% 20px 15%;
