@@ -1,13 +1,27 @@
+<div id='homePage'>
+  <h2 style="text-align:center;margin-top:150px; margin-bottom:70px">
+    It is so easy they don't even need a bitcoin wallet!
+  </h2>
 
-
-<h2 style="text-align:center;margin-top:150px; margin-bottom:70px">
-  It is so easy they don't even need a bitcoin wallet!
-</h2>
-
-<div data-href="/twitter/gifts/new" class='sexyButton' style='margin-bottom:50px'>
-  <i class="icon-twitter icon-large icon"></i> 
-  Send via Twitter
+  <div data-href="/twitter/gifts/new" class='sexyButton' style='margin-bottom:50px'>
+    <i class="icon-twitter icon-large icon"></i> 
+    Send via Twitter
+  </div>
 </div>
+
+
+
+<form method='post' id='newInvoice' style='' novalidate>
+  <p class='input'>Twitter Username of Recipeient:</p>
+  <input name='twitterRecipient' step='0.001' min='0.001' required='true' type='text'></input>
+
+  <p class='input'>Number of Bitcoins to Send</p>
+  <input type='number' name='amountInBitcoins'></input>
+
+  <br/><br/>
+
+  <input type='submit' value='next' class='sexyButton small'></input>
+</form>
 
 <% if (session[:provider] == 'twitter' || session[:provider] == :twitter) %>
     <% if  @gifts.count > 1 %>
@@ -73,17 +87,18 @@
       var AppRouter = Backbone.Router.extend({
         routes: {
           '' : 'index',
-          '/twitter/gifts/new' : 'newGift'
+          'twitter/gifts/new' : 'newGift'
         },
 
         index: function() {
-          $('.page-content').html(homeTemplate({}));
+          $('#newInvoice').hide();
+          $('#homePage').show();
           $('.sexyButton').on('click', handleButtonClick);
 
         },
-
         newGift: function() {
-          $('.page-content').html(templateHTML);
+          $('#homePage').hide();
+          $('#newInvoice').show();
         }
       });
 
@@ -94,15 +109,9 @@
         silent: true
       });
 
-      var template = _.template($('#formTemplate').html());
-      var homeTemplate = _.template($('#homeTemplate').html())
-
-      var templateHTML = template({});
-      var homeTemplateHTML = homeTemplate({});
-
       handleButtonClick = function(e) {
         e.preventDefault();
-        app.newGift();
+        //app.newGift();
         app.navigate('twitter/gifts/new', {trigger: true});
       }
 

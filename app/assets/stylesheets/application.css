@@ -135,4 +135,8 @@ h1 {
    h2 { 
      font-size: 200%;
    }
- }
+
+    #newInvoice {
+      display:none;
+    }
+  }
