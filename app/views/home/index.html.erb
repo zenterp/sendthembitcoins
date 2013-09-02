@@ -55,20 +55,31 @@
 
     $(function(){
 
-      function createInvoice(twitterUsername, bitcoinAmount) {
-        console.log('username', twitterUsername);
-        console.log('amount', bitcoinAmount);
-        /*$.ajax({
+      function displayInvoice(url) {
+        if (window.plugins && window.plugins.childBrowser) {
+          window.plugins.childBrowser.showWebPage(url, {
+            showLocationBar: true
+          });
+        } else {
+          document.location.href = url;
+        }
+      }
+
+      function createInvoice(recipient_twitter_username, bitcoin_amount) {
+        $.ajax({
           type: 'POST',
           url: '/api/invoices',
           data: {
-            twitterUsername: twitterUsername,
-            bitcoin_amount: bitcoinAmount
+            recipient_twitter_username: recipient_twitter_username,
+            bitcoin_amount: bitcoin_amount
+          },
+          success: function(data) {
+            displayInvoice(data.invoiceUrl);
           },
           error: function(err){
             console.log(err);
           }
-        })*/
+        })
       };
 
       var AppRouter = Backbone.Router.extend({
@@ -96,11 +107,10 @@
 
       $('#homePage .sexyButton').on('click', handleButtonClick);
       $('#newInvoice').on('submit', function(e) {
-        /*
-        var twitterUsername = $('input[name="twitterRecipient"]').val();
-        var bitcoinAmount = $('input[name="amountInBitcoins"]').val();
-        createInvoice(twitterUsername, bitcoinAmount);
-        */
+        e.preventDefault();
+        var recipient_twitter_username = $('input[name="recipient_twitter_username"]').val();
+        var bitcoin_amount = $('input[name="bitcoin_amount"]').val();
+        createInvoice(recipient_twitter_username, bitcoin_amount);        
       })
 
       if (window.plugins && window.plugins.childBrowser) {

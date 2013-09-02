@@ -22,6 +22,10 @@
           evaluate: /\{\{(.+?)\}\}/g
       };
 
+      coinbasePaymentCallbackSuccessURL = 'http://sendthembitcoins.com/coinbase/payments/success';
+
+      coinbasePaymentCallbackCancelURL = 'http://sendthembitcoins.com/coinbase/payments/cancel';
+
       window.createInvoice = function(twitterUsername, bitcoinAmount){
         $.ajax({
           type: 'POST',

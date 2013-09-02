@@ -15,7 +15,7 @@ class Api::InvoicesController < ApplicationController
       { variable_price: true } # options
     )
 
-    redirect_to "https://coinbase.com/checkouts/#{@button.code}"
+    render json: { invoiceUrl: "https://coinbase.com/checkouts/#{button['button']['code']}" }
   end
 
 private
