@@ -98,6 +98,24 @@
     <%= javascript_include_tag :application %>
     <script src="/js/bootstrap.js"></script>
     <%= yield :javascripts %>
+    <script type='text/javascript'>
+      $(function(){
+        document.addEventListener("menubutton", onMenuKeyDown, false);
+        var menuPressed = false;
+        var html = '';
+        
+        function onMenuKeyDown() {
+          if menuPressed == false {
+            html = $('h1').html();
+            $('h1').html('the menu was pressed!');
+            menuPressed = true;
+          } else {
+            html = $('h1').html();
+            menuPressed = false;
+          }
+        }
+      })
+    </script>
   </body>
 
 </html>
