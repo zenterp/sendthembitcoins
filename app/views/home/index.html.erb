@@ -70,13 +70,6 @@
   <script>
 
     $(function(){
-
-      $(window).on('unload',function(e) {
-        alert(e);
-
-        e.preventDefault();
-      });
-
       var AppRouter = Backbone.Router.extend({
         routes: {
           '' : 'index',
@@ -90,8 +83,7 @@
         },
 
         newGift: function() {
-          console.log('new gift');
-          $('.page-content').html(template({}));
+          $('.page-content').html(templateHTML);
         }
       });
 
@@ -104,6 +96,9 @@
 
       var template = _.template($('#formTemplate').html());
       var homeTemplate = _.template($('#homeTemplate').html())
+
+      var templateHTML = template({});
+      var homeTemplateHTML = homeTemplate({});
 
       handleButtonClick = function(e) {
         e.preventDefault();

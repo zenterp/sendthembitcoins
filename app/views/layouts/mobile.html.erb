@@ -105,7 +105,7 @@
         var html = '';
         
         function onMenuKeyDown() {
-          if menuPressed == false {
+          if (menuPressed == false) {
             html = $('h1').html();
             $('h1').html('the menu was pressed!');
             menuPressed = true;
