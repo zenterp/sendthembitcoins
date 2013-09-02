@@ -12,12 +12,6 @@
  *= require_tree .
  */
 
- * {
-   -webkit-touch-callout: none;
-   touch-callout: none;
-   -webkit-user-select: none;
-   user-select: none;
- }
 
 .page-header {
   margin-bottom:90px;

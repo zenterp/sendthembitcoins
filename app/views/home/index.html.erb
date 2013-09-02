@@ -1,6 +1,13 @@
-<h2 style='text-align:center;margin-top:150px; margin-bottom:70px'>It is so easy they don't even need a bitcoin wallet!</h2>
 
-  <div data-href='/twitter/gifts/new' class='sexyButton' style='margin-bottom:50px'><i class="icon-twitter icon-large icon"></i> Send via Twitter</div>
+
+<h2 style="text-align:center;margin-top:150px; margin-bottom:70px">
+  It is so easy they don't even need a bitcoin wallet!
+</h2>
+
+<div data-href="/twitter/gifts/new" class='sexyButton' style='margin-bottom:50px'>
+  <i class="icon-twitter icon-large icon"></i> 
+  Send via Twitter
+</div>
 
 <% if (session[:provider] == 'twitter' || session[:provider] == :twitter) %>
     <% if  @gifts.count > 1 %>
@@ -29,6 +36,21 @@
 <% else %>
   <p style='padding-top:20px;margin-top:20px;text-align:center; font-size:150%'>or <a href='/auth/twitter' id='twitterLogin'>Login with Twitter</a> to Claim Gifts</p>
 <% end %>
+
+<script type='text/template' id='homeTemplate'>
+  <h2 style="text-align:center;margin-top:150px; margin-bottom:70px">
+    It is so easy they don't even need a bitcoin wallet!
+  </h2>
+
+  <div data-href="/twitter/gifts/new" class='sexyButton' style='margin-bottom:50px'>
+    <i class="icon-twitter icon-large icon"></i> 
+    Send via Twitter
+  </div>
+
+  <p style='padding-top:20px;margin-top:20px;text-align:center; font-size:150%'>
+    or <a href='/auth/twitter' id='twitterLogin'>Login with Twitter</a> to Claim Gifts
+  </p>
+</script>
 
 <script id='formTemplate' type='text/template'>
   <form method='post' id='newInvoice' style='' novalidate>
@@ -62,6 +84,8 @@
         },
 
         index: function() {
+          $('.page-content').html(homeTemplate({}));
+          $('.sexyButton').on('click', handleButtonClick);
 
         },
 
@@ -79,13 +103,15 @@
       });
 
       var template = _.template($('#formTemplate').html());
+      var homeTemplate = _.template($('#homeTemplate').html())
 
-      $('.sexyButton').on('click', function(e){
+      handleButtonClick = function(e) {
         e.preventDefault();
-        console.log('about to new gift');
         app.newGift();
-        app.navigate('twitter/gifts/new', {trigger: true, replace: true});
-      });
+        app.navigate('twitter/gifts/new', {trigger: true});
+      }
+
+      $('.sexyButton').on('click', handleButtonClick);
 
       if (window.plugins && window.plugins.childBrowser) {
         $('#twitterLogin').on('click', function(e) {
