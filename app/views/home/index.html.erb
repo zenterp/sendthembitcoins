@@ -57,9 +57,18 @@
 
       function displayInvoice(url) {
         if (window.plugins && window.plugins.childBrowser) {
-          window.plugins.childBrowser.showWebPage(url, {
+          invoiceChildBrowser = window.plugins.childBrowser.showWebPage(url, {
             showLocationBar: true
           });
+
+          invoiceChildBrowser.onLocationChange = function(loc) {
+            if (loc.match(/coinbase\/payments\/success/)) {
+              invoiceChildBrowser.close();
+            } else {
+              invoiceChildBrowser.close();
+            }
+          }
+
         } else {
           document.location.href = url;
         }
