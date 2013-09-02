@@ -7,4 +7,5 @@ POST /api/apivoices
     recipient_twitter_username : String
     bitcoin_amount             : Float
 
-  Returns
+Redirects to coinbase invoice payment page
+

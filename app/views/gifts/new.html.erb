@@ -21,16 +21,6 @@
           interpolate: /\{\{\=(.+?)\}\}/g,
           evaluate: /\{\{(.+?)\}\}/g
       };
-      var invoiceTemplate = _.template($("#invoiceTemplate").html());
-  
-      window.showInvoice = function(invoice){
-        $("#invoice").append(
-          invoiceTemplate({ 
-            twitterUsername: invoice.recipient_twitter_username,
-            bitcoinAmount: invoice.bitcoin_amount
-          })); 
-
-      }
 
       window.createInvoice = function(twitterUsername, bitcoinAmount){
         $.ajax({
@@ -39,12 +29,6 @@
           data: {
             twitterUsername: twitterUsername,
             bitcoin_amount: bitcoinAmount
-          },
-          success: function(invoice){
-            console.log(invoice);
-            showInvoice(invoice);
-            $("#invoice").append(invoice.invoice_button.embed_html); 
-            $("form").remove();
           },
           error: function(err){
             console.log(err);

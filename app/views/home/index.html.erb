@@ -9,14 +9,12 @@
   </div>
 </div>
 
-
-
-<form method='post' id='newInvoice' novalidate>
+<form method='post' id='newInvoice' action='/api/invoices' novalidate>
   <p class='input'>Twitter Username of Recipeient:</p>
-  <input name='twitterRecipient' step='0.001' min='0.001' required='true' type='text'></input>
+  <input name='recipient_twitter_username' step='0.001' min='0.001' required='true' type='text'></input>
 
   <p class='input'>Number of Bitcoins to Send</p>
-  <input type='number' name='amountInBitcoins' style='margin-left:6px'></input>
+  <input type='number' name='bitcoin_amount' style='margin-left:6px'></input>
 
   <br/><br/>
 
@@ -51,39 +49,28 @@
   <p style='padding-top:20px;margin-top:20px;text-align:center; font-size:150%'>or <a href='/auth/twitter' id='twitterLogin'>Login with Twitter</a> to Claim Gifts</p>
 <% end %>
 
-<script type='text/template' id='homeTemplate'>
-  <h2 style="text-align:center;margin-top:150px; margin-bottom:70px">
-    It is so easy they don't even need a bitcoin wallet!
-  </h2>
-
-  <div data-href="/twitter/gifts/new" class='sexyButton' style='margin-bottom:50px'>
-    <i class="icon-twitter icon-large icon"></i> 
-    Send via Twitter
-  </div>
-
-  <p style='padding-top:20px;margin-top:20px;text-align:center; font-size:150%'>
-    or <a href='/auth/twitter' id='twitterLogin'>Login with Twitter</a> to Claim Gifts
-  </p>
-</script>
-
-<script id='formTemplate' type='text/template'>
-  <form method='post' id='newInvoice' style='' novalidate>
-    <p class='input'>Twitter Username of Recipeient:</p>
-    <input name='twitterRecipient' step='0.001' min='0.001' required='true' type='text'></input>
-
-    <p class='input'>Number of Bitcoins to Send</p>
-    <input type='number' name='amountInBitcoins'></input>
-
-    <br/><br/>
-
-    <input type='submit' value='next' class='sexyButton small'></input>
-  </form>
-</script>
 
 <% content_for :javascripts do %>
   <script>
 
     $(function(){
+
+      function createInvoice(twitterUsername, bitcoinAmount) {
+        console.log('username', twitterUsername);
+        console.log('amount', bitcoinAmount);
+        /*$.ajax({
+          type: 'POST',
+          url: '/api/invoices',
+          data: {
+            twitterUsername: twitterUsername,
+            bitcoin_amount: bitcoinAmount
+          },
+          error: function(err){
+            console.log(err);
+          }
+        })*/
+      };
+
       var AppRouter = Backbone.Router.extend({
         routes: {
           '' : 'index',
@@ -108,6 +95,13 @@
       }
 
       $('#homePage .sexyButton').on('click', handleButtonClick);
+      $('#newInvoice').on('submit', function(e) {
+        /*
+        var twitterUsername = $('input[name="twitterRecipient"]').val();
+        var bitcoinAmount = $('input[name="amountInBitcoins"]').val();
+        createInvoice(twitterUsername, bitcoinAmount);
+        */
+      })
 
       if (window.plugins && window.plugins.childBrowser) {
         $('#twitterLogin').on('click', function(e) {
