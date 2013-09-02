@@ -57,10 +57,12 @@ h1 {
      -moz-user-select: -moz-none;
      -ms-user-select: none;
      user-select: none;
+     /*
      transition: -webkit-box-shadow .3s;
      transition: transform: .3s;
      transition: color: .3s;
      transition: background: .3s;
+     */
  }
  .sexyButton:active {
      -webkit-box-shadow: 0 0 0 rgba(0, 0, 0, 0);

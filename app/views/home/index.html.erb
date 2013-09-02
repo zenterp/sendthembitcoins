@@ -11,12 +11,12 @@
 
 
 
-<form method='post' id='newInvoice' style='' novalidate>
+<form method='post' id='newInvoice' novalidate>
   <p class='input'>Twitter Username of Recipeient:</p>
   <input name='twitterRecipient' step='0.001' min='0.001' required='true' type='text'></input>
 
   <p class='input'>Number of Bitcoins to Send</p>
-  <input type='number' name='amountInBitcoins'></input>
+  <input type='number' name='amountInBitcoins' style='margin-left:6px'></input>
 
   <br/><br/>
 
@@ -104,18 +104,12 @@
 
       window.app = new AppRouter;
 
-      Backbone.history.start({
-        pushState: true,
-        silent: true
-      });
-
       handleButtonClick = function(e) {
         e.preventDefault();
-        //app.newGift();
         app.navigate('twitter/gifts/new', {trigger: true});
       }
 
-      $('.sexyButton').on('click', handleButtonClick);
+      $('#homePage .sexyButton').on('click', handleButtonClick);
 
       if (window.plugins && window.plugins.childBrowser) {
         $('#twitterLogin').on('click', function(e) {
@@ -125,6 +119,12 @@
           });
         })
       }
+
+      Backbone.history.start({
+        pushState: true,
+        silent: false
+      });
+
     });
   </script>
 <% end %>
