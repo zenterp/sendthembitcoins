@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
   def create
     session[:providers] ||= []
 
-    if !session[:providers].collect {|p| p[:name]}.include(auth_hash['provider'])
+    if !session[:providers].collect {|p| p[:name]}.include?(auth_hash['provider'])
       session[:providers].push(parse_provider(auth_hash))
     end
 
