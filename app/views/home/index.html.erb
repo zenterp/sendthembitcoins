@@ -1,22 +1,33 @@
 <div id='homePage' style='display:none'>
-  <h2 style="text-align:center;margin-top:150px; margin-bottom:70px">
+  <h2 style="text-align:center; margin-bottom:70px">
     It is so easy they don't even need a bitcoin wallet!
   </h2>
 
-  <div data-href="/twitter/gifts/new" class='sexyButton' style='margin-bottom:50px'>
+  <div data-href="/twitter/gifts/new" class='sexyButton' style='margin-bottom:80px'>
     <i class="icon-twitter icon-large icon"></i> 
     Send via Twitter
   </div>
 </div>
 
-<div id='claimableGifts' style='display:none'>
-  <p style='text-align:center'>Tap Gift to Claim</p>
-  <ul></ul>
+<div id='claimableGifts' style='display:none;'>
+  <p style='text-align:center' class='important'>Gifts sent to you on Twitter</p>
+  <ul class='well'></ul>
 </div>
+
+<div id='coinbase' class='important' style='display:none'>
+  <h3><span style='float:right'><a style='color:#eee;'>unlink</a></span>Coinbase Connected</h3>
+</div>
+
+<script type='text/template' id='coinbaseAccount'>
+  <p class='well' style='margin-bottom:50px'>Coinbase Receive Address: {{= receive_address }}</p>
+</script>
 
 <script type='text/template' id='giftListItem'>
   <li>
-    <a class='amount'>{{= bitcoin_amount }} bit to {{= recipient_twitter_username }}</a>
+    <a class='amount'>
+      <span style='float:right; clear:both;'>{{= recipient_twitter_username }}</span>
+      <span style='float:left'>{{= bitcoin_amount }} bit to </span>
+    </a>
   </li>
 </script>
 
@@ -32,9 +43,13 @@
   <input type='submit' value='next' class='sexyButton small'></input>
 </form>
 
-<% if !(session[:provider] == 'twitter' || session[:provider] == :twitter) %>
-  <p style='padding-top:20px;margin-top:20px;text-align:center; font-size:150%'>or <a href='/auth/twitter' id='twitterLogin'>Login with Twitter</a> to Claim Gifts</p>
-<% end %>
+<p class='important sexyButton' id='twitterGifts' style='display:none;'><a href='/gifts/claimable'>Claim Gifts with Twitter</a></p>
+
+<p class='important sexyButton' id='connectCoinbase'><a href='/auth/coinbase'>Connect Coinbase Address</a></p>
+
+<p class='important sexyButton' id='coinbaseAccount'><a href='/user/coinbase'>Coinbase Account</a></p>
+
+<p class='hidden important sexyButton' id='claimAll' style='display:none;'><a href='/user/coinbase'>Claim All with Coinbase</a></p>
 
 
 <% content_for :javascripts do %>
@@ -129,18 +144,30 @@
       gifts.url = '/api/user/gifts/claimable';
       window.gifts = gifts;
 
+      var User = Backbone.Model.extend({
+        url: function () {
+          return '/api/user'
+        }
+      });
+
+      currentUser = new User();
+      currentUser.fetch();
+
       var giftListItemTemplate = _.template($("#giftListItem").html());
+      var coinbaseAccountTemplate = _.template($("#coinbaseAccount").html());
 
       var AppRouter = Backbone.Router.extend({
         routes: {
           '' : 'index',
           'twitter/gifts/new' : 'newGift',
-          'gifts/claimable' : 'gifts'
+          'gifts/claimable' : 'gifts',
+          'user/coinbase' : 'coinbase'
         },
 
         index: function() {
           $('#newInvoice').hide();
           $('#homePage').show();
+          $('#twitterGifts').show();
         },
         newGift: function() {
           $('#homePage').hide();
@@ -149,18 +176,30 @@
         gifts: function () {
           $('#homePage').hide();
           $('#newInvoice').hide();
+          $('#twitterGifts').hide();
           gifts.fetch({
             success: function (data) {
               for (i=0;i<gifts.models.length;i++) {
-
                 var gift = gifts.models[i];
                 li = giftListItemTemplate(gift.attributes);
                 $("#claimableGifts ul").append(li);
                 $('#claimableGifts').show();
+                $('#claimAll').show();
               }
               
             }
           })
+        },
+        coinbase: function () {
+          $("#connectCoinbase").hide();
+          currentUser.fetch({
+            success: function () {
+              var html = coinbaseAccountTemplate(currentUser.attributes);
+              console.log(html);
+              $('#coinbase').append(html);
+              $('#coinbase').show();
+            }
+          });
         }
       });
 
@@ -168,7 +207,7 @@
 
       handleButtonClick = function(e) {
         e.preventDefault();
-        app.navigate('twitter/gifts/new', {trigger: true});
+        app.navigate('twitter/gifts/new');
       }
 
       $('#homePage .sexyButton').on('click', handleButtonClick);
@@ -181,13 +220,18 @@
       })
 
       if (window.plugins && window.plugins.childBrowser) {
-        $('#twitterLogin').on('click', function(e) {
+        $('#twitterGifts').on('click', function(e) {
           e.preventDefault();
           window.plugins.childBrowser.showWebPage('/auth/twitter', {
             showLocationBar: true
           });
         })
       }
+
+      $('.sexyButton').on('click', function (e) {
+        e.preventDefault();
+        app.navigate($(this).find('a').attr('href'), {trigger: true});
+      })
 
       Backbone.history.start({
         pushState: true,

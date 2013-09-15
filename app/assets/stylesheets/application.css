@@ -131,7 +131,6 @@ h1 {
    }
 
    form {
-    margin-top:100px;
     text-align:center; 
     font-size:150%
    }
@@ -144,32 +143,54 @@ h1 {
       display:none;
     }
 
-    #claimableGifts {
-      margin-top:70px;
-    }
-
     #claimableGifts ul {
-      background-color:rgba(255, 255, 255, 0.1);
-      padding:2em;
-      width:250px;
       text-align:center;
       list-style:none;
       margin-left:auto;
       margin-right:auto;
+      padding-bottom:2em;
     }
 
     #claimableGifts li {
-      padding:0.5em 0em;
+      padding:1em 0em;
+      color: #eee;
       cursor: pointer; cursor: hand;
+    }
+
+    #claimableGifts a {
+      color: #eee;
     }
 
     #claimableGifts li:hover {
       opacity:0.8;
     }
 
-
-
-
     #claimableGifts li:first {
-      padding-top:0em;
     }
+
+
+p.important {
+  padding-top:20px;
+  margin-top:20px;
+  text-align:center; 
+  font-size:150%
+}
+
+a.amount {
+  padding-top:10px;
+}
+
+a {
+  text-decoration: none;
+}
+
+body {
+  margin-top:80px;
+}
+.hidden {
+  display:none;
+}
+
+.page-header {
+  color:#eee; 
+}
