@@ -82,24 +82,21 @@ h1 {
    .sexyButton {
      font-size: 2em;
      padding: 2.5%;
-     margin: 10% 20% 0;
-     width: 55%;
+     width: 255px;
      -webkit-box-shadow: #4f5673 0 8px 0;
      -moz-box-shadow: #4f5673 0 8px 0;
      box-shadow: #4f5673 0 8px 0;
    }
 }
   
-@media screen and (max-width: 400px) { //mobile
   
    .sexyButton {
      font-size: 1.333em;
      padding: 5%;
-     width: 80%;
+     width: 255px;
      margin-left:auto;
      margin-right:auto;
      text-align:center;
-     margin: 10% 5% 10% 5%;
      -webkit-box-shadow: #4f5673 0 5px 0;
      -moz-box-shadow: #4f5673 0 5px 0;
      box-shadow: #4f5673 0 5px 0;
@@ -146,4 +143,33 @@ h1 {
     #newInvoice {
       display:none;
     }
-}
+
+    #claimableGifts {
+      margin-top:70px;
+    }
+
+    #claimableGifts ul {
+      background-color:rgba(255, 255, 255, 0.1);
+      padding:2em;
+      width:250px;
+      text-align:center;
+      list-style:none;
+      margin-left:auto;
+      margin-right:auto;
+    }
+
+    #claimableGifts li {
+      padding:0.5em 0em;
+      cursor: pointer; cursor: hand;
+    }
+
+    #claimableGifts li:hover {
+      opacity:0.8;
+    }
+
+
+
+
+    #claimableGifts li:first {
+      padding-top:0em;
+    }

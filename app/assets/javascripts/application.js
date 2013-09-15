@@ -15,3 +15,9 @@
 //= require underscore-min
 //= require backbone-min
 //= require_tree .
+//= require_self
+
+_.templateSettings = {
+    interpolate: /\{\{\=(.+?)\}\}/g,
+    evaluate: /\{\{(.+?)\}\}/g
+};

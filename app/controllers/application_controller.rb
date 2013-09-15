@@ -1,12 +1,19 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  # GET / 
-  def home
-    if session[:provider] && session[:uid]
-      @gifts = Gift.where(recipient_twitter_username: 'stevenzeiler', network: session[:provider]).reject!{|g| g.funded_at.nil? }
+  def current_user
+    user = {}
+    session[:providers] ||= []
+    session[:providers].each do |provider|
+      user["#{provider[:name]}_uid".to_sym] = provider[:uid]
+      user["#{provider[:name]}_username".to_sym] = provider[:username]
     end
-    
-    @gifts = [] if @gifts.nil?
-  end 
+
+    coinbase = session[:providers].select{|p| p[:name] == 'coinbase'}[0]
+    if coinbase.present?
+      user[:receive_address] = Oauth::CoinbaseOauth.get_receive_address(coinbase[:credentials]['token'])
+    end
+
+    return user
+  end
 end

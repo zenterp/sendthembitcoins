@@ -12,7 +12,6 @@
 # It's strongly recommended to check this file into your version control system.
 
 ActiveRecord::Schema.define(:version => 20130723183922) do
-
   create_table "gifts", :force => true do |t|
     t.string   "coinbase_invoice_id"
     t.string   "recipient_bitcoin_address"
@@ -26,5 +25,4 @@ ActiveRecord::Schema.define(:version => 20130723183922) do
     t.string   "recipient_uid"
     t.string   "network"
   end
-
 end

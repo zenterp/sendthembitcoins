@@ -2,10 +2,12 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.12'
 gem 'omniauth'
+gem 'oauth2'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem 'omniauth-linkedin'
 gem 'omniauth-github'
+gem 'omniauth-coinbase'
 gem 'coinbase'
 gem 'pry'
 

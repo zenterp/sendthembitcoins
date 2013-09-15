@@ -1,10 +1,17 @@
 class SessionsController < ApplicationController
   # GET /auth/:provider/callback
   def create
-    session[:provider] = auth_hash['provider']
-    session[:uid] = auth_class.user_from_omniauth(auth_hash)[:uid]
-    session[:image] = auth_class.user_from_omniauth(auth_hash)[:image]
-    redirect_to '/'
+    session[:providers] ||= []
+
+    if !session[:providers].collect {|p| p[:name]}.include(auth_hash['provider'])
+      session[:providers].push(parse_provider(auth_hash))
+    end
+
+    if auth_hash['provider'].downcase == 'twitter'
+      redirect_to '/gifts/claimable'
+    else
+      redirect_to '/'
+    end  
   end 
   
   # GET /sessions/destroy
@@ -12,21 +19,23 @@ class SessionsController < ApplicationController
     reset_session
     redirect_to '/'
   end
-
-  # GET /sessions
-  def index
-    render json: {
-      provider: (session[:provider].nil? ? nil : session[:provider])
-    }.to_json
-  end
   
 private
-  
   def auth_hash
     env['omniauth.auth']
-  end 
-  
-  def auth_class
-    Object.const_get("Oauth").const_get("#{auth_hash['provider'].capitalize}")
-  end  
+  end    
+
+  def parse_provider(auth_hash)
+    provider = {}
+    case auth_hash['provider'].downcase
+    when 'coinbase'
+      provider[:uid] = auth_hash['info']['id']
+      provider[:credentials] = auth_hash['credentials']
+    when 'twitter'
+      provider[:uid] = auth_hash['uid']
+      provider[:username] = auth_hash['info']['nickname']
+    end
+    provider[:name] = auth_hash['provider']
+    return provider
+  end
 end

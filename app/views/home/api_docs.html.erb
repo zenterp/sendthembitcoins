@@ -1,0 +1,25 @@
+<div class='row container' style='margin-left:auto;margin-right:auto;max-width:800px; width:100%'>
+  <h2 style='text-align:center;margin-top:100px'>JSON Api Docs</h2>
+
+  <code style='font-size:20px'>
+    <pre>
+
+    Send a gift                       params:
+    -----------                         recipient_twitter_username
+    POST /api/gifts/twitter                 bitcoin_amount
+    <hr/>
+    See gifts you can claimable
+    ---------------------------
+    GET /api/user/gifts/claimable
+    <hr/>
+    Claim a gift                      params:
+    ------------                        gift_id
+    POST /api/user/gifts/:id/claim          bitcoin_address
+    <hr/>
+    See your session status
+    -----------------------
+    GET /api/user
+
+    </pre>
+  </code>
+</div>
