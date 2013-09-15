@@ -32,7 +32,6 @@
   <input type='submit' value='next' class='sexyButton small'></input>
 </form>
 
-<% binding.pry %>
 <% if (session[:provider] == 'twitter' || session[:provider] == :twitter) %>
     <% if  @gifts.count > 1 %>
       <h3 style='overflow-y;hidden;text-align:center;max-height:40px;'><span style='width:100%'>Gifts people sent to you via <%= session[:provider] %></span></h3>
