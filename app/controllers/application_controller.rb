@@ -10,9 +10,9 @@ class ApplicationController < ActionController::Base
     end
 
     coinbase = session[:providers].select{|p| p[:name] == 'coinbase'}[0]
-    if coinbase.present?
-      user[:receive_address] = Oauth::CoinbaseOauth.get_receive_address(coinbase[:credentials]['token'])
-    end
+    #if coinbase.present?
+    #  user[:receive_address] = Oauth::CoinbaseOauth.get_receive_address(coinbase[:credentials]['token'])
+    #end
 
     return user
   end

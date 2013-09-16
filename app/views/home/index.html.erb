@@ -3,7 +3,7 @@
     It is so easy they don't even need a bitcoin wallet!
   </h2>
 
-  <div href="/twitter/gifts/new" class='sexyButton' style='margin-bottom:80px'>
+  <div id='sendViaTwitter' href="/twitter/gifts/new" class='sexyButton' style='margin-bottom:80px'>
     <i class="icon-twitter icon-large icon"></i> 
     Send via Twitter
   </div>
@@ -43,201 +43,35 @@
   <input type='submit' value='next' class='sexyButton small'></input>
 </form>
 
-<p class='important sexyButton' id='twitterGifts' style='display:none;'><a href='/gifts/claimable'>Claim Gifts with Twitter</a></p>
+<form style='display:none' method='post' id='configReceiveAddresses' action='/api/addresses/receive' novalidate>
+  <p class='input'>Bitcoin Address</p>
+  <input name='recipient_twitter_username' step='0.001' min='0.001' required='true' type='text'></input>
 
-<p class='important sexyButton' id='connectCoinbase'><a href='/auth/coinbase'>Connect Coinbase Address</a></p>
+  <p class='input'>Email Address</p>
+  <input type='email' name='bitcoin_amount' style='margin-left:6px'></input>
 
-<p class='important sexyButton' id='coinbaseAccount'><a href='/user/coinbase'>Coinbase Account</a></p>
+  <p style='font-size: 1em; margin-top:2em'class='sexyButton' id='connectCoinbase'>
+    <a href='/auth/coinbase'>Connect Coinbase Address</a>
+  </p>
 
-<p class='hidden important sexyButton' id='claimAll' style='display:none;'><a href='/user/coinbase'>Claim All with Coinbase</a></p>
+  <br/><br/>
 
+  <input type='submit' value='save' class='sexyButton small'></input>
+</form>
+<!--
 
-<% content_for :javascripts do %>
-  <script>
+  BUTTONS!
 
-    $(function(){
+-->
 
-      var Growl = (function() {
-        function show() {
-        }
-
-        function setText() {
-        }
-
-        function Hide() {
-        }
-
-        return {
-          show: show,
-          setText: setText,
-          hide: hide
-        }
-      })
-
-      function Invoice (recipient_twitter_username, bitcoin_amount) { 
-        this.recipient_twitter_username = recipient_twitter_username;
-        this.bitcoin_amount = bitcoin_amount;
-      };
-
-      Invoice.prototype.create = function () {
-        var invoice = this;
-        $.ajax({
-          type: 'POST',
-          url: '/api/gifts/twitter',
-          data: {
-            recipient_twitter_username: invoice.recipient_twitter_username,
-            bitcoin_amount: invoice.bitcoin_amount
-          },
-          success: function(data) {
-            invoice.display(data.invoiceUrl);
-          },
-          error: function(err){
-            console.log(err);
-          }
-        })
-      };
-
-      Invoice.prototype.display = function (url) {
-        if (window.plugins && window.plugins.childBrowser) {
-          invoiceChildBrowser = window.plugins.childBrowser.showWebPage(url, {
-            showLocationBar: true
-          });
-
-          invoiceChildBrowser.onLocationChange = function(loc) {
-            if (loc.match(/^http:\/\/sendthembitcoins.herokuapp.com\/coinbase\/payments/)) {
-              invoiceChildBrowser.close();
-            } else {
-              invoiceChildBrowser.close();
-            }
-          }
-
-        } else {
-          document.location.href = url;
-        }
-      }
-
-      var Gift = Backbone.Model.extend({
-        claim: function(bitcoin_address, callback) {
-          id = this.get('id');
-          $.ajax({
-            type: "POST",
-            beforeSend: function(xhr) {
-              var token = $('meta[name="csrf-token"]').attr('content');
-              xhr.setRequestHeader('X-CSRF-Token', token);
-            },
-            url: '/api/user/gifts/'+id+'/claim',
-            data: {
-              receive_address: bitcoin_address
-            },
-            success: function(data) {
-              callback(data);
-            }
-          });
-        }
-      });
-
-      var Gifts = Backbone.Collection.extend({
-        model: Gift
-      });
-
-      var gifts = new Gifts();
-      gifts.url = '/api/user/gifts/claimable';
-      window.gifts = gifts;
-
-      var User = Backbone.Model.extend({
-        url: function () {
-          return '/api/user'
-        }
-      });
-
-      currentUser = new User();
-      currentUser.fetch();
-
-      var giftListItemTemplate = _.template($("#giftListItem").html());
-      var coinbaseAccountTemplate = _.template($("#coinbaseAccount").html());
-
-      var AppRouter = Backbone.Router.extend({
-        routes: {
-          '' : 'index',
-          'twitter/gifts/new' : 'newGift',
-          'gifts/claimable' : 'gifts',
-          'user/coinbase' : 'coinbase'
-        },
-
-        index: function() {
-          $('#newInvoice').hide();
-          $('#homePage').show();
-          $('#twitterGifts').show();
-        },
-        newGift: function() {
-          $('#homePage').hide();
-          $('#newInvoice').show();
-        },
-        gifts: function () {
-          $('#homePage').hide();
-          $('#newInvoice').hide();
-          $('#twitterGifts').hide();
-          gifts.fetch({
-            success: function (data) {
-              for (i=0;i<gifts.models.length;i++) {
-                var gift = gifts.models[i];
-                li = giftListItemTemplate(gift.attributes);
-                $("#claimableGifts ul").append(li);
-                $('#claimableGifts').show();
-                $('#claimAll').show();
-              }
-              
-            }
-          })
-        },
-        coinbase: function () {
-          $("#connectCoinbase").hide();
-          currentUser.fetch({
-            success: function () {
-              var html = coinbaseAccountTemplate(currentUser.attributes);
-              console.log(html);
-              $('#coinbase').append(html);
-              $('#coinbase').show();
-            }
-          });
-        }
-      });
-
-      window.app = new AppRouter;
-
-      handleButtonClick = function(e) {
-        e.preventDefault();
-        app.navigate('twitter/gifts/new');
-      }
-
-      $('#homePage .sexyButton').on('click', handleButtonClick);
-      $('#newInvoice').on('submit', function(e) {
-        e.preventDefault();
-        var recipient_twitter_username = $('input[name="recipient_twitter_username"]').val();
-        var bitcoin_amount = $('input[name="bitcoin_amount"]').val();
-        var invoice = new Invoice(recipient_twitter_username, bitcoin_amount);
-        invoice.create();
-      })
-
-      if (window.plugins && window.plugins.childBrowser) {
-        $('#twitterGifts').on('click', function(e) {
-          e.preventDefault();
-          window.plugins.childBrowser.showWebPage('/auth/twitter', {
-            showLocationBar: true
-          });
-        })
-      }
-
-      $('.sexyButton').on('click', function (e) {
-        e.preventDefault();
-        app.navigate($(this).find('a').attr('href'), {trigger: true});
-      })
-
-      Backbone.history.start({
-        pushState: true,
-        silent: false
-      });
-
-    });
-  </script>
-<% end %>
+  <p href='/gifts/claimable' class='important sexyButton' id='twitterGifts' style='display:none;'>
+    <a >Claim Gifts with Twitter</a>
+  </p>
+  
+  <p href='/addresses/receive' class='important sexyButton' id='configureReceiveAddresses'>
+    <a >Claim Bitcoins</a>
+  </p>
+  
+  <p class='hidden important sexyButton' id='claimAll' style='display:none;'>
+    <a href='/user/coinbase'>Claim All with Coinbase</a>
+  </p>

@@ -15,9 +15,170 @@
 //= require underscore-min
 //= require backbone-min
 //= require_tree .
-//= require_self
+//= require_self  
 
 _.templateSettings = {
     interpolate: /\{\{\=(.+?)\}\}/g,
     evaluate: /\{\{(.+?)\}\}/g
 };
+
+$(function(){
+
+  var Growl = (function() {
+    function show() {
+    }
+
+    function setText() {
+    }
+
+    function Hide() {
+    }
+
+    return {
+      show: show,
+      setText: setText,
+      hide: hide
+    }
+  })
+
+  var Gift = Backbone.Model.extend({
+    claim: function(bitcoin_address, callback) {
+      id = this.get('id');
+      $.ajax({
+        type: "POST",
+        beforeSend: function(xhr) {
+          var token = $('meta[name="csrf-token"]').attr('content');
+          xhr.setRequestHeader('X-CSRF-Token', token);
+        },
+        url: '/api/user/gifts/'+id+'/claim',
+        data: {
+          receive_address: bitcoin_address
+        },
+        success: function(data) {
+          callback(data);
+        }
+      });
+    }
+  });
+
+  var Gifts = Backbone.Collection.extend({
+    model: Gift
+  });
+
+  var gifts = new Gifts();
+  gifts.url = '/api/user/gifts/claimable';
+  window.gifts = gifts;
+
+  var User = Backbone.Model.extend({
+    url: function () {
+      return '/api/user'
+    }
+  });
+
+  currentUser = new User();
+  currentUser.fetch();
+
+  var giftListItemTemplate = _.template($("#giftListItem").html());
+  var coinbaseAccountTemplate = _.template($("#coinbaseAccount").html());
+
+  var AppRouter = Backbone.Router.extend({
+    routes: {
+      '' : 'index',
+      'twitter/gifts/new' : 'newGift',
+      'gifts/claimable' : 'gifts',
+      'user/coinbase' : 'coinbase',
+      'addresses/receive' : 'configReceiveAddress'
+    },
+
+    index: function() {
+      this.hideAll();
+      $('#homePage').show();
+      $('#twitterGifts').show();
+      $('#sendViaTwitter').show();
+    },
+    newGift: function() {
+      $('#homePage, #twitterGifts').hide();
+      $('#newInvoice, #newInvoice .sexyButton').show();
+    },
+    gifts: function () {
+      this.hideAll();
+      gifts.fetch({
+        success: function (data) {
+          console.log('gifts', data);
+          $("#claimableGifts ul").html('');
+          var $listItems = $('<ul/>');
+          for (i=0;i<gifts.models.length;i++) {
+            var gift = gifts.models[i];
+            li = giftListItemTemplate(gift.attributes);
+            $listItems.append(li);
+          }
+          $('#claimableGifts').show();
+          $('#configureReceiveAddresses').show();
+          $("#claimableGifts ul").append($listItems.html());
+        }
+      })
+    },
+    coinbase: function () {
+      $("#connectCoinbase").hide();
+      currentUser.fetch({
+        success: function () {
+          var html = coinbaseAccountTemplate(currentUser.attributes);
+          console.log(html);
+          $('#coinbase').append(html);
+          $('#coinbase').show();
+        }
+      });
+    },
+    configReceiveAddress: function () {
+      this.hideAll();
+      $('#configReceiveAddresses').show();
+      $('#configReceiveAddresses .sexyButton').show();
+    },
+    hideAll: function () {
+      $('.page-content div').hide();
+      $('form').hide();
+      $('.sexyButton').hide();
+    }
+  });
+
+  window.app = new AppRouter;
+
+
+  $('#newInvoice').on('submit', function(e) {
+    e.preventDefault();
+    var recipient_twitter_username = $('input[name="recipient_twitter_username"]').val();
+    var bitcoin_amount = $('input[name="bitcoin_amount"]').val();
+    var invoice = new Invoice(recipient_twitter_username, bitcoin_amount);
+    invoice.create();
+  })
+
+  if (window.plugins && window.plugins.childBrowser) {
+    $('#twitterGifts').on('click', function(e) {
+      e.preventDefault();
+      window.plugins.childBrowser.showWebPage('/auth/twitter', {
+        showLocationBar: true
+      });
+    })
+  }
+
+  $('.sexyButton, .page-header a').on('click', function (e) {
+    e.preventDefault();
+
+    var href = $(this).attr('href');
+    if ($(this).attr('id') == 'connectCoinbase') {
+      document.location.href = '/auth/coinbase';
+    }
+
+    if (href) {
+      app.navigate($(this).attr('href'), {trigger: true});
+    }
+  });
+
+
+
+  Backbone.history.start({
+    pushState: true,
+    silent: false
+  });
+
+});
