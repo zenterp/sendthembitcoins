@@ -24,4 +24,17 @@ class Gift < ActiveRecord::Base
   scope :unclaimed, where("retrieved_at IS NULL")
   scope :funded, where("funded_at IS NOT NULL")
   scope :unfunded, where("funded_at IS NULL")
+
+  def self.claim_all(gifts, receive_address)
+    gifts.each do |gift|
+      gift.claim!(receive_address)
+    end
+  end
+
+  def claim!(receive_address)
+    coinbase_client = Coinbase::Client.new(ENV['COINBASE_API_KEY'])
+    coinbase_client.send_money(receive_address, gift.self)
+    self.retrieved_at = Time.now
+    self.save
+  end
 end

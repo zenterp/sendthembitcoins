@@ -36,6 +36,9 @@ class Api::GiftsController < ApplicationController
     end
   end 
 
+  def claim_all
+  end
+
   def claimable
     if current_user && current_user[:twitter_username].present?
       gifts = Gift.for_twitter_user(current_user[:twitter_username]).unclaimed
