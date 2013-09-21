@@ -9,6 +9,7 @@ gem 'omniauth-linkedin'
 gem 'omniauth-github'
 gem 'omniauth-coinbase'
 gem 'coinbase'
+gem 'strong_parameters'
 gem 'pry'
 
 # Bundle edge Rails instead:

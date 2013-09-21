@@ -2,43 +2,32 @@ class Api::GiftsController < ApplicationController
 
   # POST /api/gifts/twitter
   def create
-    gift = Gift.create({
-      recipient_twitter_username: params[:recipient_twitter_username],
-      bitcoin_amount: params[:bitcoin_amount],
-      coinbase_invoice_id: 'false'
-    })
-    
-    button = coinbase_client.create_button(
-      "bitcoin gift to @#{params[:recipient_twitter_username]} on twitter", 
-      gift.bitcoin_amount.to_f * 1.01,
-      nil, # description
-      { gift_id: gift.id }.to_json, # custom information
-      { variable_price: true } # options
-    )
-
-    render json: { invoiceUrl: "https://coinbase.com/checkouts/#{button['button']['code']}" }
+    gift = Gift.create_twitter(params[:recipient_twitter_username], params[:bitcoin_amount])
+    render json: { invoiceUrl: "https://coinbase.com/checkouts/#{gift.coinbase_invoice_id}" }
   end
 
+  # POST /api/gifts/:id/claim
   def claim
-    gift = Gift.find(params[:gift_id])
+    gift = Gift.find(params.require([:gift_id]))
+    claimable_gifts = Gift.for_twitter_user(current_user[:twitter_username]).unclaimed
 
-    if current_user_can_claim(gift)
-      if params[:receive_address].present?
-        coinbase_client.send_money(params[:receive_address], gift.bitcoin_amount)
-        gift.retrieved_at = Time.now
-        gift.save
-        render json: gift
-      else
-        render json: { error: 'no receive id present' }
-      end
+    if claimable_gifts.collect(&:id).include?(gift.id)
+      gift.claim!(params.require([:receive_address]))
+      render json: gift
     else
       render json: { }
     end
   end 
 
+  # POST /api/gifts/claim
   def claim_all
+    gifts = Gift.for_twitter_user(current_user[:twitter_username]).unclaimed
+    Gift.claim_all(gifts, params.require([:receive_address]))
+
+    render json: { gifts: gifts }
   end
 
+  # GET /api/gifts/claimable
   def claimable
     if current_user && current_user[:twitter_username].present?
       gifts = Gift.for_twitter_user(current_user[:twitter_username]).unclaimed
@@ -50,13 +39,7 @@ class Api::GiftsController < ApplicationController
 
   private
 
-    def current_user_can_claim(gift)
-      !current_user.empty? && 
-        gift.recipient_twitter_username == current_user[:twitter_username] &&
-        gift.retrieved_at.nil?
-    end
-
-    def coinbase_client
-      @coinbase_client ||= Coinbase::Client.new(ENV['COINBASE_API_KEY'])
-    end 
+  def coinbase_client
+    @coinbase_client ||= Coinbase::Client.new(ENV['COINBASE_API_KEY'])
+  end 
 end

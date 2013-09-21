@@ -1,17 +1,18 @@
 class SessionsController < ApplicationController
   # GET /auth/:provider/callback
   def create
-    session[:providers] ||= []
-
-    if !session[:providers].collect {|p| p[:name]}.include?(auth_hash['provider'])
-      session[:providers].push(parse_provider(auth_hash))
-    end
-
-    if auth_hash['provider'].downcase == 'twitter'
+    case auth_hash['provider'].downcase
+    when 'twitter'
       redirect_to '/gifts/claimable'
+    when 'coinbase'
+      auth = parse_provider(auth_hash)
+      coinbase = CoinbaseOauthorization.find_or_init_by_uid(auth[:uid])
+      coinbase.update_attributes(auth)
+      session[:coinbase] = coinbase
+      redirect_to '/api/user'
     else
       redirect_to '/'
-    end  
+    end    
   end 
   
   # GET /sessions/destroy
@@ -26,16 +27,22 @@ private
   end    
 
   def parse_provider(auth_hash)
-    provider = {}
     case auth_hash['provider'].downcase
     when 'coinbase'
-      provider[:uid] = auth_hash['info']['id']
-      provider[:credentials] = auth_hash['credentials']
+      {
+        uid: auth_hash['info']['id'],
+        name: auth_hash['info']['name'],
+        email: auth_hash['info']['email'],
+        token: auth_hash['credentials']['token'],
+        refresh_token: auth_hash['credentials']['refresh_token'],
+        expires: auth_hash['credentials']['expires'],
+        expires_at: auth_hash['credentials']['expires_at']
+      }
     when 'twitter'
-      provider[:uid] = auth_hash['uid']
-      provider[:username] = auth_hash['info']['nickname']
+      {
+        uid: auth_hash['uid'],
+        name: auth_hash['info']['nickname']
+      }
     end
-    provider[:name] = auth_hash['provider']
-    return provider
   end
 end

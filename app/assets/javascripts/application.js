@@ -105,16 +105,16 @@ $(function(){
       gifts.fetch({
         success: function (data) {
           console.log('gifts', data);
-          $("#claimableGifts ul").html('');
+          /*$("#claimableGifts ul").html('');
           var $listItems = $('<ul/>');
           for (i=0;i<gifts.models.length;i++) {
             var gift = gifts.models[i];
             li = giftListItemTemplate(gift.attributes);
             $listItems.append(li);
-          }
+          }*/
           $('#claimableGifts').show();
           $('#configureReceiveAddresses').show();
-          $("#claimableGifts ul").append($listItems.html());
+          //$("#claimableGifts ul").append($listItems.html());
         }
       })
     },
@@ -150,6 +150,11 @@ $(function(){
     var bitcoin_amount = $('input[name="bitcoin_amount"]').val();
     var invoice = new Invoice(recipient_twitter_username, bitcoin_amount);
     invoice.create();
+  });
+
+  $('#configReceiveAddresses').on('submit', function(e) {
+    e.preventDefault();
+    console.log('config address "claim!" form submitted.');
   })
 
   if (window.plugins && window.plugins.childBrowser) {
@@ -162,7 +167,7 @@ $(function(){
   }
 
   $('.sexyButton, .page-header a').on('click', function (e) {
-    e.preventDefault();
+    //e.preventDefault();
 
     var href = $(this).attr('href');
     if ($(this).attr('id') == 'connectCoinbase') {
@@ -174,6 +179,19 @@ $(function(){
     }
   });
 
+  window.setCoinbaseAddress = function (callback) {
+    $.ajax({
+      type: "POST",
+      beforeSend: function(xhr) {
+        var token = $('meta[name="csrf-token"]').attr('content');
+        xhr.setRequestHeader('X-CSRF-Token', token);
+      },
+      url: '/api/addresses/coinbase',
+      success: function(data) {
+        callback(data);
+      }
+    });
+  }
 
 
   Backbone.history.start({

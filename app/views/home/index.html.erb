@@ -10,8 +10,10 @@
 </div>
 
 <div id='claimableGifts' style='display:none;'>
-  <p style='text-align:center' class='important'>Gifts sent to you on Twitter</p>
-  <ul class='well'></ul>
+  <p style='text-align:center' class='important'>Gifts sent to you on Twitter:</p>
+  <ul class='well'>
+    4 gifts totaling 0.12 bitcoins
+  </ul>
 </div>
 
 <div id='coinbase' class='important' style='display:none'>
@@ -44,19 +46,16 @@
 </form>
 
 <form style='display:none' method='post' id='configReceiveAddresses' action='/api/addresses/receive' novalidate>
-  <p class='input'>Bitcoin Address</p>
+  <p class='input'>Enter Bitcoin Address</p>
   <input name='recipient_twitter_username' step='0.001' min='0.001' required='true' type='text'></input>
-
-  <p class='input'>Email Address</p>
-  <input type='email' name='bitcoin_amount' style='margin-left:6px'></input>
-
+  OR
   <p style='font-size: 1em; margin-top:2em'class='sexyButton' id='connectCoinbase'>
     <a href='/auth/coinbase'>Connect Coinbase Address</a>
   </p>
 
   <br/><br/>
 
-  <input type='submit' value='save' class='sexyButton small'></input>
+  <input type='submit' value='claim!' class='sexyButton small'></input>
 </form>
 <!--
 
@@ -70,8 +69,4 @@
   
   <p href='/addresses/receive' class='important sexyButton' id='configureReceiveAddresses'>
     <a >Claim Bitcoins</a>
-  </p>
-  
-  <p class='hidden important sexyButton' id='claimAll' style='display:none;'>
-    <a href='/user/coinbase'>Claim All with Coinbase</a>
   </p>
