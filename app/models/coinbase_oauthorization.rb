@@ -3,6 +3,13 @@ class CoinbaseOauthorization < ActiveRecord::Base
   validates_presence_of :uid
   validates_uniqueness_of :uid
 
+  after_create :set_bitcoin_address
+  after_update ->(oauth) {
+    unless oauth[:bitcoin_address]
+      set_bitcoin_address
+    end
+  }
+
   def set_bitcoin_address
     address = Oauth::CoinbaseOauth::get_receive_address(token, refresh_token)
     update_attributes(bitcoin_address: address)
