@@ -93,4 +93,8 @@ private
       { variable_price: true } # options
     )
   end
+
+  def coinbase_client
+    @coinbase_client ||= Coinbase::Client.new(ENV['COINBASE_API_KEY'])
+  end 
 end
