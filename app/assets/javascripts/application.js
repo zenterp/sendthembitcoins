@@ -157,15 +157,6 @@ $(function(){
     console.log('config address "claim!" form submitted.');
   })
 
-  if (window.plugins && window.plugins.childBrowser) {
-    $('#twitterGifts').on('click', function(e) {
-      e.preventDefault();
-      window.plugins.childBrowser.showWebPage('/auth/twitter', {
-        showLocationBar: true
-      });
-    })
-  }
-
   $('.sexyButton, .page-header a').on('click', function (e) {
     //e.preventDefault();
 
@@ -178,6 +169,22 @@ $(function(){
       app.navigate($(this).attr('href'), {trigger: true});
     }
   });
+
+  if (window.plugins && window.plugins.childBrowser) {
+    $('#twitterGifts').on('click', function(e) {
+      e.preventDefault();
+      window.plugins.childBrowser.showWebPage('/auth/twitter', {
+        showLocationBar: true
+      });
+    })
+  } else {
+    $('#twitterGifts').on('click', function(e) {
+      console.log('clicked');
+      e.preventDefault();
+      document.location.href = '/auth/twitter';
+    })
+  }
+
 
   window.setCoinbaseAddress = function (callback) {
     $.ajax({
