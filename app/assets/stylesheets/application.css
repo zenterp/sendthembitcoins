@@ -208,3 +208,19 @@ body {
   bottom:0px;
   background-color:rgba(204, 204, 204, 0.2);
 }
+
+#manualAddress input[type='text'] {
+  -webkit-box-shadow: #4f5673 0 8px 0;
+  -moz-box-shadow: #4f5673 0 8px 0;
+  box-shadow: #4f5673 0 8px 0;
+  border-radius: 5px 0px 0px 5px;
+}
+
+#manualAddress input[type='submit'] {
+  float:left;
+  width:30%;
+  font-size:1em;
+  padding:0.4em 0em;
+  margin-top:3px;
+  border-radius: 0px 5px 5px 0px;
+}
