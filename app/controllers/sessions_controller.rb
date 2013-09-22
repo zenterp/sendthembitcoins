@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
       coinbase = CoinbaseOauthorization.find_or_init_by_uid(auth[:uid])
       coinbase.update_attributes(auth)
       session[:coinbase] = coinbase
-      redirect_to '/api/user'
+      redirect_to '/gifts/claimable'
     else
       redirect_to '/'
     end    
