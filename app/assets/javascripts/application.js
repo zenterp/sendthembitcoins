@@ -93,8 +93,9 @@ $(function(){
     index: function() {
       this.hideAll();
       $('#homePage').show();
-      $('#twitterGifts').show();
-      $('#sendViaTwitter').show();
+      
+      
+      $('#sendViaButtons, #sendViaButtons .sendViaButton').show();
     },
     newGift: function() {
       $('#homePage, #twitterGifts').hide();

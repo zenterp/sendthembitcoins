@@ -224,3 +224,33 @@ body {
   margin-top:3px;
   border-radius: 0px 5px 5px 0px;
 }
+.sendViaButton {
+  width:100px;
+  float:left;
+  margin-left:13px;
+  margin-top:10px;
+  margin-bottom:10px;
+}
+
+.sendViaButton:last {
+  clear:both;
+}
+
+#sendViaButtons {
+  margin-bottom:30px;
+}
+
+.page-footer, .page-footer a {
+  text-align:center;
+  margin:20px 0px;
+  padding:20px 0px;
+}
+
+a#loginLink {
+  position:relative;
+  text-align:center;
+  margin-left:auto;
+  margin-right:auto;
+  opacity:0.5;
+  top:30px;
+}
