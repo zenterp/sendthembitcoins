@@ -182,6 +182,7 @@ $(function(){
     })
   } else {
     $('#twitterGifts').on('click', function(e) {
+      $('#loading').show();
       console.log('clicked');
       e.preventDefault();
       document.location.href = '/auth/twitter';
