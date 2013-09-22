@@ -134,6 +134,7 @@ $(function(){
     configReceiveAddress: function () {
       this.hideAll();
       $('#configReceiveAddresses').show();
+      $('#manualAddress').show();
       $('#configReceiveAddresses .sexyButton').show();
     },
     hideAll: function () {
@@ -157,6 +158,7 @@ $(function(){
 
   $('#configReceiveAddresses').on('submit', function(e) {
     e.preventDefault();
+    $('#loading').show();
     console.log('config address "claim!" form submitted.');
   })
 
