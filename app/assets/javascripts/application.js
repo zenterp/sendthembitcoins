@@ -165,6 +165,7 @@ $(function(){
 
     var href = $(this).attr('href');
     if ($(this).attr('id') == 'connectCoinbase') {
+      $('#loading').show();
       document.location.href = '/auth/coinbase';
     }
 
