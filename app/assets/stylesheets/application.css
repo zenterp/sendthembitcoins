@@ -238,6 +238,9 @@ body {
 
 #sendViaButtons {
   margin-bottom:30px;
+  width:300px;
+  margin-left:auto;
+  margin-right:auto;
 }
 
 .page-footer, .page-footer a {
@@ -253,4 +256,15 @@ a#loginLink {
   margin-right:auto;
   opacity:0.5;
   top:30px;
+}
+#homePage h2 {
+  text-align:center;
+  width:300px;
+  margin-left:auto;
+  margin-right:auto;
+}
+#loginToClaim .sexyButton {
+  padding:2em 1em;
+  background-size:100% 100%;
+  background-repeat:none;  
 }

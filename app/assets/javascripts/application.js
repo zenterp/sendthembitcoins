@@ -87,7 +87,8 @@ $(function(){
       'twitter/gifts/new' : 'newGift',
       'gifts/claimable' : 'gifts',
       'user/coinbase' : 'coinbase',
-      'addresses/receive' : 'configReceiveAddress'
+      'addresses/receive' : 'configReceiveAddress',
+      'networks/select': 'chooseNetworkToAuth'
     },
 
     index: function() {
@@ -100,6 +101,10 @@ $(function(){
     newGift: function() {
       $('#homePage, #twitterGifts').hide();
       $('#newInvoice, #newInvoice .sexyButton').show();
+    },
+    chooseNetworkToAuth: function() {
+      $('#homePage, #twitterGifts').hide();
+      $('#loginToClaim div, #loginToClaim').show();
     },
     gifts: function () {
       this.hideAll();
@@ -174,7 +179,11 @@ $(function(){
     }
 
     if (href) {
-      app.navigate($(this).attr('href'), {trigger: true});
+      if (href.match(/^\/auth\//)) {
+        document.location.href = href;
+      } else {
+        app.navigate(href, {trigger: true});
+      }
     }
   });
 

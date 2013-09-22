@@ -1,5 +1,5 @@
 <div id='homePage' style='display:none'>
-  <h2 style="text-align:center;">
+  <h2>
     It is so easy they don't even need a bitcoin wallet!
   </h2>
 
@@ -8,23 +8,35 @@
       <i class="icon-twitter icon-large icon"></i> 
       Send a gift over Twitter
     </div>
-    <div id='sendViaTwitter' href="/twitter/gifts/new" class='sendViaButton sexyButton'>
+    <div id='sendViaTwitter' href="/github/gifts/new" class='sendViaButton sexyButton'>
       <i class="icon-github icon-large icon"></i> 
       Support a Github Hero
     </div>
-    <div id='sendViaTwitter' href="/twitter/gifts/new" class='sendViaButton sexyButton'>
+    <div id='sendViaFacebook' href="/auth/facebook" class='sendViaButton sexyButton'>
       <i class="icon-facebook icon-large icon"></i> 
       Give Love to a Facebook Friend
     </div>
-    <div href="/twitter/gifts/new" class='sendViaButton sexyButton'>
+    <div id='sendViaLinkedin' href="/auth/linkedin" class='sendViaButton sexyButton'>
       <i class="icon-linkedin icon-large icon"></i> 
       Say Congrats to a Linkedin Connection
     </div>
     <p style='text-align:center;width:100%'>OR</p>
-    <div style='width:244px' href="/twitter/gifts/new" class='sendViaButton sexyButton'>
+    <div style='width:244px' href="/networks/select" class='sendViaButton sexyButton'>
       <i class="icon-large icon"><img src='/assets/bitcoin-tiny.png'/></i> 
       Claim Bitcoin Gifts via Social Networks
     </div>
+  </div>
+</div>
+
+<div id='loginToClaim'>
+  <div href="/auth/twitter" style='background-image:url("/assets/sign_in_with_twitter.png");' class='sexyButton'>
+  </div>
+  <div href="/auth/github" style='font-size:200%;padding:1px 17px;background-color:#ddd;color:#666;' class='sexyButton'>
+    <p style='width:260px; margin:15px 0px'><span class='icon-github'></span> Sign in with Github</p>
+  </div>
+  <div style='background-image:url("/assets/sign_in_with_facebook.png");'href="/auth/facebook" class='sexyButton'>
+  </div>
+  <div style='background-image:url("/assets/sign_in_with_linkedin.png");'href="/auth/linkedin" class='sexyButton'>
   </div>
 </div>
 
