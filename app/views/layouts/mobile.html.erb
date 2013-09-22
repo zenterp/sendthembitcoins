@@ -95,6 +95,27 @@
   
       <div class='page-content'><%= yield %></div>
     </div>
+
+    <div id='loading' style='position:fixed;padding-top:200px;top:0px;left:0px;right:0px;bottom:0px;background-color:rgba(204, 204, 204, 0.2)'>
+      <div id="floatingCirclesG" style='margin-left:auto;margin-right:auto;'>
+      <div class="f_circleG" id="frotateG_01">
+      </div>
+      <div class="f_circleG" id="frotateG_02">
+      </div>
+      <div class="f_circleG" id="frotateG_03">
+      </div>
+      <div class="f_circleG" id="frotateG_04">
+      </div>
+      <div class="f_circleG" id="frotateG_05">
+      </div>
+      <div class="f_circleG" id="frotateG_06">
+      </div>
+      <div class="f_circleG" id="frotateG_07">
+      </div>
+      <div class="f_circleG" id="frotateG_08">
+      </div>
+      </div>
+    </div>
     <%= javascript_include_tag :application %>
     <script src="/js/bootstrap.js"></script>
     <%= yield :javascripts %>
