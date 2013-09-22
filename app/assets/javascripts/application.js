@@ -102,6 +102,7 @@ $(function(){
     },
     gifts: function () {
       this.hideAll();
+      $('#loading').show();
       gifts.fetch({
         success: function (data) {
           console.log('gifts', data);
@@ -112,6 +113,7 @@ $(function(){
             li = giftListItemTemplate(gift.attributes);
             $listItems.append(li);
           }*/
+          $('#loading').hide();
           $('#claimableGifts').show();
           $('#configureReceiveAddresses').show();
           //$("#claimableGifts ul").append($listItems.html());
@@ -145,6 +147,7 @@ $(function(){
 
 
   $('#newInvoice').on('submit', function(e) {
+    $('#loading').show();
     e.preventDefault();
     var recipient_twitter_username = $('input[name="recipient_twitter_username"]').val();
     var bitcoin_amount = $('input[name="bitcoin_amount"]').val();

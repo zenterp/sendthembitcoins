@@ -198,3 +198,13 @@ body {
   color:#eee; 
 }
 
+#loading {
+  display:none;
+  position:fixed;
+  padding-top:200px;
+  top:0px;
+  left:0px;
+  right:0px;
+  bottom:0px;
+  background-color:rgba(204, 204, 204, 0.2);
+}
