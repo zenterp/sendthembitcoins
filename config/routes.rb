@@ -12,8 +12,7 @@ Sendthembitcoins::Application.routes.draw do
     post '/addresses/coinbase', to: 'addresses#set_coinbase'
 
     # payment callbacks
-    get '/coinbase/payments/success', to: 'gifts#payment_success'
-    get '/coinbase/payments/cancel', to: 'gift#payment_failure'
+    get '/payments/coinbase/notification', to: 'payments#notification'
 
     # set state of session with these environment variables
     post '/addresses/receive', to: 'addresses#receive'
