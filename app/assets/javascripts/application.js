@@ -84,7 +84,8 @@ $(function(){
   var AppRouter = Backbone.Router.extend({
     routes: {
       '' : 'index',
-      'twitter/gifts/new' : 'newGift',
+      'twitter/gifts/new' : 'newTwitterGift',
+      'twitter/gifts/new' : 'newGithubGift',
       'gifts/claimable' : 'gifts',
       'user/coinbase' : 'coinbase',
       'addresses/receive' : 'configReceiveAddress',
@@ -93,12 +94,15 @@ $(function(){
 
     index: function() {
       this.hideAll();
-      $('#homePage').show();
-      
+      $('#homePage, #homePage div').show();
       
       $('#sendViaButtons, #sendViaButtons .sendViaButton').show();
     },
-    newGift: function() {
+    newTwitterGift: function() {
+      $('#homePage, #twitterGifts').hide();
+      $('#newInvoice, #newInvoice .sexyButton').show();
+    },
+    newGithubGift: function() {
       $('#homePage, #twitterGifts').hide();
       $('#newInvoice, #newInvoice .sexyButton').show();
     },
