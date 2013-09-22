@@ -106,17 +106,18 @@ $(function(){
       gifts.fetch({
         success: function (data) {
           console.log('gifts', data);
-          /*$("#claimableGifts ul").html('');
-          var $listItems = $('<ul/>');
-          for (i=0;i<gifts.models.length;i++) {
-            var gift = gifts.models[i];
-            li = giftListItemTemplate(gift.attributes);
-            $listItems.append(li);
-          }*/
+          total = 0;
+          sum = 0;
+          for (i in gifts.models) {
+            if (gifts.models[i].bitcoin_amount) {
+              total += 1
+              sum += gifts.models[i].bitcoin_amount;
+            }
+          }
           $('#loading').hide();
           $('#claimableGifts').show();
           $('#configureReceiveAddresses').show();
-          //$("#claimableGifts ul").append($listItems.html());
+          $("#claimableGifts ul").html(total+' gifts totaling '+sum+' bitcoins');
         }
       })
     },
