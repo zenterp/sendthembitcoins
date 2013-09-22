@@ -180,6 +180,7 @@ $(function(){
 
     if (href) {
       if (href.match(/^\/auth\//)) {
+        $('#loading').show();
         document.location.href = href;
       } else {
         app.navigate(href, {trigger: true});
