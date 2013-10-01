@@ -116,8 +116,10 @@ $(function(){
         var gifts = data.gifts.claimable;
         $('#loading').hide();
         $('#claimableGifts').show();
-        $('#configureReceiveAddresses').show();
-        $("#claimableGifts ul").html(gifts.count+' gifts totaling '+gifts.total+' bitcoins');
+        $('#configReceiveAddresses').show();
+        $('#manualAddress').show();
+        $('#configReceiveAddresses .sexyButton').show();
+        $("#claimableGifts ul").html(gifts.count+' gifts totaling '+gifts.totaling+' bitcoins');
       });
     },
     coinbase: function () {
