@@ -36,6 +36,9 @@ class Api::GiftsController < ApplicationController
           claimable: {
             count: gifts.count,
             total: gifts.sum(&:bitcoin_amount).round(3)
+          },
+          all: {
+            gifts: gifts
           }
         }
       }
