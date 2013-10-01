@@ -112,15 +112,13 @@ $(function(){
     gifts: function () {
       this.hideAll();
       $('#loading').show();
-      gifts.fetch({
-        success: function (data) {
-          var gifts = data.models[0].attributes.claimable;
-          $('#loading').hide();
-          $('#claimableGifts').show();
-          $('#configureReceiveAddresses').show();
-          $("#claimableGifts ul").html(gifts.count+' gifts totaling '+gifts.sum+' bitcoins');
-        }
-      })
+      $.getJSON('/api/user/gifts/claimable', function(data) {
+        var gifts = data.gifts.claimable;
+        $('#loading').hide();
+        $('#claimableGifts').show();
+        $('#configureReceiveAddresses').show();
+        $("#claimableGifts ul").html(gifts.count+' gifts totaling '+gifts.sum+' bitcoins');
+      });
     },
     coinbase: function () {
       $("#connectCoinbase").hide();
