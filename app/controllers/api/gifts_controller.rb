@@ -31,9 +31,23 @@ class Api::GiftsController < ApplicationController
   def claimable
     if (twitter_username = session[:twitter].try(:[], :name))
       gifts = Gift.for_twitter_user(twitter_username).unclaimed
-      render json: { gifts:  { claimable: gifts }}
+      render json: { 
+        gifts: { 
+          claimable: {
+            count: gifts.count,
+            total: gifts.sum(&:bitcoin_amount)
+          }
+        }
+      }
     else
-      render json: { gifts:  { claimable: [] }}
+      render json: { 
+        gifts:  { 
+          claimable: {
+            count: 0,
+            sum: 0
+          } 
+        }
+      }
     end
   end
 
