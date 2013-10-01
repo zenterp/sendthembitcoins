@@ -115,19 +115,11 @@ $(function(){
       $('#loading').show();
       gifts.fetch({
         success: function (data) {
-          console.log('gifts', data);
-          total = 0;
-          sum = 0;
-          for (i in gifts.models) {
-            if (gifts.models[i].bitcoin_amount) {
-              total += 1
-              sum += gifts.models[i].bitcoin_amount;
-            }
-          }
+          var gifts = data.gifts.claimable;
           $('#loading').hide();
           $('#claimableGifts').show();
           $('#configureReceiveAddresses').show();
-          $("#claimableGifts ul").html(total+' gifts totaling '+sum+' bitcoins');
+          $("#claimableGifts ul").html(gifts.count+' gifts totaling '+gifts.sum+' bitcoins');
         }
       })
     },
