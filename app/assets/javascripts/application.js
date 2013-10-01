@@ -67,7 +67,6 @@ $(function(){
 
   var gifts = new Gifts();
   gifts.url = '/api/user/gifts/claimable';
-  window.gifts = gifts;
 
   var User = Backbone.Model.extend({
     url: function () {
@@ -115,6 +114,7 @@ $(function(){
       $('#loading').show();
       gifts.fetch({
         success: function (data) {
+          console.log(data);
           var gifts = data.gifts.claimable;
           $('#loading').hide();
           $('#claimableGifts').show();
