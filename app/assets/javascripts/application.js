@@ -115,7 +115,7 @@ $(function(){
       gifts.fetch({
         success: function (data) {
           console.log(data);
-          var gifts = data.gifts.claimable;
+          var gifts = data.models[0].attributes.claimable;
           $('#loading').hide();
           $('#claimableGifts').show();
           $('#configureReceiveAddresses').show();
