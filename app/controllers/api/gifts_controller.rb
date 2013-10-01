@@ -29,11 +29,11 @@ class Api::GiftsController < ApplicationController
 
   # GET /api/gifts/claimable
   def claimable
-    if current_user && current_user[:twitter_username].present?
-      gifts = Gift.for_twitter_user(current_user[:twitter_username]).unclaimed
-      render json: gifts
+    if (twitter_username = session[:twitter].try(:[], :name))
+      gifts = Gift.for_twitter_user(twitter_username).unclaimed
+      render json: { gifts:  { claimable: gifts }}
     else
-      render json: {}
+      render json: { gifts:  { claimable: [] }}
     end
   end
 

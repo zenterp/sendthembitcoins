@@ -3,6 +3,7 @@ class SessionsController < ApplicationController
   def create
     case auth_hash['provider'].downcase
     when 'twitter'
+      session[:twitter] = parse_provider(auth_hash)
       redirect_to '/gifts/claimable'
     when 'coinbase'
       auth = parse_provider(auth_hash)
