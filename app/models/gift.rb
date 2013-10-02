@@ -9,7 +9,6 @@ class Gift < ActiveRecord::Base
     :recipient_github_username,
     :retrieved_at, 
     :revoked_at, 
-    :network, 
     :recipient_uid
 
   validates_presence_of :bitcoin_amount,
@@ -44,7 +43,7 @@ class Gift < ActiveRecord::Base
   def claim!(receive_address)
     coinbase_client = Coinbase::Client.new(ENV['COINBASE_API_KEY'])
     coinbase_client.send_money(receive_address, bitcoin_amount)
-    update_attributes({
+    update_attributes!({
       recipient_bitcoin_address: receive_address,
       retrieved_at: Time.now
     })
