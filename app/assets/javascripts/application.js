@@ -119,7 +119,7 @@ $(function(){
         $('#configReceiveAddresses').show();
         $('#manualAddress').show();
         $('#configReceiveAddresses .sexyButton').show();
-        $("#claimableGifts ul").html(gifts.count+' gifts totaling '+gifts.totaling+' bitcoins');
+        $("#claimableGifts ul").html(gifts.count+' gifts totaling '+gifts.total+' bitcoins');
       });
     },
     coinbase: function () {
