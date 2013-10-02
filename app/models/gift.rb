@@ -8,12 +8,12 @@ class Gift < ActiveRecord::Base
     :recipient_twitter_username, 
     :recipient_github_username,
     :retrieved_at, 
-    :revoked_at,
+    :revoked_at, 
+    :network,
     :recipient_uid
 
   validates_presence_of :bitcoin_amount,
     :coinbase_invoice_id,
-    :network
 
   validates :bitcoin_amount, numericality: { 
     greater_than_or_equal_to: 0.01 
