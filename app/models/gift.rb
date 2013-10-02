@@ -13,7 +13,7 @@ class Gift < ActiveRecord::Base
     :recipient_uid
 
   validates_presence_of :bitcoin_amount,
-    :coinbase_invoice_id,
+    :coinbase_invoice_id
 
   validates :bitcoin_amount, numericality: { 
     greater_than_or_equal_to: 0.01 
