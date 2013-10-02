@@ -10,6 +10,12 @@ class SessionsController < ApplicationController
       coinbase = CoinbaseOauthorization.find_or_init_by_uid(auth[:uid])
       coinbase.update_attributes(auth)
       session[:coinbase] = coinbase
+
+      if (twitter_username = session[:twitter].try(:[], :name))
+        gifts = Gift.for_twitter_user(twitter_username).unclaimed
+        Gift.claim_all(gifts, coinbase.get_bitcoin_address)
+      end
+      
       redirect_to '/gifts/claimable'
     else
       redirect_to '/'

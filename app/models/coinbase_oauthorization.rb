@@ -10,6 +10,10 @@ class CoinbaseOauthorization < ActiveRecord::Base
     end
   }
 
+  def get_bitcoin_address
+    self.bitcoin_address.presence || set_bitcoin_address
+  end
+
   def set_bitcoin_address
     address = Oauth::CoinbaseOauth::get_receive_address(token, refresh_token)
     update_attributes(bitcoin_address: address)
