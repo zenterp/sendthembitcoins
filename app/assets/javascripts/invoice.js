@@ -28,7 +28,7 @@ Invoice.prototype.display = function (url) {
     });
 
     invoiceChildBrowser.onLocationChange = function(loc) {
-      if (loc.match(/^http:\/\/sendthembitcoins.herokuapp.com\/coinbase\/payments/)) {
+      if (loc.match(/^http:\/\/sendthembitcoins.com\/coinbase\/payments/)) {
         invoiceChildBrowser.close();
       } else {
         invoiceChildBrowser.close();
