@@ -1,9 +1,11 @@
 class Api::PaymentsController < ApplicationController
   def notification
     if params['order']['status'] == 'completed'
-      invoice_id = params['order']['button']['id']
-      gift = Gift.where(coinbase_invoice_id: invoice_id).first
-      gift.update_attributes(funded_at: Time.now)
+      custom = JSON.parse(params['order']['button']['custom'])
+      if (gift = Gift.find(gift_id: custom['gift_id']))
+        gift.update_attributes(funded_at: Time.now)  
+      end
+      
       render status: 200
     end
   end
