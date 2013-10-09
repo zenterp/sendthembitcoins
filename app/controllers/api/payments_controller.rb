@@ -3,7 +3,7 @@ class Api::PaymentsController < ApplicationController
   def notification
     if params['order']['status'] == 'completed'
       custom = JSON.parse(params['order']['custom'])
-      if (gift = Gift.find(gift_id: custom['gift_id'].to_i))
+      if (gift = Gift.find(custom['gift_id'].to_i))
         gift.update_attributes(funded_at: Time.now)  
       end
     end
