@@ -30,7 +30,7 @@ class Api::GiftsController < ApplicationController
   # GET /api/gifts/claimable
   def claimable
     if (twitter_username = session[:twitter].try(:[], :name))
-      gifts = Gift.for_twitter_user(twitter_username).unclaimed
+      gifts = Gift.funded.unclaimed.for_twitter_user(twitter_username)
       render json: { 
         gifts: { 
           claimable: {
