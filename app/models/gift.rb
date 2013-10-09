@@ -20,11 +20,11 @@ class Gift < ActiveRecord::Base
   }
 
   scope :for_twitter_user, ->(twitter_username) { 
-    where(recipient_twitter_username: twitter_username) 
+    where(recipient_twitter_username: twitter_username.downcase) 
   }
 
   scope :for_github_user, ->(github_username) {
-    where(recipient_github_username: github_username)
+    where(recipient_github_username: github_username.downcase)
   }
 
   scope :for_facebook_user, ->(fb_uid) {
@@ -58,7 +58,7 @@ class Gift < ActiveRecord::Base
   class << self
     def create_twitter(username, amount)
       create({
-        recipient_twitter_username: username,
+        recipient_twitter_username: username.downcase,
         bitcoin_amount: amount,
         coinbase_invoice_id: 'false',
         network: 'twitter'
