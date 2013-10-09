@@ -2,14 +2,14 @@ class Api::GiftsController < ApplicationController
 
   # POST /api/gifts/twitter
   def create
-    gift = Gift.create_twitter(params[:recipient_twitter_username], params[:bitcoin_amount])
+    gift = Gift.create_twitter(params[:recipient_twitter_username].downcase, params[:bitcoin_amount])
     render json: { invoiceUrl: "https://coinbase.com/checkouts/#{gift.coinbase_invoice_id}" }
   end
 
   # POST /api/gifts/:id/claim
   def claim
     gift = Gift.find(params.require([:gift_id]))
-    claimable_gifts = Gift.for_twitter_user(current_user[:twitter_username]).unclaimed
+    claimable_gifts = Gift.for_twitter_user(current_user[:twitter_username].downcase).unclaimed
 
     if claimable_gifts.collect(&:id).include?(gift.id)
       gift.claim!(params.require([:receive_address]))
