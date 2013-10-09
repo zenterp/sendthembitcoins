@@ -1,6 +1,7 @@
 class Api::PaymentsController < ApplicationController
   protect_from_forgery :except => [:notification]
   def notification
+    binding.pry
     if params['order']['status'] == 'completed'
       if params['order']['button']['custom']
         custom = JSON.parse(params['order']['button']['custom'])
@@ -8,7 +9,7 @@ class Api::PaymentsController < ApplicationController
           gift.update_attributes(funded_at: Time.now)  
         end
       end
-      render status: 200
     end
+    render status: 200
   end
 end
