@@ -1,6 +1,8 @@
 class SessionsController < ApplicationController
   # GET /auth/:provider/callback
   def create
+    render json: auth_hash
+=begin
     case auth_hash['provider'].downcase
     when 'twitter'
       session[:twitter] = parse_provider(auth_hash)
@@ -20,6 +22,7 @@ class SessionsController < ApplicationController
     else
       redirect_to '/'
     end    
+=end
   end 
   
   # GET /sessions/destroy
