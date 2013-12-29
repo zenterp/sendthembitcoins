@@ -8,14 +8,14 @@ gem 'omniauth-facebook'
 gem 'omniauth-linkedin'
 gem 'omniauth-github'
 gem 'omniauth-coinbase'
-gem 'coinbase'
+gem 'coinbase', '>= 1.2.4'
 gem 'strong_parameters'
 gem 'pry'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'pg'
+gem 'pg', '0.17.0'
 
 
 # Gems used only for assets and not required
