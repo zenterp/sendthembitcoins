@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/stevenzeiler/oauth-verifier-ruby.git
+  revision: 1f07d84dd2965dd3e318927446efb6ecce407f4c
+  specs:
+    oauth-verifier (0.0.1)
+      oauth2 (~> 0.8.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -165,7 +172,8 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   coinbase (>= 1.2.4)
   jquery-rails
-  oauth2
+  oauth-verifier!
+  oauth2 (~> 0.8.0)
   omniauth
   omniauth-coinbase
   omniauth-facebook

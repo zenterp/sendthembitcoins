@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.12'
 gem 'omniauth'
-gem 'oauth2'
+gem 'oauth2', '~> 0.8.0'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem 'omniauth-linkedin'
@@ -11,6 +11,7 @@ gem 'omniauth-coinbase'
 gem 'coinbase', '>= 1.2.4'
 gem 'strong_parameters'
 gem 'pry'
+gem 'oauth-verifier', github: 'stevenzeiler/oauth-verifier-ruby'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
