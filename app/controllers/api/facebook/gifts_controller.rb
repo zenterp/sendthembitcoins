@@ -36,7 +36,7 @@ class Api::Facebook::GiftsController < ApplicationController
   def validate_facebook_user
     @user_id = params.require(:user_id)
     @access_token = params.require(:access_token)
-    valid = OAuthValidator::Facebook::validate(@user_id, @access_token)
+    valid = OauthVerifier::Facebook::validate(@user_id, @access_token)
     render status: 401 unless valid
   end
 end
