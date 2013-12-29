@@ -8,6 +8,11 @@ Sendthembitcoins::Application.routes.draw do
     get '/user/gifts/claimable', to: 'gifts#claimable'
 
     namespace :facebook do
+      resources :friends do
+        collection do
+          get 'search'
+        end
+      end
       resources :gifts do
         member do
           post 'claim' 

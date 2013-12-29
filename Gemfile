@@ -12,6 +12,7 @@ gem 'coinbase', '>= 1.2.4'
 gem 'strong_parameters'
 gem 'pry'
 gem 'oauth-verifier', github: 'stevenzeiler/oauth-verifier-ruby'
+gem 'koala'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
