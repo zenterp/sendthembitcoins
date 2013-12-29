@@ -2,7 +2,8 @@ Sendthembitcoins::Application.routes.draw do
   get 'api', to: 'home#api_docs'
   
   namespace :api do
-    # gifts
+    get '/session/auth', to: 'sessions#index'
+
     post 'user/gifts/:gift_id/claim', to: 'gifts#claim'
     post '/gifts/twitter', to: 'gifts#create'
     get '/user/gifts/claimable', to: 'gifts#claimable'
@@ -38,6 +39,7 @@ Sendthembitcoins::Application.routes.draw do
   end
 
   # session management
+  get 'auth/facebook/callback', to: 'oauth_callbacks#facebook'
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'sessions/destroy', to: 'sessions#destroy'
 
