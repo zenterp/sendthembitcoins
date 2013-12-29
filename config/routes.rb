@@ -7,6 +7,17 @@ Sendthembitcoins::Application.routes.draw do
     post '/gifts/twitter', to: 'gifts#create'
     get '/user/gifts/claimable', to: 'gifts#claimable'
 
+    namespace :facebook do
+      resources :gifts do
+        member do
+          post 'claim' 
+        end
+        collection do
+          post 'claim_all'
+        end
+      end
+    end
+
     # user
     get '/user', to: 'user#current'
     post '/addresses/coinbase', to: 'addresses#set_coinbase'
