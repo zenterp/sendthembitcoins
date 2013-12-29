@@ -1,6 +1,7 @@
 class OauthCallbacksController < ApplicationController
   def facebook
-    render json: auth_hash
+    session[:facebook] = auth_hash['credentials']['token']
+    redirect_to '/api/session/oauth'
   end
   
   def linkedin
