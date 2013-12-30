@@ -1,6 +1,4 @@
 Sendthembitcoins::Application.routes.draw do
-  get 'api', to: 'home#api_docs'
-  
   namespace :api do
     get '/session/auth', to: 'sessions#index'
     post '/session/clear', to: 'sessions#clear'
@@ -43,6 +41,7 @@ Sendthembitcoins::Application.routes.draw do
     get 'coinbase/callback', to: 'callbacks#coinbase'
   end
 
-  root to: 'home#index'
-  get '*path', to: 'home#index'
+  root to: 'application#index'
+  get '*path', to: 'application#index'
+  get 'api', to: 'application#api_docs'
 end
