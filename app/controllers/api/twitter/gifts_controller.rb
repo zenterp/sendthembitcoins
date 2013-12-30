@@ -6,7 +6,7 @@ class Api::Twitter::GiftsController < ApplicationController
     user_id = params.require(:user_id).downcase
     bitcoin_amount = params.require(:bitcoin_amount)
     render json: Gift.create({
-      auth_provider: 'twitter'
+      auth_provider: 'twitter',
       user_id: user_id, 
       bitcoin_amount: bitcoin_amount
     }).to_json
