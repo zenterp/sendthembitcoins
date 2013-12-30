@@ -5,28 +5,33 @@ class Api::Twitter::GiftsController < ApplicationController
   def create
     user_id = params.require(:user_id).downcase
     bitcoin_amount = params.require(:bitcoin_amount)
-    render json: Gift.create_twitter(user_id, bitcoin_amount).to_json
+    render json: Gift.create({
+      auth_provider: 'twitter'
+      user_id: user_id, 
+      bitcoin_amount: bitcoin_amount
+    }).to_json
   end
 
+  # GET /api/twitter/gifts
   def index
-    render json: []
+    render json: Gift.for_user(@user_id, 'twitter')
   end
 
   # POST /api/twitter/gifts/:id/claim
   def claim
+    bitcoin_address = params[:bitcoin_address]
     gift_id = params[:id]
     gift = Gift.find(gift_id)
-    claimable_gifts = Gift.for_twitter_user(@user_id.downcase).unclaimed
+    claimable_gifts = Gift.for_user(@user_id.downcase).unclaimed
 
     if claimable_gifts.collect(&:id).include?(gift.id)
-      gift.claim!(params.require([:receive_address]))
+      gift.claim!(params.require([:bitcoin_address]))
       render json: gift
     else
       render json: { }
     end
   end 
 
-  # POST /api/twitter/gifts/claim
   def claim_all
     bitcoin_address = params.require(:bitcoin_address)
     gifts = Gift.for_twitter_user(@user_id).unclaimed
@@ -34,23 +39,7 @@ class Api::Twitter::GiftsController < ApplicationController
     render json: { gifts: gifts }
   end
 
-  # GET /api/twitter/gifts
-  def claimable
-    gifts = Gift.funded.unclaimed.for_twitter_user(@user_id)
-    render json: { 
-      gifts: { 
-        claimable: {
-          count: gifts.count,
-          total: gifts.sum(&:bitcoin_amount).round(3)
-        },
-        all: {
-          gifts: gifts
-        }
-      }
-    }
-  end
-
-  def authenticate_user
+  def verify_twitter_user
     @user_id = params.require(:user_id)
     @access_token = params.require(:access_token)
     @secret = params.require(:secret)
