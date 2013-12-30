@@ -5,7 +5,7 @@ class Api::Twitter::GiftsController < ApplicationController
   def create
     user_id = params.require(:user_id).downcase
     bitcoin_amount = params.require(:bitcoin_amount)
-    render json: Gift.create_twitter(user_id, bitcoin_amount)
+    render json: Gift.create_twitter(user_id, bitcoin_amount).to_json
   end
 
   def index
