@@ -1,10 +1,10 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery
+  #protect_from_forgery
+  layout 'mobile'
+  
+  def index
+  end
 
-  def current_user
-    {
-      twitter: session[:twitter],
-      coinbase: session[:coinbase]
-    }
+  def api_docs
   end
 end
