@@ -5,6 +5,6 @@ class Api::SessionsController < ApplicationController
 
   def clear
     SessionAuth.clear_access_tokens(session)
-    render status: 200
+    render action: :index
   end
 end
