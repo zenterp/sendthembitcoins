@@ -38,6 +38,9 @@ Sendthembitcoins::Application.routes.draw do
   namespace :auth do
     get 'facebook/callback', to: 'callbacks#facebook'
     get 'twitter/callback', to: 'callbacks#twitter'
+    get 'github/callback', to: 'callbacks#github'
+    get 'linkedin/callback', to: 'callbacks#linkedin'
+    get 'coinbase/callback', to: 'callbacks#coinbase'
   end
 
   root to: 'home#index'
