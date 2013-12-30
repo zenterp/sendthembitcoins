@@ -81,6 +81,15 @@ class Gift < ActiveRecord::Base
     end
   end
 
+  def to_json
+    {
+      auth_provider: self.network,
+      user_id: self.recipient_twitter_username,
+      bitcoin_amount: self.bitcoin_amount,
+      invoice_url: "https://coinbase.com/checkouts/#{gift.coinbase_invoice_id}"
+    }.to_json
+  end
+
 private 
 
   def create_button

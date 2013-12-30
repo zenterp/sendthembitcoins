@@ -29,4 +29,16 @@ class CoinbaseOauthorization < ActiveRecord::Base
       end
     end
   end
+
+  def update_auth(auth_hash)
+    update_attributes({
+      uid: auth_hash['info']['id'],
+      name: auth_hash['info']['name'],
+      email: auth_hash['info']['email'],
+      token: auth_hash['credentials']['token'],
+      refresh_token: auth_hash['credentials']['refresh_token'],
+      expires: auth_hash['credentials']['expires'],
+      expires_at: auth_hash['credentials']['expires_at']
+    })
+  end
 end

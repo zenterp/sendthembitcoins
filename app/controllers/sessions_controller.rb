@@ -1,55 +1,21 @@
-class SessionsController < ApplicationController
-  # GET /auth/:provider/callback
+class CoinbaseAuthController < ApplicationController
+  # GET /auth/coinbase/callback
   def create
-    case auth_hash['provider'].downcase
-    when 'twitter'
-      session[:twitter] = parse_provider(auth_hash)
-      redirect_to '/gifts/claimable'
-    when 'coinbase'
-      auth = parse_provider(auth_hash)
-      coinbase = CoinbaseOauthorization.find_or_init_by_uid(auth[:uid])
-      coinbase.update_attributes(auth)
-      session[:coinbase] = coinbase
-
-      if (twitter_username = session[:twitter].try(:[], :name))
-        gifts = Gift.for_twitter_user(twitter_username).unclaimed
-        Gift.claim_all(gifts, coinbase.get_bitcoin_address)
-      end
-      
-      redirect_to '/gifts/claimable'
-    else
-      redirect_to '/'
-    end    
+    auth = parse_provider(env['omniauth.auth'])
+    coinbase = CoinbaseOauthorization.find_or_init_by_uid(auth[:uid])
+    coinbase.update_attributes(auth)
+    session[:coinbase] = coinbase
   end 
   
-  # GET /sessions/destroy
-  def destroy
-    reset_session
-    redirect_to '/'
-  end
-  
-private
-  def auth_hash
-    env['omniauth.auth']
-  end    
-
   def parse_provider(auth_hash)
-    case auth_hash['provider'].downcase
-    when 'coinbase'
-      {
-        uid: auth_hash['info']['id'],
-        name: auth_hash['info']['name'],
-        email: auth_hash['info']['email'],
-        token: auth_hash['credentials']['token'],
-        refresh_token: auth_hash['credentials']['refresh_token'],
-        expires: auth_hash['credentials']['expires'],
-        expires_at: auth_hash['credentials']['expires_at']
-      }
-    when 'twitter'
-      {
-        uid: auth_hash['uid'],
-        name: auth_hash['info']['nickname']
-      }
-    end
+    {
+      uid: auth_hash['info']['id'],
+      name: auth_hash['info']['name'],
+      email: auth_hash['info']['email'],
+      token: auth_hash['credentials']['token'],
+      refresh_token: auth_hash['credentials']['refresh_token'],
+      expires: auth_hash['credentials']['expires'],
+      expires_at: auth_hash['credentials']['expires_at']
+    }
   end
 end

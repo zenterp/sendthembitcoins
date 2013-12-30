@@ -1,12 +1,13 @@
-class Api::GiftsController < ApplicationController
+class Api::Twitter::GiftsController < ApplicationController
 
-  # POST /api/gifts/twitter
+  # POST /api/twitter/gifts
   def create
-    gift = Gift.create_twitter(params[:recipient_twitter_username].downcase, params[:bitcoin_amount])
-    render json: { invoiceUrl: "https://coinbase.com/checkouts/#{gift.coinbase_invoice_id}" }
+    user_id = params.require(:user_id).downcase
+    bitcoin_amount = params.require(:bitcoin_amount)
+    render json: Gift.create_twitter(user_id, bitcoin_amount)
   end
 
-  # POST /api/gifts/:id/claim
+  # POST /api/twitter/gifts/:id/claim
   def claim
     gift = Gift.find(params.require([:gift_id]))
     claimable_gifts = Gift.for_twitter_user(current_user[:twitter_username].downcase).unclaimed
@@ -19,17 +20,20 @@ class Api::GiftsController < ApplicationController
     end
   end 
 
-  # POST /api/gifts/claim
+  # POST /api/twitter/gifts/claim
   def claim_all
+    bitcoin_address = params.require(:receive_address)
     gifts = Gift.for_twitter_user(current_user[:twitter_username]).unclaimed
-    Gift.claim_all(gifts, params.require([:receive_address]))
-
+    Gift.claim_all(gifts, bitcoin_address)
     render json: { gifts: gifts }
   end
 
-  # GET /api/gifts/claimable
+  # GET /api/twitter/gifts
   def claimable
-    if (twitter_username = session[:twitter].try(:[], :name))
+    access_token = params.require(:access_token)
+    user_id = params.require(:user_id)
+
+    if (twitter_username = session[:twitter].try(:[], 'name'))
       gifts = Gift.funded.unclaimed.for_twitter_user(twitter_username)
       render json: { 
         gifts: { 
@@ -43,20 +47,7 @@ class Api::GiftsController < ApplicationController
         }
       }
     else
-      render json: { 
-        gifts:  { 
-          claimable: {
-            count: 0,
-            sum: 0
-          } 
-        }
-      }
+      render json: []
     end
   end
-
-  private
-
-  def coinbase_client
-    @coinbase_client ||= Coinbase::Client.new(ENV['COINBASE_API_KEY'])
-  end 
 end

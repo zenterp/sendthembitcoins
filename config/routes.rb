@@ -3,10 +3,7 @@ Sendthembitcoins::Application.routes.draw do
   
   namespace :api do
     get '/session/auth', to: 'sessions#index'
-
-    post 'user/gifts/:gift_id/claim', to: 'gifts#claim'
-    post '/gifts/twitter', to: 'gifts#create'
-    get '/user/gifts/claimable', to: 'gifts#claimable'
+    post '/session/clear', to: 'sessions#clear'
 
     namespace :facebook do
       resources :friends do
@@ -24,26 +21,25 @@ Sendthembitcoins::Application.routes.draw do
       end
     end
 
-    # user
-    get '/user', to: 'user#current'
-    post '/addresses/coinbase', to: 'addresses#set_coinbase'
+    namespace :twitter do
+      resources :gifts do
+        member do
+          post 'claim'
+        end
+        collection do
+          post 'claim_all'
+        end
+      end
+    end
 
-    # payment callbacks
     post '/payments/coinbase/notification', to: 'payments#notification'
-
-    # set state of session with these environment variables
-    post '/addresses/receive', to: 'addresses#receive'
-    post '/addresses/return', to: 'addresses#return'
-    post '/emails/receive', to: 'addresses#receive'
-    post '/emails/return', to: 'addresses#return'
   end
 
-  # session management
-  get 'auth/facebook/callback', to: 'oauth_callbacks#facebook'
-  get 'auth/:provider/callback', to: 'sessions#create'
-  get 'sessions/destroy', to: 'sessions#destroy'
+  namespace :auth do
+    get 'facebook/callback', to: 'callbacks#facebook'
+    get 'twitter/callback', to: 'callbacks#twitter'
+  end
 
-  # client-side javascript app
   root to: 'home#index'
   get '*path', to: 'home#index'
 end
