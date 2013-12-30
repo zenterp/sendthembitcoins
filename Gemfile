@@ -18,6 +18,7 @@ gem 'pg', '0.17.0'
 group :test do
   gem 'rspec-rails'
   gem 'factory_girl'
+  gem 'rspec-mocks'
 end
 
 group :assets do

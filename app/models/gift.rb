@@ -1,108 +1,74 @@
 class Gift < ActiveRecord::Base
   after_create :generate_invoice
 
-  attr_accessible :bitcoin_amount, 
-    :coinbase_invoice_id, 
-    :funded_at, 
-    :recipient_bitcoin_address, 
-    :recipient_twitter_username, 
-    :recipient_github_username,
-    :retrieved_at, 
-    :revoked_at, 
-    :network,
-    :recipient_uid
-
   validates_presence_of :bitcoin_amount,
-    :coinbase_invoice_id
+    :user_id,
+    :auth_provider
+
+  attr_accessible :bitcoin_amount, 
+    :invoice_id, 
+    :user_id,
+    :auth_provider,
+    :funded_at, 
+    :retrieved_at,
+    :recipient_bitcoin_address
+
+  scope :for_user, ->(user_id, auth_provider) {
+    where(user_id: user_id, auth_provider: auth_provider)
+  }
 
   validates :bitcoin_amount, numericality: { 
-    greater_than_or_equal_to: 0.01 
+    greater_than_or_equal_to: 0.001 
   }
 
-  scope :for_twitter_user, ->(twitter_username) { 
-    where(recipient_twitter_username: twitter_username.downcase) 
-  }
-
-  scope :for_github_user, ->(github_username) {
-    where(recipient_github_username: github_username.downcase)
-  }
-
-  scope :for_facebook_user, ->(fb_uid) {
-    where(recipient_uid: fb_uid, network: 'facebook')
-  }
-
-  scope :for_linkedin_user, ->(linkedin_uid) {
-    where(recipient_uid: linkedin_uid, network: 'linkedin')
-  }
-
-  scope :claimed, where("retrieved_at IS NOT NULL")
-  scope :unclaimed, where("retrieved_at IS NULL")
   scope :funded, where("funded_at IS NOT NULL")
-  scope :unfunded, where("funded_at IS NULL")
+  scope :unclaimed, where("retrieved_at IS NULL")
 
-  def claim!(receive_address)
-    coinbase_client = Coinbase::Client.new(ENV['COINBASE_API_KEY'])
-    coinbase_client.send_money(receive_address, bitcoin_amount)
-    update_attributes!({
-      recipient_bitcoin_address: receive_address,
-      retrieved_at: Time.now
-    })
+  def fund!
+    update_attributes(funded_at: Time.now)
   end
 
-  def generate_invoice
-    update_attributes({
-      coinbase_invoice_id: create_button['button']['code']
-    })
-  end
-
-  class << self
-    def create_twitter(username, amount)
-      create({
-        recipient_twitter_username: username.downcase,
-        bitcoin_amount: amount,
-        coinbase_invoice_id: 'false',
-        network: 'twitter'
-      })
-    end
-
-    def create_linkedin(username, amount)
-      create({
-        recipient_linkedin_username: username,
-        bitcoin_amount: amount,
-        coinbase_invoice_id: 'false',
-        network: 'linkedin'
-      })
-    end
-
-    def claim_all(gifts, receive_address)
-      gifts.each do |gift|
-        gift.claim!(receive_address)
+  def claim!(receive_address,client=nil)
+    if self.funded_at != nil
+      result = bitcoin_client(client).send_money(receive_address, bitcoin_amount)
+      if result && result.success?
+        update_attributes!({
+          recipient_bitcoin_address: receive_address,
+          retrieved_at: Time.now
+        })
       end
     end
   end
 
+  def generate_invoice
+    update_attributes({
+      invoice_id: create_invoice['button']['code']
+    })
+  end
+
   def to_json
     {
-      auth_provider: self.network,
-      user_id: self.recipient_twitter_username,
+      auth_provider: self.auth_provider,
+      user_id: self.user_id,
       bitcoin_amount: self.bitcoin_amount,
-      invoice_url: "https://coinbase.com/checkouts/#{self.coinbase_invoice_id}"
+      invoice_url: "https://coinbase.com/checkouts/#{self.invoice_id}",
+      created_at: self.created_at
     }.to_json
   end
 
 private 
 
-  def create_button
-    button = coinbase_client.create_button(
-      "a bitcoin gift to you via #{network}",
+  def create_invoice
+    bitcoin_client.create_button(
+      "a bitcoin gift to you from a friend on #{auth_provider}",
       bitcoin_amount.to_f * 1.01,
       nil, # description
-      { gift_id: id }.to_json, # custom information
-      { variable_price: true } # options
+      { gift_id: id }.to_json,
+      { variable_price: true }
     )
   end
 
-  def coinbase_client
-    @coinbase_client ||= Coinbase::Client.new(ENV['COINBASE_API_KEY'])
+  def bitcoin_client(client=nil)
+    client ||= Coinbase::Client.new(ENV['COINBASE_API_KEY'])
   end 
 end

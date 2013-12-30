@@ -205,6 +205,7 @@ DEPENDENCIES
   pg (= 0.17.0)
   pry
   rails (= 3.2.12)
+  rspec-mocks
   rspec-rails
   sass-rails (~> 3.2.3)
   strong_parameters
