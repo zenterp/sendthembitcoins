@@ -15,7 +15,7 @@ class Auth::CallbacksController < ApplicationController
   end
 
   def twitter
-    session[:twitter] = auth_hash['info']['nickname']
+    session[:twitter] = auth_hash['credentials']
     redirect_to '/api/session/auth'
   end
 
