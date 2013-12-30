@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131230040455) do
+ActiveRecord::Schema.define(:version => 20131230054216) do
 
   create_table "coinbase_oauthorizations", :force => true do |t|
     t.string   "uid"
@@ -32,18 +32,12 @@ ActiveRecord::Schema.define(:version => 20131230040455) do
     t.string   "invoice_id"
     t.string   "recipient_bitcoin_address"
     t.float    "bitcoin_amount"
-    t.string   "recipient_twitter_username"
     t.datetime "funded_at"
     t.datetime "retrieved_at"
-    t.datetime "created_at",                 :null => false
-    t.datetime "updated_at",                 :null => false
-    t.string   "recipient_uid"
-    t.string   "network"
-    t.string   "recipient_github_username"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
     t.string   "user_id"
     t.string   "auth_provider"
   end
-
-  add_index "gifts", ["recipient_github_username"], :name => "index_gifts_on_recipient_github_username"
 
 end
