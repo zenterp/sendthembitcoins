@@ -86,7 +86,7 @@ class Gift < ActiveRecord::Base
       auth_provider: self.network,
       user_id: self.recipient_twitter_username,
       bitcoin_amount: self.bitcoin_amount,
-      invoice_url: "https://coinbase.com/checkouts/#{gift.coinbase_invoice_id}"
+      invoice_url: "https://coinbase.com/checkouts/#{self.coinbase_invoice_id}"
     }.to_json
   end
 
