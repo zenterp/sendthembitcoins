@@ -5,26 +5,34 @@ class Api::Facebook::GiftsController < ApplicationController
   def create
     user_id = params.require(:user_id)
     bitcoin_amount = params.require(:bitcoin_amount)
-    # also validate that user is real facebook user
-    # validate the amount is > some small amount
+    gift = Gift.create({
+      auth_provider: 'facebook',
+      user_id: user_id,
+      bitcoin_amount: bitcoin_amount
+    })
 
-    render text: 'Facebook::Gift.create(user_id, bitcoin_amount)'
+    render json: gift.to_json
   end
 
   # GET /api/facebook/gifts
   def index
-    render text: 'Facebook::Gift.for_user(user_id)'
-  end
-
-  # GET /api/facebook/gifts/:id
-  def show
-    render text: 'Facebook::Gift.find(params[:id])'
+    render json: Gift.for_user(@user_id, 'facebook')
   end
 
   # POST /api/gifts/facebook/:id/claim
   def claim
     bitcoin_address = params.require(:bitcoin_address)
-    render text: 'Facebook::Gift.find(params[:id]).claim!(bitcoin_address)'
+    gift = Gift.find(params[:id])
+    if gift
+      if gift.user_id == @user_id
+        gift.claim!
+        render json: gift
+      else
+        render status: 401
+      end
+    else 
+      render status: 400
+    end
   end
 
   # POST /api/gifts/facebook/claim
