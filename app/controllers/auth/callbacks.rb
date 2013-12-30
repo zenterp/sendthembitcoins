@@ -1,15 +1,17 @@
 class Auth::CallbacksController < ApplicationController
   def facebook
     session[:facebook] = auth_hash['credentials']['token']
-    redirect_to '/api/session/oauth'
+    redirect_to '/api/session/auth'
   end
   
   def linkedin
-    render json: auth_hash
+    session[:linkedin] = auth_hash['credentials']
+    redirect_to '/api/session/auth' 
   end
 
   def github
-    render json: auth_hash
+    session[:github] = auth_hash['credentials']['token']
+    redirect_to '/api/session/auth'
   end
 
   def twitter
@@ -21,6 +23,7 @@ class Auth::CallbacksController < ApplicationController
     coinbase = CoinbaseOauthorization.find_or_init_by_uid(auth_hash['info']['id'])
     coinbase.update_auth(auth_hash)
     session[:coinbase] = coinbase
+    redirect_to '/api/session/auth'
   end 
 
 private
