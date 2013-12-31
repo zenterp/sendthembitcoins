@@ -11,7 +11,7 @@ gem 'omniauth-coinbase'
 gem 'coinbase', '>= 1.2.4'
 gem 'strong_parameters'
 gem 'pry'
-gem 'oauth-verifier', github: 'stevenzeiler/oauth-verifier-ruby'
+gem 'oauth-verifier', '>= 0.1.0', github: 'stevenzeiler/oauth-verifier-ruby'
 gem 'koala'
 gem 'pg', '0.17.0'
 

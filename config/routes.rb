@@ -3,6 +3,10 @@ Sendthembitcoins::Application.routes.draw do
     get '/session/auth', to: 'sessions#index'
     post '/session/clear', to: 'sessions#clear'
 
+    namespace :ripple do
+      resources :bridges, only: :create
+    end
+
     namespace :facebook do
       resources :friends do
         collection do
