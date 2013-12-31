@@ -3,7 +3,7 @@ Sendthembitcoins::Application.routes.draw do
     get '/session/auth', to: 'sessions#index'
     post '/session/clear', to: 'sessions#clear'
 
-    post '/ripple_bridges/:bitcoin_address' to: 'ripple_bridges#create'
+    post '/ripple_bridges/:bitcoin_address', to: 'ripple_bridges#create'
 
     namespace :facebook do
       resources :friends do
