@@ -10,6 +10,11 @@ class RippleBridge < ActiveRecord::Base
     Random.rand(DESTINATION_TAG_LIMIT)
   end
 
+  def to_json
+    { bitcoin_address: bitcoin_address,
+      destination_tag: destination_tag }.to_json
+  end
+
   def set_destination_tag
     @good_tag = false
     while !@good_tag 
