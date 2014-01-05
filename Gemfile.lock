@@ -1,4 +1,14 @@
 GIT
+  remote: git://github.com/ripple/ripple-lib-rpc-ruby.git
+  revision: bf62921c50f2713bd2f3401164ab841cd9e01c99
+  specs:
+    ripple_lib_rpc_ruby (0.0.0)
+      eventmachine
+      faraday_middleware
+      faye-websocket
+      hashie
+
+GIT
   remote: git://github.com/stevenzeiler/oauth-verifier-ruby.git
   revision: 6af56a378856cd834eab381593ba6854b942ec84
   specs:
@@ -54,11 +64,17 @@ GEM
       multi_json (>= 1.3.4)
     diff-lcs (1.2.5)
     erubis (2.7.0)
+    eventmachine (1.0.3)
     execjs (2.0.2)
     factory_girl (4.3.0)
       activesupport (>= 3.0.0)
     faraday (0.8.8)
       multipart-post (~> 1.2.0)
+    faraday_middleware (0.9.0)
+      faraday (>= 0.7.4, < 0.9)
+    faye-websocket (0.7.2)
+      eventmachine (>= 0.12.0)
+      websocket-driver (>= 0.3.1)
     hashie (2.0.5)
     hike (1.2.3)
     httparty (0.12.0)
@@ -188,6 +204,7 @@ GEM
     uglifier (2.4.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    websocket-driver (0.3.2)
 
 PLATFORMS
   ruby
@@ -209,6 +226,7 @@ DEPENDENCIES
   pg (= 0.17.0)
   pry
   rails (= 3.2.12)
+  ripple_lib_rpc_ruby!
   rspec-mocks
   rspec-rails
   sass-rails (~> 3.2.3)
