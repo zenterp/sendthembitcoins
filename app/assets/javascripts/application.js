@@ -224,6 +224,7 @@ $(function(){
     e.preventDefault()
     var ripple_address = $("#rippleBridgeForm input[name='ripple_address']").val()
     var amount = $("#rippleBridgeForm input[name='amount']").val()
+    $('#loading').show()
     $.ajax({
       url: 'https://www.sendthembitcoins.com/api/ripple/bridge_invoices',
       data: { ripple_address: ripple_address , amount: amount},
