@@ -18,11 +18,7 @@ class Api::PaymentsController < ApplicationController
   def handle_ripple_payment(custom)
     invoice = RippleBridgeInvoice.find(custom['invoice_id'])
     if invoice.secret == custom['secret']
-      Resque.enqueue(Ripple::PaymentWorker, {
-        destination: invoice.ripple_address,
-        currency: 'BTC',
-        amount: invoice.amount
-      })  
+      Resque.enqueue(Ripple::PaymentWorker, invoice.id)
       invoice.funded = true
       invoice.ripple_tx_status = 'queued'
       invoice.save
