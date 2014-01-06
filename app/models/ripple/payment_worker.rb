@@ -6,7 +6,7 @@ module Ripple
       :ripple_disbursements
     end
 
-    def work(invoice_id)
+    def perform(invoice_id)
       @invoice  = RippleBridgeInvoice.find(invoice_id)
       payment = Ripple::Payment.new({
         destination: @invoice.ripple_address,
