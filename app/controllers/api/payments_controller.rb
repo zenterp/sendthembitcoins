@@ -19,7 +19,7 @@ class Api::PaymentsController < ApplicationController
     invoice = RippleBridgeInvoice.find(custom['invoice_id'])
     if invoice.secret == custom['secret']
       Resque.enqueue(Ripple::PaymentWorker, {
-        destination: invoice.bitcoin_address,
+        destination: invoice.ripple_address,
         currency: 'BTC',
         amount: invoice.amount
       })  
