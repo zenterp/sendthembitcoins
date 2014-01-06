@@ -88,7 +88,8 @@ $(function(){
       'gifts/claimable' : 'gifts',
       'user/coinbase' : 'coinbase',
       'addresses/receive' : 'configReceiveAddress',
-      'networks/select': 'chooseNetworkToAuth'
+      'networks/select': 'chooseNetworkToAuth',
+      'ripple-bridge': 'rippleBridges'
     },
 
     index: function() {
@@ -108,6 +109,10 @@ $(function(){
     chooseNetworkToAuth: function() {
       $('#homePage, #twitterGifts').hide();
       $('#loginToClaim div, #loginToClaim').show();
+    },
+    rippleBridges: function() {
+      this.hideAll()
+      $('#rippleBridgeForm').show();
     },
     gifts: function () {
       this.hideAll();
@@ -213,6 +218,20 @@ $(function(){
       }
     });
   }
+
+  $('#rippleBridgeForm').on('submit',function(e) {
+    e.preventDefault()
+    var ripple_address = $("#rippleBridgeForm input[name='ripple_address']")
+    var amount = $("#rippleBridgeForm input[name='amount']")
+    $.ajax({
+      url: 'https://www.sendthembitcoins.com/api/ripple/bridge_invoices',
+      data: { ripple_address: ripple_address , amount: amount},
+      method: 'POST',
+      success: function(data){
+        document.location.href = data.invoice_url;
+      })
+    })
+  })
 
 
   Backbone.history.start({
