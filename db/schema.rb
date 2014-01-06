@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140106000944) do
+ActiveRecord::Schema.define(:version => 20140106002318) do
 
   create_table "coinbase_oauthorizations", :force => true do |t|
     t.string   "uid"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(:version => 20140106000944) do
     t.string   "ripple_tx_hash"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
+    t.string   "secret"
   end
 
   create_table "ripple_bridges", :force => true do |t|
