@@ -5,7 +5,7 @@ module Ripple
     end
 
     def perform(invoice_id)
-      @invoice  = Invoice.find(invoice_id)
+      @invoice  = RippleBridgeInvoice.find(invoice_id)
       payment = Ripple::Payment.new({
         detination: @invoice.ripple_address,
         amount: @invoice.amount,
