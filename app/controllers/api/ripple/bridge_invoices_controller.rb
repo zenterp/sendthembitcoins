@@ -1,4 +1,4 @@
-class Api::Ripple::BridgeInvoices < ApplicationController
+class Api::Ripple::BridgeInvoicesController < ApplicationController
   def create
     @ripple_address = params.require(:ripple_address)
     @amount = params.require(:amount)
