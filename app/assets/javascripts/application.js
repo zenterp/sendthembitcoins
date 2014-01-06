@@ -112,7 +112,8 @@ $(function(){
     },
     rippleBridges: function() {
       this.hideAll()
-      $('#rippleBridgeForm').show();
+      $('#rippleBridgeForm').show()
+      $('#rippleNext').show()
     },
     gifts: function () {
       this.hideAll();
