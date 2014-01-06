@@ -23,7 +23,8 @@ class Api::PaymentsController < ApplicationController
         currency: 'BTC',
         amount: invoice.amount
       })  
+      invoice.ripple_tx_status = 'queued'
+      invoice.save
     end
-
   end
 end
