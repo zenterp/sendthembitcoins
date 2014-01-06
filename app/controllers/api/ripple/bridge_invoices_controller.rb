@@ -6,17 +6,22 @@ class Api::Ripple::BridgeInvoicesController < ApplicationController
     invoice = RippleBridgeInvoice.create(
       amount: @amount.to_f,
       ripple_address: @ripple_address,
-      currency: 'BTC'
+      currency: 'BTC',
+      secret: SecureRandom.hex
     )
 
-    invoice.coinbase_invoice_id = Coinbase::Invoice.create(
-      amount: invoice.amount, 
-      invoice_id: invoice.id, 
-      invoice_secret: invoice.secret
-    )
+    if invoice.persisted?
+      invoice.coinbase_invoice_id = Coinbase::Invoice.create(
+        amount: invoice.amount, 
+        invoice_id: invoice.id, 
+        invoice_secret: invoice.secret
+      )
+      invoice.save
 
-    invoice.save
+      render json: { invoice_url: "https://coinbase.com/checkouts/#{invoice.coinbase_invoice_id}" }
+    else
+      render json: { error: "could not create ripple bridge invoice" }
+    end
 
-    render json: { invoice_url: "https://coinbase.com/checkouts/#{invoice.coinbase_invoice_id}" }
   end
 end
