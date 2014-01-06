@@ -7,7 +7,7 @@ Sendthembitcoins::Application.routes.draw do
     get '/ripple_bridges/:destination_tag', to: 'ripple_bridges#show'
    
     namespace :ripple do
-      resouces :bridge_invoices, only: :create
+      resources :bridge_invoices, only: :create
     end
 
     namespace :facebook do
