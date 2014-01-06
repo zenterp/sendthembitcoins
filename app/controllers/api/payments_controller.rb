@@ -16,7 +16,7 @@ class Api::PaymentsController < ApplicationController
   end
 
   def handle_ripple_payment(custom)
-    invoice = Invoice.find(custom['invoice_id'])
+    invoice = RippleBridgeInvoice.find(custom['invoice_id'])
     if invoice.secret == custom['secret']
       Rescue.enqueue(Ripple::PaymentWorker, {
         destination: invoice.bitcoin_address,
