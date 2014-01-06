@@ -8,7 +8,7 @@ class Api::PaymentsController < ApplicationController
     elsif (gift = Gift.find(custom['gift_id'].to_i))
       gift.update_attributes(funded_at: Time.now)  
     end
-    render status: 200
+    render text: 'success'
   end
 
   def verify_completed
