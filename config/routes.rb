@@ -5,6 +5,10 @@ Sendthembitcoins::Application.routes.draw do
 
     post '/ripple_bridges/:bitcoin_address', to: 'ripple_bridges#create'
     get '/ripple_bridges/:destination_tag', to: 'ripple_bridges#show'
+   
+    namespace :ripple do
+      resouces :bridge_invoices, only: :create
+    end
 
     namespace :facebook do
       resources :friends do

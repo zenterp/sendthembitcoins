@@ -14,6 +14,8 @@ gem 'pry'
 gem 'oauth-verifier', '>= 0.1.0', github: 'stevenzeiler/oauth-verifier-ruby'
 gem 'koala'
 gem 'pg', '0.17.0'
+gem 'ripple_lib_rpc_ruby', github: 'ripple/ripple-lib-rpc-ruby'
+gem 'resque'
 
 group :test do
   gem 'rspec-rails'
