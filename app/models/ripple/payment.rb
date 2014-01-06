@@ -21,7 +21,11 @@ module Ripple
     end
 
     def send
-      @client.send_basic_transaction(destination: 'rHKueQebtVU9cEamhBbMV8AEViqKjXcBcB', currency: 'XRP', amount: '200000')
+      @client.send_basic_transaction(
+        destination: @destination, 
+        currency: @currency, 
+        amount: @amount
+      )
     end
   end
 end

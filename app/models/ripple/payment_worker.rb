@@ -1,3 +1,5 @@
+require 'ripple'
+
 module Ripple
   class PaymentWorker
     def self.queue
@@ -7,7 +9,7 @@ module Ripple
     def perform(invoice_id)
       @invoice  = RippleBridgeInvoice.find(invoice_id)
       payment = Ripple::Payment.new({
-        detination: @invoice.ripple_address,
+        destination: @invoice.ripple_address,
         amount: @invoice.amount,
         currency: 'BTC'
       })
