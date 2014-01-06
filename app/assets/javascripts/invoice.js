@@ -7,7 +7,7 @@ Invoice.prototype.create = function () {
   var invoice = this;
   $.ajax({
     type: 'POST',
-    url: '/api/gifts/twitter',
+    url: '/api/twitter/gifts',
     data: {
       recipient_twitter_username: invoice.recipient_twitter_username,
       bitcoin_amount: invoice.bitcoin_amount
