@@ -2,8 +2,8 @@ module Coinbase
   class Invoice
     def create(opts)
       checkout = bitcoin_client.create_button(
-       "Note: Ensure a trust line of #{opts[:amount]} BTC to #{ENV['RIPPLE_ACCOUNT']} before sending."
-        amount,
+       "Note: Ensure a trust line of #{opts[:amount]} BTC to #{ENV['RIPPLE_ACCOUNT']} before sending.",
+        opts[:amount],
         "Sending bitcoins into the ripple network", 
         { id: opts[:invoice_id], secret: opts[:invoice_secret] }.to_json,
         { variable_price: true }
