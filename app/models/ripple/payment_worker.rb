@@ -1,4 +1,8 @@
 module Ripple::PaymentWorker
+  def self.queue
+    :ripple_disbursements
+  end
+
   def perform(opts)
     @invoice  = Invoice.find(opts.delete(:invoice_id))
     payment = Ripple::Payment.new(opts)
