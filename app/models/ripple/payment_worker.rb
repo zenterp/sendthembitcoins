@@ -1,5 +1,5 @@
 module Ripple
-  class Ripple
+  class PaymentWorker
     def self.queue
       :ripple_disbursements
     end
