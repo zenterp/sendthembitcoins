@@ -86,17 +86,15 @@
   <a >Claim Bitcoins</a>
 </p>
 
-<script id='rippleBridgeInvoiceTemplate' type='text/javascript'>
-  <form style='display:none' method='post' id='rippleBridgeForm' action='https://www.sendthembitcoins.com/api/ripple/bridge_invoices' novalidate>
-    <p class='input'>Enter the number of bitcoins</p>
-    <div id='manualAddress' style='display:block'>
-      <input style='width:100%;'name='amount' step='0.001' required='true' type='text'></input>
-    </div>
-    <p class='input'>Enter the destination ripple address</p>
-    <div id='manualAddress' style='display:block'>
-      <input style=''name='ripple_address' step='0.001' min='0.001' required='true' type='text'></input>
-    </div>
+<form style='display:none' method='post' id='rippleBridgeForm' action='https://www.sendthembitcoins.com/api/ripple/bridge_invoices' novalidate>
+  <p class='input'>Enter the number of bitcoins</p>
+  <div id='manualAddress' style='display:block'>
+    <input style='width:100%;'name='amount' step='0.001' required='true' type='text'></input>
+  </div>
+  <p class='input'>Enter the destination ripple address</p>
+  <div id='manualAddress' style='display:block'>
+    <input style=''name='ripple_address' step='0.001' min='0.001' required='true' type='text'></input>
+  </div>
 
-    <input type='submit' style='font-size: 1em; margin-top:2em' class='sexyButton' id='rippleNext' value='next'/>
-  </form>
-</script>
+  <input type='submit' style='font-size: 1em; margin-top:2em' class='sexyButton' id='rippleNext' value='next'/>
+</form>
