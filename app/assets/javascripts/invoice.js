@@ -9,7 +9,7 @@ Invoice.prototype.create = function () {
     type: 'POST',
     url: '/api/twitter/gifts',
     data: {
-      recipient_twitter_username: invoice.recipient_twitter_username,
+      user_id: invoice.recipient_twitter_username,
       bitcoin_amount: invoice.bitcoin_amount
     },
     success: function(data) {
