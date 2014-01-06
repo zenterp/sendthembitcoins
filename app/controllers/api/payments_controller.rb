@@ -15,14 +15,15 @@ class Api::PaymentsController < ApplicationController
     params['order']['status'] == 'completed'
   end
 
-  def handle_ripple_payment
-    invoice = Invoice.find(invoice_id)
+  def handle_ripple_payment(custom)
+    invoice = Invoice.find(custom['invoice_id'])
     if invoice.secret == custom['secret']
       Rescue.enqueue(Ripple::PaymentWorker, {
         destination: invoice.bitcoin_address,
         currency: 'BTC',
         amount: invoice.amount
       })  
+      invoice.funded = true
       invoice.ripple_tx_status = 'queued'
       invoice.save
     end
