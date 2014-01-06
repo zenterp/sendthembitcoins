@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131230054216) do
+ActiveRecord::Schema.define(:version => 20140106000944) do
 
   create_table "coinbase_oauthorizations", :force => true do |t|
     t.string   "uid"
@@ -38,6 +38,24 @@ ActiveRecord::Schema.define(:version => 20131230054216) do
     t.datetime "updated_at",                :null => false
     t.string   "user_id"
     t.string   "auth_provider"
+  end
+
+  create_table "ripple_bridge_invoices", :force => true do |t|
+    t.boolean  "funded"
+    t.string   "coinbase_invoice_id"
+    t.decimal  "amount"
+    t.string   "currency"
+    t.string   "ripple_tx_status"
+    t.string   "ripple_tx_hash"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
+
+  create_table "ripple_bridges", :force => true do |t|
+    t.integer  "destination_tag"
+    t.string   "bitcoin_address"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
 end
