@@ -16,6 +16,7 @@ gem 'koala'
 gem 'pg', '0.17.0'
 gem 'ripple_lib_rpc_ruby', github: 'ripple/ripple-lib-rpc-ruby'
 gem 'resque'
+gem 'resque-web', require: 'resque_web'
 
 group :test do
   gem 'rspec-rails'
