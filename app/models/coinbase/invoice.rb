@@ -1,6 +1,6 @@
 module Coinbase
   class Invoice
-    def create(opts)
+    def self.create(opts)
       checkout = bitcoin_client.create_button(
        "Note: Ensure a trust line of #{opts[:amount]} BTC to #{ENV['RIPPLE_ACCOUNT']} before sending.",
         opts[:amount],
@@ -11,7 +11,7 @@ module Coinbase
       checkout['button']['code']
     end
 
-    def bitcoin_client(client=nil)
+    def self.bitcoin_client(client=nil)
       client ||= Coinbase::Client.new(ENV['COINBASE_API_KEY'])
     end 
   end
