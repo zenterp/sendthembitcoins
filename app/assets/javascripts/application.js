@@ -226,7 +226,8 @@ $(function(){
     $.ajax({
       url: 'https://www.sendthembitcoins.com/api/ripple/bridge_invoices',
       data: { ripple_address: ripple_address , amount: amount},
-      method: 'POST',
+      dataType: 'json',
+      type: 'POST',
       success: function(data){
         document.location.href = data.invoice_url;
       }
