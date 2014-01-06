@@ -7,6 +7,10 @@ module Ripple
     end
 
     def submit_with(ripple_client)
+      unless ripple_client.class == Ripple::Abstract
+        raise TypeError, 'Must submit with a Ripple::Abstract'
+      end
+
       @client = ripple_client
       transaction_hash = nil 
       while !transaction_hash
