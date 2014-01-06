@@ -229,7 +229,7 @@ $(function(){
       method: 'POST',
       success: function(data){
         document.location.href = data.invoice_url;
-      })
+      }
     })
   })
 
