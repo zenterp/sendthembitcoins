@@ -4,6 +4,7 @@ Sendthembitcoins::Application.routes.draw do
   
   namespace :api do
     get 'bridge', to: 'ripple/federation#bridge'
+    get 'bridges/:destination/quote', to: 'ripple/federation#quote'
     get '/session/auth', to: 'sessions#index'
     post '/session/clear', to: 'sessions#clear'
 
