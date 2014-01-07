@@ -13,4 +13,8 @@ class ApplicationController < ActionController::Base
 
   def api_docs
   end
+
+  def ripple_txt
+    render 'ripple.txt', layout: false
+  end
 end
