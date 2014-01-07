@@ -1,2 +1,2 @@
 [federation_url]
-https://www.sendthembitcoins.com/bridge
+https://www.sendthembitcoins.com/api/bridge
