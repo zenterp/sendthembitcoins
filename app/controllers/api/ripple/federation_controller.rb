@@ -6,15 +6,16 @@ class Api::Ripple::FederationController < ApplicationController
   end 
 
   def bridge_json
+    @account = ENV['RIPPLE_ACCOUNT']
     Hash.new.tap { |h|
       h[:result] = 'success'
       h[:federation_json] = Hash.new.tap { |fed|
         fed[:type] = 'federation_record'
-        fed[:domain] = 'www.sendthembitcoins.com'    
-        fed[:destination] = @tag
+        fed[:domain] = 'sendthembitcoins.com'
+        fed[:destination] = "#{@account}?dt=#{@tag}"
         fed[:currencies] = [{ 
           currency: 'BTC',
-          issuer: ENV['RIPPLE_ACCOUNT']
+          issuer: @account
         }]
       }
       h[:quote_url] = 'https://www.sendthembitcoins.com/bridge'
