@@ -1,0 +1,2 @@
+[federation_url]
+https://www.sendthembitcoins.com/bridge
