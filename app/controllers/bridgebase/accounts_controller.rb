@@ -3,6 +3,7 @@ class Bridgebase::AccountsController < BridgebaseController
   end 
 
   def logout
+    reset_session
     session[:coinbase] = nil
     redirect_to '/bridgebase'
   end
