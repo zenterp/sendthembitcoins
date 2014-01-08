@@ -1,4 +1,10 @@
 class Api::Ripple::FederationController < ApplicationController
+  after_filter :set_access_control_headers
+  def set_access_control_headers
+    headers['Access-Control-Allow-Origin'] = "*"
+    headers['Access-Control-Request-Method'] = %w{GET POST OPTIONS}.join(",")
+  end
+
   def bridge
     @destination = params.require(:destination)
     @domain = params.require(:domain)
