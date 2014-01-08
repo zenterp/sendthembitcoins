@@ -23,7 +23,7 @@ class Auth::CallbacksController < ApplicationController
     coinbase = CoinbaseOauthorization.find_or_init_by_uid(auth_hash['info']['id'])
     coinbase.update_auth(auth_hash)
     session[:coinbase] = coinbase
-    redirect_to '/bridgebase'
+    redirect_to '/bridgebase/account'
   end 
 
 private
