@@ -1,5 +1,97 @@
-<p>bitcoin address: <%= @coinbase_user[:bitcoin_address] %>
-<p>email: <%= @coinbase_user[:email] %>
-<p>name: <%= @coinbase_user[:name] %>
-<p>uid: <%= @coinbase_user[:uid] %>
+<div class='span3' style='margin-top:100px'>
+  <% if @ripple_address %>
+    <h3>Your ripple address at Bridgebase Gateway is <%= @ripple_address %>.</h2> 
+  <% else %>
+    <p>Configure your Ripple Address</p>
+    <form>
+      <input type='text' placeholder='gateway ripple address'/>
+      <input type='submit' value='submit'/>
+    </form>
 
+    <div class='well'>
+      <p>All of the data on this gateway account comes from a dedicated deployment of the open-source Ripple Gateway Accounts API</p>
+    </div>
+  <% end %>
+</div>
+<div class="span9 transactions" id="main">
+    <header>
+      <h1 class="span3">Transactions</h1>
+      <div class="pull-right">
+        <a href="#" class="btn " id="send_money_btn"><i class='icon-right'></i> Send to Coinbase</a>
+        <a href="#" class="btn " id="request_money_btn"><i class='icon-left'></i> Send to Ripple Wallet</a>
+      </div>
+    </header>
+
+
+    <h3>
+      Current Gateway Balance at Bridgbase
+      <span class="balance-toggle-2" style="">(<a href="/flags?name=hide_balance_2" class="muted" data-method="post" data-remote="true" rel="nofollow">hide</a>)</span>
+      <span class="balance-toggle-2" style="display:none">(<a href="/flags/remove?name=hide_balance_2" class="muted" data-method="post" data-remote="true" rel="nofollow">show</a>)</span>
+    </h3>
+    <div class="balance balance-toggle-2" style="">
+      <span class='balance-btc ' style="font-weight: bold;">
+        <span class='abbr'>0.6605715 BTC</span>
+        <span class='full'>0.6605715 BTC</span>
+      </span>
+    </div>
+
+    <div id='transactions'>
+      <div id='transactions'>
+
+
+  <table class="table table-hover" id='transactions_list'>
+    <thead>
+      <tr>
+        <th>Network</th>
+        <th>Type</th>
+        <th>Date</th>
+        <th>Status</th>
+        <th class="amount">Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% 15.times do %>
+          <tr class="sent order" id="transaction_52cb38974c67b3db00000049">
+    <td class="date"><%= ['ripple', 'coinbase'].sample %></td>
+    <td class="date"><%= ['deposit', 'withdrawal'].sample %></td>
+    <td class="date">Jan  6, 2014</td>
+    <td><span class='label label-success'>Complete</span></td>
+    <td class="amount"><%= (Random.rand 100).to_f / 50 %></td>
+  </tr>
+    <% end %>
+    </tbody>
+  </table>
+    <div class="pagination">
+    <ul>
+    
+    
+        <li class="page active">
+  <a href="/transactions">1</a>
+</li>
+
+        <li class="page">
+  <a href="/transactions?page=2" rel="next">2</a>
+</li>
+
+        <li class="page">
+  <a href="/transactions?page=3">3</a>
+</li>
+
+        <li class="page">
+  <a href="/transactions?page=4">4</a>
+</li>
+
+        <li class="page">
+  <a href="/transactions?page=5">5</a>
+</li>
+
+        <li class="page gap disabled"><a href="#" onclick="return false;">...</a></li>
+    <li class="next_page">
+  <a href="/transactions?page=2" rel="next">Next &rsaquo;</a>
+</li>
+
+    
+    </ul>
+  </div>
+
+</div>
