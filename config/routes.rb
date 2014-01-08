@@ -4,6 +4,7 @@ Sendthembitcoins::Application.routes.draw do
 
   namespace :bridgebase do
     get '/', to: 'onboard#home'
+    get 'account', to: 'accounts#show'
   end
   
   namespace :api do
