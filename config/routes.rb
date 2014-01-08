@@ -1,6 +1,10 @@
 Sendthembitcoins::Application.routes.draw do
   mount ResqueWeb::Engine => "/resque_web"
   get 'ripple.txt', to: 'application#ripple_txt'
+
+  namespace :bridgebase do
+    get '/', to: 'onboard#home'
+  end
   
   namespace :api do
     get 'bridge', to: 'ripple/federation#bridge'
