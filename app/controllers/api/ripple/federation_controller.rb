@@ -15,7 +15,6 @@ class Api::Ripple::FederationController < ApplicationController
   def quote
     @type = params.require(:type)
     @destination = params.require(:destination)
-    @domain = params.require(:domain)
     @tag = RippleBridge.get_bitcoin_bridge(@destination)
 
     @amount, @currency = params.require(:amount).split("/")
