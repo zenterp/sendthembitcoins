@@ -1,5 +1,5 @@
-<p>You are signed in with coinbase as <%= @coinbase_user.to_json %></p>
-
-<p>with hash: <%= @coinbase_user.try(:[], :bitcoin_address) %></p>
-<p>with string: <%= @coinbase_user.try(:[], 'bitcoin_address') %></p>
+<p>bitcoin address: <%= @coinbase_user[:bitcoin_address] %>
+<p>email: <%= @coinbase_user[:email] %>
+<p>name: <%= @coinbase_user[:name] %>
+<p>uid: <%= @coinbase_user[:uid] %>
 
