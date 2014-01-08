@@ -48,8 +48,8 @@ class Api::Ripple::FederationController < ApplicationController
           currency: 'BTC',
           issuer: @account
         }]
+        fed[:quote_url] = "https://www.sendthembitcoins.com/api/bridges/#{@destination}/quote"
       }
-      h[:quote_url] = "https://www.sendthembitcoins.com/api/bridges/#{@destination}/quote"
     }.to_json
   end
 end
