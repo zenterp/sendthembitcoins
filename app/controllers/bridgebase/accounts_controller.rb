@@ -2,7 +2,7 @@ class Bridgebase::AccountsController < BridgebaseController
   before_filter :ensure_gateway_account, only: :show
 
   def show
-    @balances = client.get_gateway_balances(@user_id)
+    @balances = client.get_gateway_balances(@user_id)['balances']
   end
 
   def logout
