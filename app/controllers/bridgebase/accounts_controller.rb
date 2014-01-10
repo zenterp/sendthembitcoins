@@ -3,6 +3,7 @@ class Bridgebase::AccountsController < BridgebaseController
 
   def show
     @balances = client.get_gateway_balances(@gateway_account['id'])['balances']
+    render json: { account:  @gateway_account, balances: @balances }.to_json
   end
 
   def logout
