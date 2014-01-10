@@ -29,12 +29,14 @@
       <span class="balance-toggle-2" style="">(<a href="/flags?name=hide_balance_2" class="muted" data-method="post" data-remote="true" rel="nofollow">hide</a>)</span>
       <span class="balance-toggle-2" style="display:none">(<a href="/flags/remove?name=hide_balance_2" class="muted" data-method="post" data-remote="true" rel="nofollow">show</a>)</span>
     </h3>
+    <% @balances.each do |balance| %>
     <div class="balance balance-toggle-2" style="">
       <span class='balance-btc ' style="font-weight: bold;">
-        <span class='abbr'>0.6605715 BTC</span>
-        <span class='full'>0.6605715 BTC</span>
+        <span class='abbr'><%= balance['amount'] %> <%= balance['currency'] %></span>
+        <span class='full'><%= balance['amount'] %> <%= balance['currency'] %></span>
       </span>
     </div>
+    <% end %>
 
     <div id='transactions'>
       <div id='transactions'>
