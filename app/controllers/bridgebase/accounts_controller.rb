@@ -13,15 +13,13 @@ class Bridgebase::AccountsController < BridgebaseController
 
   def ensure_gateway_account
     @user_id = session[:coinbase][:uid]
-    @gateway_account = client.get_gateway_account(@user_id)
-    if !@gateway_account
-      @gateway_account = client.create_gateway_account(@user_id)
-    end
+    @gateway_account   = client.get_gateway_account(@user_id)
+    @gateway_account ||= client.create_gateway_account(@user_id)
   end
 
 private
 
-  def gateway_client
-    @api ||= ripple_gateway_client
+  def client
+    @gateway_client ||= ripple_gateway_client
   end
 end
