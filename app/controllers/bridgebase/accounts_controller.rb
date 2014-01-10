@@ -20,6 +20,8 @@ class Bridgebase::AccountsController < BridgebaseController
 private
 
   def client
-    @gateway_client ||= ripple_gateway_client
+    @gateway_client ||= Ripple::Gateway::Client.new(
+      gateway_api_url: ENV['RIPPLE_GATEWAY_API']
+    )
   end
 end
