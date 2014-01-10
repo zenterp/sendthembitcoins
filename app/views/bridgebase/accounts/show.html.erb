@@ -61,9 +61,9 @@
     <td class="date"><%= Date.parse(tx['createdAt']).strftime("%b %d, %Y") %></td>
     <td><span class='label label-success'>Complete</span></td>
     <% if deposit %>
-      <td class="" style='color:green'><%= tx['cashAmount'] %> <%= tx['currency'] %></td>
+      <td class="" style='color:green; text-align:right'><%= tx['cashAmount'] %> <%= tx['currency'] %></td>
     <% else %>
-      <td class="" style='color:red'><%= tx['cashAmount'] %> <%= tx['currency'] %></td>
+      <td class="" style='color:red; text-align:right'><%= tx['cashAmount'] %> <%= tx['currency'] %></td>
     <% end %>
   </tr>
     <% end %>
