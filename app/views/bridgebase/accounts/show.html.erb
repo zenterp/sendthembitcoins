@@ -53,13 +53,18 @@
       </tr>
     </thead>
     <tbody>
-    <% 15.times do %>
-          <tr class="sent order" id="transaction_52cb38974c67b3db00000049">
-    <td class="date"><%= ['ripple', 'coinbase'].sample %></td>
-    <td class="date"><%= ['deposit', 'withdrawal'].sample %></td>
-    <td class="date">Jan  6, 2014</td>
+    <% @gateway_transactions.each do |tx| %>
+      <% deposit = tx['deposit'] ? true : false %>
+          <tr class="sent order" id="">
+    <td class="date"><%= 'coinbase' %></td>
+    <td class="date"><%= deposit ? 'deposit' : 'withdrawal' %></td>
+    <td class="date"><%= tx['created_at'] %></td>
     <td><span class='label label-success'>Complete</span></td>
-    <td class="amount"><%= (Random.rand 100).to_f / 50 %></td>
+    <% if deposit %>
+      <td class="" style='color:green'><%= tx['amount'] %> <%= tx['currency'] %></td>
+    <% else %>
+      <td class="" style='color:red'><%= tx['amount'] %> <%= tx['currency'] %></td>
+    <% end %>
   </tr>
     <% end %>
     </tbody>

@@ -3,6 +3,8 @@ class Bridgebase::AccountsController < BridgebaseController
 
   def show
     @balances = client.get_gateway_balances(@gateway_account['id'])['balances']
+    txs = client.get_gateway_transactions(@gateway_account['id'])
+    @gateway_transactions = txs['gatewayTransactions']
   end
 
   def logout
