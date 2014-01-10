@@ -34,6 +34,17 @@ module Ripple
           body: { currency: currency, cashAmount: cash_amount }
         }).parsed_response
       end
+      
+      def get_gateway_balances(account_id)
+        self.class.get("#{@api}/v1/gateway/accounts/#{account_id}/balances").
+          parsed_response
+      end
+      
+      def create_gateway_withdrawals(account_id, currency, cash_amount)
+        self.class.post("#{@api}/v1/gateway/accounts/#{account_id}/withdrawals", {
+          body: { currency: currency, cashAmount: cash_amount }
+        }).parsed_response
+      end
     end 
   end
 end
