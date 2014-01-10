@@ -23,6 +23,17 @@ module Ripple
         self.class.post("#{@api}/v1/gateway/users/#{user_id}/gateway_accounts").
           parsed_response
       end
+    
+      def get_gateway_transactions(account_id)
+        self.class.get("#{@api}/v1/gateway/accounts/#{account_id}/transactions").
+          parsed_response
+      end
+
+      def create_gateway_deposit(account_id, currency, cash_amount)
+        self.class.post("#{@api}/v1/gateway/accounts/#{account_id}/deposits", {
+          body: { currency: currency, cashAmount: cash_amount }
+        }).parsed_response
+      end
     end 
   end
 end
