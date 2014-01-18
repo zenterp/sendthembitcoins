@@ -268,3 +268,9 @@ a#loginLink {
   background-size:100% 100%;
   background-repeat:none;  
 }
+
+.center-mobile {
+  margin: 0 auto;
+  width: 255px;
+  display: block;
+}
