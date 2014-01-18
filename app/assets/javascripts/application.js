@@ -139,6 +139,10 @@ $(function(){
         }
       });
     },
+    withdrawFromRipple: function() {
+      this.hideAll();
+      $('#withdrawFromRipple').show()
+    },
     configReceiveAddress: function () {
       this.hideAll();
       $('#configReceiveAddresses').show();
@@ -220,6 +224,15 @@ $(function(){
     });
   }
 
+  $('#withdrawFromRipple').on('submit'), function(e) {
+    e.preventDefault();
+    var bitcoinAddress = $('#destinationBitcoinAddress').val();
+    $.getJSON('/api/ripple/bridges/ripple-to-bitcoin/'+bitcoinAddress, function(resp){
+      $('#bridgeRippleAddress').text('Send bitcoin IOUs to '+resp.rippleAddress+
+        ' and real bitcoins will be send to '+bitcoinAddress);
+    })
+  })
+
   $('#rippleBridgeForm').on('submit',function(e) {
     e.preventDefault()
     var ripple_address = $("#rippleBridgeForm input[name='ripple_address']").val()
@@ -235,7 +248,6 @@ $(function(){
       }
     })
   })
-
 
   Backbone.history.start({
     pushState: true,
