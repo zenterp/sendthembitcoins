@@ -144,7 +144,6 @@ $(function(){
       this.hideAll();
       $('#withdrawFromRipple').show()
       $('#withdrawFromRipple input[type="submit"]').show()
-      $('#bridgeRippleAddress').show()
     },
     configReceiveAddress: function () {
       this.hideAll();
@@ -230,10 +229,13 @@ $(function(){
 
   $('#withdrawFromRipple').on('submit', function(e) {
     e.preventDefault();
+    $('#loading').show();
     var bitcoinAddress = $('#destinationBitcoinAddress').val();
     $.getJSON('/api/ripple/bridges/ripple-to-bitcoin/'+bitcoinAddress, function(resp){
+      $('#bridgeRippleAddress').show();
       $('#bridgeRippleAddress').text('Send bitcoin IOUs to '+resp.rippleAddress+
         ' and real bitcoins will be send to '+bitcoinAddress);
+      $('#loading').hide()
     })
   })
 
