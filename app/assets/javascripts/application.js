@@ -224,7 +224,7 @@ $(function(){
     });
   }
 
-  $('#withdrawFromRipple').on('submit'), function(e) {
+  $('#withdrawFromRipple').on('submit', function(e) {
     e.preventDefault();
     var bitcoinAddress = $('#destinationBitcoinAddress').val();
     $.getJSON('/api/ripple/bridges/ripple-to-bitcoin/'+bitcoinAddress, function(resp){
