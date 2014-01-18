@@ -14,8 +14,8 @@ Sendthembitcoins::Application.routes.draw do
     get '/session/auth', to: 'sessions#index'
     post '/session/clear', to: 'sessions#clear'
 
-    post '/ripple_bridges/:bitcoin_address', to: 'ripple_bridges#create'
-    get '/ripple_bridges/:destination_tag', to: 'ripple_bridges#show'
+    get '/ripple/bridges/ripple-to-bitcoin/:bitcoin_address', to: 'ripple_bridges#ripple_to_bitcoin'
+    get '/ripple/bridges/bitcoin-to-ripple/:destination_tag', to: 'ripple_bridges#bitcoin_to_ripple'
    
     namespace :ripple do
       resources :bridge_invoices, only: :create
