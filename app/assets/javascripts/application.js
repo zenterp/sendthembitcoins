@@ -89,7 +89,8 @@ $(function(){
       'user/coinbase' : 'coinbase',
       'addresses/receive' : 'configReceiveAddress',
       'networks/select': 'chooseNetworkToAuth',
-      'ripple-bridge': 'rippleBridges'
+      'ripple-bridge': 'rippleBridges',
+      'ripple-bridge/withdraw': 'withdrawFromRipple'
     },
 
     index: function() {
