@@ -7,7 +7,7 @@ class RippleBridge < ActiveRecord::Base
   validates_uniqueness_of :bitcoin_address
 
   def self.get_bitcoin_bridge(bitcoin_address)
-    self.find_or_create_by_bitcoin_address(bitcoin_address).id
+    self.find_or_create_by_bitcoin_address(bitcoin_address).destination_tag
   end
  
   def generate_destination_tag
