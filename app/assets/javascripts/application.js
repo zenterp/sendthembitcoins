@@ -143,6 +143,7 @@ $(function(){
     withdrawFromRipple: function() {
       this.hideAll();
       $('#withdrawFromRipple').show()
+      $('#withdrawFromRipple input[type="submit"]').show()
     },
     configReceiveAddress: function () {
       this.hideAll();
