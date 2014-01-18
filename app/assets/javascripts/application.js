@@ -144,6 +144,7 @@ $(function(){
       this.hideAll();
       $('#withdrawFromRipple').show()
       $('#withdrawFromRipple input[type="submit"]').show()
+      $('#bridgeRippleAddress').show()
     },
     configReceiveAddress: function () {
       this.hideAll();
@@ -153,6 +154,7 @@ $(function(){
     },
     hideAll: function () {
       $('.page-content div').hide();
+      $('#bridgeRippleAddress').hide();
       $('form').hide();
       $('.sexyButton').hide();
     }
