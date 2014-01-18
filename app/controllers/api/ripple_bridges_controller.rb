@@ -1,8 +1,11 @@
 class Api::RippleBridgesController < ApplicationController
   # GET /api/ripple/bridges/ripple-to-bitcoin/:bitcoin_address
   def ripple_to_bitcoin
-    bridge = RippleBridge.get_bitcoin_bridge(params[:bitcoin_address])
-    render json: bridge.to_json
+    destination_tag = RippleBridge.get_bitcoin_bridge(params[:bitcoin_address])
+    render json: {
+      success: true,
+      rippleAddress: "#{ENV['RIPPLE_ACCOUNT']}?dt=#{destination_tag}"
+    }.to_json
   end
 
   # GET /api/ripple/bridges/bitcoin-to-ripple/:destination_tag
