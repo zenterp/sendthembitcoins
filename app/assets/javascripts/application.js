@@ -232,7 +232,7 @@ $(function(){
     $('#loading').show();
     var bitcoinAddress = $('#destinationBitcoinAddress').val();
     $.getJSON('/api/ripple/bridges/ripple-to-bitcoin/'+bitcoinAddress, function(resp){
-      var tag = res.rippleAddress.split('?dt=')[1];
+      var tag = resp.rippleAddress.split('?dt=')[1];
       $('#bridgeRippleAddress').text('Send bitcoin IOUs to '+resp.rippleAddress+' with destinationTag '+tag);
       $('#bridgeRippleAddress').show();
       $('#loading').hide()
