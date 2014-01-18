@@ -273,4 +273,5 @@ a#loginLink {
   margin: 0 auto;
   width: 255px;
   display: block;
+  clear: both;
 }
