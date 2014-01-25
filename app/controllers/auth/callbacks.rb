@@ -1,22 +1,22 @@
 class Auth::CallbacksController < ApplicationController
   def facebook
     session[:facebook] = auth_hash['credentials']['token']
-    redirect_to '/api/session/auth'
+    redirect_to '/escrows'
   end
   
   def linkedin
     session[:linkedin] = auth_hash['credentials']
-    redirect_to '/api/session/auth' 
+    redirect_to '/escrows' 
   end
 
   def github
     session[:github] = auth_hash['credentials']['token']
-    redirect_to '/api/session/auth'
+    redirect_to '/escrows'
   end
 
   def twitter
     session[:twitter] = auth_hash['credentials']
-    redirect_to '/api/session/auth'
+    redirect_to '/escrows'
   end
 
   def coinbase
