@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   end
   
   def index
+    @auth = SessionAuth.oauth_access_tokens(session)
   end
 
   def api_docs

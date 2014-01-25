@@ -119,6 +119,9 @@
       </div>
       </div>
     </div>
+    <script type='text/javascript'>
+      window.auth = <%= @auth || {} %>;
+    <script/>
     <%= javascript_include_tag :application %>
     <script src="/js/bootstrap.js"></script>
     <%= yield :javascripts %>
