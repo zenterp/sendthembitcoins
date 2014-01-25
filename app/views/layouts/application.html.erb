@@ -120,7 +120,7 @@
       </div>
     </div>
     <script type='text/javascript'>
-      window.auth = JSON.parse('<%= @auth.to_json.html_safe %>');
+      window.auth = JSON.parse(<%= @auth.to_json.html_safe %>);
     </script>
     <%= javascript_include_tag :application %>
     <script src="/js/bootstrap.js"></script>
