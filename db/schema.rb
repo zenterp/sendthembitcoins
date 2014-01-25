@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140125053626) do
+ActiveRecord::Schema.define(:version => 20140125060123) do
 
   create_table "coinbase_oauthorizations", :force => true do |t|
     t.string   "uid"
@@ -29,26 +29,16 @@ ActiveRecord::Schema.define(:version => 20140125053626) do
   add_index "coinbase_oauthorizations", ["uid"], :name => "index_coinbase_oauthorizations_on_uid"
 
   create_table "escrows", :force => true do |t|
-    t.string   "auth_provider", :null => false
-    t.string   "auth_uid",      :null => false
-    t.decimal  "amount",        :null => false
-    t.string   "currency",      :null => false
+    t.string   "auth_provider",    :null => false
+    t.string   "auth_uid",         :null => false
+    t.decimal  "amount",           :null => false
+    t.string   "currency",         :null => false
     t.datetime "funded_at"
     t.datetime "accepted_at"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-  end
-
-  create_table "gifts", :force => true do |t|
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
     t.string   "invoice_id"
-    t.string   "recipient_bitcoin_address"
-    t.float    "bitcoin_amount"
-    t.datetime "funded_at"
-    t.datetime "retrieved_at"
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
-    t.string   "user_id"
-    t.string   "auth_provider"
+    t.string   "invoice_provider"
   end
 
   create_table "ripple_bridge_invoices", :force => true do |t|
