@@ -80,7 +80,7 @@ $(function(){
       this.hideAll();
       $.ajax({
         url: '/api/escrows',
-        data: { auth_provider: 'twitter', auth_uid: 'banananeil' },
+        data: { auth_provider: auth.provider, auth_uid: auth.uid },
         success: function(escrows){
           console.log('got the escrows');
           console.log(escrows);
