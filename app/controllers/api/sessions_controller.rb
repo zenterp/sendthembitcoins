@@ -1,10 +1,10 @@
 class Api::SessionsController < ApplicationController
   def index
-    render json: SessionAuth.oauth_access_tokens(session)
+    render json: session[:auth]
   end
 
   def clear
-    SessionAuth.clear_access_tokens(session)
+    session[:auth] = nil
     render action: :index
   end
 end
