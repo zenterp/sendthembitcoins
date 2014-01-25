@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   end
   
   def index
-    @auth = session[:auth]
+    @auth = session[:auth] || {}
   end
 
   def api_docs
