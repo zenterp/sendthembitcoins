@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  auth_provider: MyString
+  auth_uid: MyString
+  amount: 9.99
+  currency: MyString
+  funded_at: 2014-01-24 21:36:26
+  accepted_at: 2014-01-24 21:36:26
+
+two:
+  auth_provider: MyString
+  auth_uid: MyString
+  amount: 9.99
+  currency: MyString
+  funded_at: 2014-01-24 21:36:26
+  accepted_at: 2014-01-24 21:36:26
