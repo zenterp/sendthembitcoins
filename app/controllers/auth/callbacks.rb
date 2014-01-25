@@ -30,7 +30,7 @@ class Auth::CallbacksController < ApplicationController
   def twitter
     session[:auth] = {
       provider: 'twitter',
-      uid: auth_hash['uid'],
+      uid: auth_hash['info']['nickname'],
       access_token: auth_hash['credentials']['token'],
       access_token_secret: auth_hash['credentials']['secret']
     }
