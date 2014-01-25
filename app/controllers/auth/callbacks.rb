@@ -2,7 +2,7 @@ class Auth::CallbacksController < ApplicationController
   def facebook
     session[:auth] = { 
       provider: 'facebook',
-      uid: auth_hash['uid']
+      uid: auth_hash['uid'],
       access_token: auth_hash['credentials']['token']
     }
     redirect_to '/escrows'
