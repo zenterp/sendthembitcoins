@@ -90,9 +90,14 @@ $(function(){
       'addresses/receive' : 'configReceiveAddress',
       'networks/select': 'chooseNetworkToAuth',
       'ripple-bridge': 'rippleBridges',
-      'ripple-bridge/withdraw': 'withdrawFromRipple'
+      'ripple-bridge/withdraw': 'withdrawFromRipple',
+      'escrows':''
     },
-
+    escrows: function() {
+      this.hideAll();
+      alert(window.auth);
+      console.log('window.auth', window.auth);
+    },
     index: function() {
       this.hideAll();
       $('#homePage, #homePage div').show();
