@@ -24,23 +24,6 @@ _.templateSettings = {
 
 $(function(){
 
-  var Growl = (function() {
-    function show() {
-    }
-
-    function setText() {
-    }
-
-    function Hide() {
-    }
-
-    return {
-      show: show,
-      setText: setText,
-      hide: hide
-    }
-  })
-
   var Gift = Backbone.Model.extend({
     claim: function(bitcoin_address, callback) {
       id = this.get('id');
@@ -91,11 +74,19 @@ $(function(){
       'networks/select': 'chooseNetworkToAuth',
       'ripple-bridge': 'rippleBridges',
       'ripple-bridge/withdraw': 'withdrawFromRipple',
-      'escrows':''
+      'escrows':'escrows'
     },
     escrows: function() {
       this.hideAll();
-      alert(window.auth);
+      $.ajax({
+        url: '/api/escrows',
+        data: { auth_provider: 'twitter', auth_uid: 'banananeil' },
+        success: function(escrows){
+          console.log('got the escrows');
+          console.log(escrows);
+        },
+        dataType: 'json'
+      });
       console.log('window.auth', window.auth);
     },
     index: function() {
