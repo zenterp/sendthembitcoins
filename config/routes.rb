@@ -27,25 +27,6 @@ Sendthembitcoins::Application.routes.draw do
           get 'search'
         end
       end
-      resources :gifts do
-        member do
-          post 'claim' 
-        end
-        collection do
-          post 'claim_all'
-        end
-      end
-    end
-
-    namespace :twitter do
-      resources :gifts do
-        member do
-          post 'claim'
-        end
-        collection do
-          post 'claim_all'
-        end
-      end
     end
 
     post '/payments/coinbase/notification', to: 'payments#notification'
