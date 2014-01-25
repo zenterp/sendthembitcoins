@@ -21,6 +21,8 @@ Sendthembitcoins::Application.routes.draw do
       resources :bridge_invoices, only: :create
     end
 
+    resources :escrows
+
     namespace :facebook do
       resources :friends do
         collection do
