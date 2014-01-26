@@ -46,7 +46,6 @@ $(function(){
     main: '.page-content'  
   });
 
-  App.start();
 
   var Escrow = Backbone.Model.extend({
      
@@ -267,5 +266,6 @@ $(function(){
     })
   })
 
+  App.start();
 
 });
