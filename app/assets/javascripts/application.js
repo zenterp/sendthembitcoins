@@ -40,6 +40,15 @@ $(function(){
 
   App.start();
 
+  var Escrow = Backbone.Model.extend({
+     
+  });
+
+  var Escrows = Backbone.Collection.extend({
+
+  });
+
+  var homeView = new Marionette.ItemView();
 
   var Gift = Backbone.Model.extend({
     claim: function(bitcoin_address, callback) {
@@ -60,22 +69,6 @@ $(function(){
       });
     }
   });
-
-  var Gifts = Backbone.Collection.extend({
-    model: Gift
-  });
-
-  var gifts = new Gifts();
-  gifts.url = '/api/user/gifts/claimable';
-
-  var User = Backbone.Model.extend({
-    url: function () {
-      return '/api/user'
-    }
-  });
-
-  currentUser = new User();
-  currentUser.fetch();
 
   var giftListItemTemplate = _.template($("#giftListItem").html());
   var coinbaseAccountTemplate = _.template($("#coinbaseAccount").html());
