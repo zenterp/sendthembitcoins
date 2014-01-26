@@ -88,9 +88,6 @@ $(function(){
     }
   });
 
-  var giftListItemTemplate = _.template($("#giftListItem").html());
-  var coinbaseAccountTemplate = _.template($("#coinbaseAccount").html());
-
   var AppRouter = Backbone.Router.extend({
     routes: {
       '' : 'index',
@@ -155,11 +152,6 @@ $(function(){
   })
 
   router = new AppRouter;
-
-  $('.sexyButton').on('click', function(){
-    router.navigate($(this).attr('href'));
-  });
-
   App.start();
 
 });
