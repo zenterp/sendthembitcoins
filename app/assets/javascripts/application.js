@@ -35,7 +35,15 @@ $(function(){
   });
 
   App.on('initialize:after', function(options){
-    console.log('credentials', credentials);
+    Backbone.history.start({
+      pushState: true,
+      silent: false
+    });
+  });
+
+  App.addRegions({
+    header: '.page-header',
+    main: '.page-content'  
   });
 
   App.start();
@@ -47,8 +55,6 @@ $(function(){
   var Escrows = Backbone.Collection.extend({
 
   });
-
-  var homeView = new Marionette.ItemView();
 
   var Gift = Backbone.Model.extend({
     claim: function(bitcoin_address, callback) {
@@ -261,9 +267,5 @@ $(function(){
     })
   })
 
-  Backbone.history.start({
-    pushState: true,
-    silent: false
-  });
 
 });
