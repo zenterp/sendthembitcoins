@@ -57,7 +57,6 @@ h1 {
      -moz-user-select: -moz-none;
      -ms-user-select: none;
      user-select: none;
-     display:none;
      /*
      transition: -webkit-box-shadow .3s;
      transition: transform: .3s;
