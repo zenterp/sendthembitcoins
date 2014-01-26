@@ -25,6 +25,22 @@ _.templateSettings = {
 
 $(function(){
 
+  var App = new Backbone.Marionette.Application()
+    , credentials;
+
+  App.on('initialize:before', function(options){
+    console.log('check if there is some user');
+    console.log(window.auth);
+    credentials = new Backbone.Model(window.auth);
+  });
+
+  App.on('initialize:after', function(options){
+    console.log('credentials', credentials);
+  });
+
+  App.start();
+
+
   var Gift = Backbone.Model.extend({
     claim: function(bitcoin_address, callback) {
       id = this.get('id');
