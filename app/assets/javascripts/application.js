@@ -28,6 +28,7 @@ $(function(){
   var App = new Backbone.Marionette.Application()
     , credentials;
 
+  window.App = App;
   App.on('initialize:before', function(options){
     console.log('check if there is some user');
     console.log(window.auth);
@@ -46,6 +47,18 @@ $(function(){
     main: '.page-content'  
   });
 
+  
+  window.NewEscrowView = Backbone.Marionette.ItemView.extend({
+    template: '#newEscrowForm'
+  });
+  
+  window.RippleBridgeForm = Backbone.Marionette.ItemView.extend({
+    template: '#rippleBridgeForm'
+  });
+
+  window.HomeView = Backbone.Marionette.ItemView.extend({
+    template: '#homeView'
+  });
 
   var Escrow = Backbone.Model.extend({
      
@@ -81,18 +94,15 @@ $(function(){
   var AppRouter = Backbone.Router.extend({
     routes: {
       '' : 'index',
-      'twitter/gifts/new' : 'newTwitterGift',
-      'twitter/gifts/new' : 'newGithubGift',
-      'gifts/claimable' : 'gifts',
-      'user/coinbase' : 'coinbase',
-      'addresses/receive' : 'configReceiveAddress',
-      'networks/select': 'chooseNetworkToAuth',
-      'ripple-bridge': 'rippleBridges',
-      'ripple-bridge/withdraw': 'withdrawFromRipple',
-      'escrows':'escrows'
+      'ripple/deposit': 'rippleDeposit',
+      'ripple/withdraw': 'rippleWithdraw',
+      'escrows':'escrows',
+      'escrows/new': 'newEscrow'
+    },
+    newEscrow: function(){
+      App.main.show(new NewEscrowView()); 
     },
     escrows: function() {
-      this.hideAll();
       $.ajax({
         url: '/api/escrows',
         data: { auth_provider: auth.provider, auth_uid: auth.uid },
@@ -105,138 +115,16 @@ $(function(){
       console.log('window.auth', window.auth);
     },
     index: function() {
-      this.hideAll();
-      $('#homePage, #homePage div').show();
-      
-      $('#sendViaButtons, #sendViaButtons .sendViaButton').show();
+      App.main.show(new HomeView());
     },
-    newTwitterGift: function() {
-      $('#homePage, #twitterGifts').hide();
-      $('#newInvoice, #newInvoice .sexyButton').show();
+    rippleDeposit: function() {
+      App.main.show(new RippleBridgeForm());
     },
-    newGithubGift: function() {
-      $('#homePage, #twitterGifts').hide();
-      $('#newInvoice, #newInvoice .sexyButton').show();
-    },
-    chooseNetworkToAuth: function() {
-      $('#homePage, #twitterGifts').hide();
-      $('#loginToClaim div, #loginToClaim').show();
-    },
-    rippleBridges: function() {
-      this.hideAll()
-      $('#rippleBridgeForm').show()
-      $('#rippleNext').show()
-    },
-    gifts: function () {
-      this.hideAll();
-      $('#loading').show();
-      $.getJSON('/api/user/gifts/claimable', function(data) {
-        var gifts = data.gifts.claimable;
-        $('#loading').hide();
-        $('#claimableGifts').show();
-        $('#configReceiveAddresses').show();
-        $('#manualAddress').show();
-        $('#configReceiveAddresses .sexyButton').show();
-        $("#claimableGifts ul").html(gifts.count+' gifts totaling '+gifts.total+' bitcoins');
-      });
-    },
-    coinbase: function () {
-      $("#connectCoinbase").hide();
-      currentUser.fetch({
-        success: function () {
-          var html = coinbaseAccountTemplate(currentUser.attributes);
-          console.log(html);
-          $('#coinbase').append(html);
-          $('#coinbase').show();
-        }
-      });
-    },
-    withdrawFromRipple: function() {
-      this.hideAll();
-      $('#withdrawFromRipple').show()
-      $('#withdrawFromRipple input[type="submit"]').show()
-    },
-    configReceiveAddress: function () {
-      this.hideAll();
-      $('#configReceiveAddresses').show();
-      $('#manualAddress').show();
-      $('#configReceiveAddresses .sexyButton').show();
-    },
-    hideAll: function () {
-      $('.page-content div').hide();
-      $('#bridgeRippleAddress').hide();
-      $('form').hide();
-      $('.sexyButton').hide();
+    rippleWithdraw: function() {
+      App.main.show(new RippleBridgeForm());
     }
   });
 
-  window.app = new AppRouter;
-
-
-  $('#newInvoice').on('submit', function(e) {
-    $('#loading').show();
-    e.preventDefault();
-    var recipient_twitter_username = $('input[name="recipient_twitter_username"]').val();
-    var bitcoin_amount = $('input[name="bitcoin_amount"]').val();
-    var invoice = new Invoice(recipient_twitter_username, bitcoin_amount);
-    invoice.create();
-  });
-
-  $('#configReceiveAddresses').on('submit', function(e) {
-    e.preventDefault();
-    $('#loading').show();
-    console.log('config address "claim!" form submitted.');
-  })
-
-  $('.sexyButton, .page-header a').on('click', function (e) {
-    //e.preventDefault();
-
-    var href = $(this).attr('href');
-    if ($(this).attr('id') == 'connectCoinbase') {
-      $('#loading').show();
-      document.location.href = '/auth/coinbase';
-    }
-
-    if (href) {
-      if (href.match(/^\/auth\//)) {
-        $('#loading').show();
-        document.location.href = href;
-      } else {
-        app.navigate(href, {trigger: true});
-      }
-    }
-  });
-
-  if (window.plugins && window.plugins.childBrowser) {
-    $('#twitterGifts').on('click', function(e) {
-      e.preventDefault();
-      window.plugins.childBrowser.showWebPage('/auth/twitter', {
-        showLocationBar: true
-      });
-    })
-  } else {
-    $('#twitterGifts').on('click', function(e) {
-      $('#loading').show();
-      console.log('clicked');
-      e.preventDefault();
-      document.location.href = '/auth/twitter';
-    })
-  }
-
-
-  window.setCoinbaseAddress = function (callback) {
-    $.ajax({
-      type: "POST",
-      beforeSend: function(xhr) {
-        var token = $('meta[name="csrf-token"]').attr('content');
-        xhr.setRequestHeader('X-CSRF-Token', token);
-      },
-      url: '/api/addresses/coinbase',
-      success: function(data) {
-        callback(data);
-      }
-    });
-  }
 
   $('#withdrawFromRipple').on('submit', function(e) {
     e.preventDefault();
@@ -265,6 +153,12 @@ $(function(){
       }
     })
   })
+
+  router = new AppRouter;
+
+  $('.sexyButton').on('click', function(){
+    router.navigate($(this).attr('href'));
+  });
 
   App.start();
 
