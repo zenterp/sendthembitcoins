@@ -5,8 +5,8 @@ class Api::PaymentsController < ApplicationController
     custom = JSON.parse(params['order']['custom'])
     if custom['invoice_id']
       handle_ripple_payment(custom)
-    elsif (gift = Gift.find(custom['gift_id'].to_i))
-      gift.update_attributes(funded_at: Time.now)  
+    elsif (escrow = Escrow.find(custom['escrow_id'].to_i))
+      escrow.update_attributes(funded_at: Time.now)  
     end
     render text: 'success'
   end
