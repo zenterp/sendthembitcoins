@@ -9,8 +9,8 @@ class Api::EscrowsController < ApplicationController
   end
 
   def accept
-    access_token = params.require(:access_token)
-    bitcoin_address = params.require(:bitcoin_address)
+    @access_token = params.require(:access_token)
+    @bitcoin_address = params.require(:bitcoin_address)
     @escrow = Escrow.find(params[:id])
 
     case @escrow.auth_provider
@@ -39,11 +39,12 @@ private
 
   def accept_twitter
     access_token_secret = params.require(:access_token_secret)
-    verifier = OauthVerifier::Twitter.new(
+    verifier = OauthVerifier::Twitter.new({
       consumer_key: ENV['TWITTER_KEY_SENDTHEMBITCOINS'],
-      consumer_secret: ENV['TWITTER_SECRET_SENDTHEMBITCOINS'])
-    if verifier.validate(@escrow.auth_uid, access_token, access_token_secret)
-      @escrow.accept
+      consumer_secret: ENV['TWITTER_SECRET_SENDTHEMBITCOINS']
+    })
+    if verifier.validate(@escrow.auth_uid, @access_token, access_token_secret)
+      @escrow.accept(@bitcoin_address)
     end
     render json: @escrow
   end
@@ -53,6 +54,13 @@ private
   end
   
   def accept_facebook
+    verifier = OAuthVerifier::Facebook.new({
+      consumer_key: ENV['FACEBOOK_KEY'], 
+      consumer_secret: ENV['FACEBOOK_SECRET']
+    })
+    if verifier.validate(@escrow.auth_uid, @access_token) 
+      @escrow.accept(@bitcoin_address)
+    end
     render json: @escrow
   end
   
