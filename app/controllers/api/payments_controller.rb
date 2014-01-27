@@ -12,7 +12,7 @@ class Api::PaymentsController < ApplicationController
     rescue => error
       puts error
     end
-    render status: 200
+    render text: 'success'
   end
 
   def verify_completed
