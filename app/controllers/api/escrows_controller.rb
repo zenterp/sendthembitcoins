@@ -68,5 +68,9 @@ private
   
   def accept_linkedin
     access_token_secret = params.require(:access_token_secret)
+    verifier = OauthVerifier::Linkedin.new
+    if verifier.validate(@escrow.auth_uid, @access_token, access_token_secret)
+      @escrow.accept(@bitcoin_address)
+    end
   end
 end
