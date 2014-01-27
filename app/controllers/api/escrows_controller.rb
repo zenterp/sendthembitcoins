@@ -19,6 +19,6 @@ class Api::EscrowsController < ApplicationController
       amount: params.require(:amount),
       currency: params.require(:currency)
     )
-    render json: @escrow
+    render json: { invoice_url: "https://coinbase.com/checkouts/#{@escrow.invoice_id}" }
   end
 end
