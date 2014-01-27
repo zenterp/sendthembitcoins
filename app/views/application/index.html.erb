@@ -25,16 +25,25 @@
 
 <script type='text/template' id='newEscrowForm'>
   <div class='center-mobile'>
-    <h3>Send Bitcoins via a Social Network</h3>
     <form id='escrowForm'>
-      <select class='center-mobile' name='auth_provider' form='escrowForm'>
-        <option value='twitter'>twitter</option>
-        <option value='github'>github</option>
-        <option value='facebook'>facebook</option>
-        <option value='linkedin'>linkedin</option>
-      </select>
-      <input class='center-mobile' name='user_id' required='true' type='text' placeholder='user id'></input>
-      <input class='center-mobile' name='amount' step='0.001' required='true' type='text' placeholder='bitcoin amount'></input>
+      <div class='form-group'>
+        <label for='auth_provider'>Select Social Network</label>
+        <select class='center-mobile' name='auth_provider' form='escrowForm'>
+          <option value='twitter'>twitter</option>
+          <option value='github'>github</option>
+          <option value='facebook'>facebook</option>
+          <option value='linkedin'>linkedin</option>
+        </select>
+      </div>
+
+      <div class='form-group'>
+        <label for='user_id'>Network username or id </label>
+        <input class='center-mobile' name='user_id' required='true' type='text'></input>
+      </div>
+      <div class='form-group'>
+        <label for='amount'>Bitcoin Amount</label>
+        <input class='center-mobile' name='amount' step='0.001' required='true' type='text'></input>
+      </div>
 
       <input type='submit' class='sexyButton'/>
     </form>
