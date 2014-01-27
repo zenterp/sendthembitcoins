@@ -83,7 +83,6 @@ var RowView = Backbone.Marionette.ItemView.extend({
     var opts = new Object(auth);
     opts.bitcoin_address = $('input').val();
     this.model.accept(opts, function(response){
-      console.log(response);
       escrows.fetch({ data: {
         auth_provider: auth.provider,
         auth_uid: auth.uid
@@ -133,14 +132,12 @@ $(function(){
   });
 
   var Escrow = Backbone.Model.extend({ 
-    url: function() {
-      return '/api/escrows/'+this.get('id')+'/accept';
-    },
     accept: function(opts, fn) {
+      var url = '/api/escrows/'+this.get('id')+'/accept';
       $.ajax({
         type: 'post',
         dataType: 'json',
-        url: this.url(),
+        url: url,
         data: opts,
         success: fn
       }); 
