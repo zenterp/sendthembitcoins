@@ -1,0 +1,1 @@
+Escrows = Backbone.Collection.extend

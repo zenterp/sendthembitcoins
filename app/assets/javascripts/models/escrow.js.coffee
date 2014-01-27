@@ -1,0 +1,1 @@
+Escrow = Backbone.Model.extend
