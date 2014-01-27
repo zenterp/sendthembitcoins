@@ -1,14 +1,10 @@
 class Api::EscrowsController < ApplicationController
-  def show
-    @escrow = Escrow.find(params[:id])
-    render json: @escrow
-  end
-
   def index
     @escrows = Escrow.where(
       auth_provider: params.require(:auth_provider), 
-      auth_uid: params.require(:auth_uid)
-    )
+      auth_uid: params.require(:auth_uid),
+    ).where('funded_at IS NOT NULL AND accepted_at IS NULL')
+
     render json: @escrows
   end
 
@@ -45,8 +41,7 @@ private
     access_token_secret = params.require(:access_token_secret)
     verifier = OauthVerifier::Twitter.new(
       consumer_key: ENV['TWITTER_KEY_SENDTHEMBITCOINS'],
-      consumer_secret: ENV['TWITTER_SECRET_SENDTHEMBITCOINS']
-    )
+      consumer_secret: ENV['TWITTER_SECRET_SENDTHEMBITCOINS'])
     if verifier.validate(@escrow.auth_uid, access_token, access_token_secret)
       @escrow.accept
     end
