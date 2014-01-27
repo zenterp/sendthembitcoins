@@ -45,6 +45,8 @@ $(function(){
     main: '.page-content'  
   });
 
+  console.log(App.main);
+
   var NewEscrowView = Backbone.Marionette.ItemView.extend({
     template: '#newEscrowForm'
   });
