@@ -25,16 +25,18 @@
 
 <script type='text/template' id='newEscrowForm'>
   <div class='center-mobile'>
-    <h3>Create an Escrow</h3>
+    <h3>Send Bitcoins via a Social Network</h3>
     <form id='escrowForm'>
-      <select name='auth_provider' form='escrowForm'>
+      <select class='center-mobile' name='auth_provider' form='escrowForm'>
         <option value='twitter'>twitter</option>
         <option value='github'>github</option>
         <option value='facebook'>facebook</option>
         <option value='linkedin'>linkedin</option>
       </select>
+      <input class='center-mobile' name='user_id' required='true' type='text' placeholder='user id'></input>
+      <input class='center-mobile' name='amount' step='0.001' required='true' type='text' placeholder='bitcoin amount'></input>
 
-      <input type='submit' class='sexy-button'/>
+      <input type='submit' class='sexyButton'/>
     </form>
   </div>
 </script>
