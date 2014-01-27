@@ -19,6 +19,7 @@ gem 'resque'
 gem 'resque-web', require: 'resque_web'
 gem 'rack-cors', :require => 'rack/cors'
 gem "github_api"
+gem 'linkedin'
 
 group :test do
   gem 'rspec-rails'
