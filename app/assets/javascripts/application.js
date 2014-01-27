@@ -91,19 +91,16 @@ $(function(){
     main: '.page-content'  
   });
 
-  var Escrow = (function(){
-    function create(opts, fn) {
-      $.ajax({
-        url: '/api/escrows',
-        type: 'post',
-        data: opts,
-        complete: function(resp){
-          fn(resp.responseJSON);
-        }
-      });
-    }
-    return { create: create }
-  })();
+  var Escrow = Backbone.Model.extend({
+
+  });
+
+  var Escrows = Backbone.Collection.extend({
+    model: Escrow,
+    url: '/api/escrows'
+  });
+
+  var escrows = new Escrows();
 
   var NewEscrowView = Backbone.Marionette.ItemView.extend({
     template: '#newEscrowForm',
@@ -112,10 +109,12 @@ $(function(){
     },
     submit: function(event) {
       event.preventDefault();
-      var escrow = $(event.target).serializeObject();
+      var formData = $(event.target).serializeObject();
       $('#loading').show();
-      Escrow.create(escrow, function(escrow) {
-        document.location.href = escrow.invoice_url;
+      escrows.create(formData, { 
+        success: function(escrow){
+          document.location.href = escrow.get('invoice_url');
+        }
       });
     }
   });
