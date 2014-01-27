@@ -80,8 +80,12 @@
   <td style='width:13%; padding:10px'><a>claim</a></td>
 </script>
 
+<script id="noEscrowsTemplate" type="text/html">
+  <p class='well'>You currently have no escrows.</p>
+</script>
+
 <script id="table-template" type="text/html">
-  <h2 class='center-mobile'>Your Claimable Escrows</h2>
+  <h2 class='center-mobile'>Your {{= auth_provider }} Escrows</h2>
   <div class='center-mobile form-control'>
   <label for='bitcoin_address'>Enter your bitcoin address and claim</label>
   <input type='text' name='bitcoin_address' class='center-mobile'/>
