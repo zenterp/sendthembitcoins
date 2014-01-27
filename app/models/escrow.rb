@@ -10,6 +10,17 @@ class Escrow < ActiveRecord::Base
     })
   end
 
+  def accept(receive_address)
+    if funded_at && !accepted_at && (currency.downcase == 'btc')
+      result = bitcoin_client.send_money(receive_address, amount)
+      if result && result.success?
+        update_attributes({
+          accepted_at: Time.now
+        })
+      end
+    end
+  end
+
 private
 
   def generate_invoice
