@@ -54,7 +54,7 @@ private
   end
   
   def accept_facebook
-    verifier = OAuthVerifier::Facebook.new({
+    verifier = OauthVerifier::Facebook.new({
       consumer_key: ENV['FACEBOOK_KEY'], 
       consumer_secret: ENV['FACEBOOK_SECRET']
     })
