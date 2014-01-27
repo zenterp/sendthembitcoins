@@ -103,6 +103,12 @@ var EscrowsTableView = Backbone.Marionette.CompositeView.extend({
   emptyView: NoItemsView
 });
 
+var Credentials = Backbone.Model.extend({
+  defaults: {
+    'auth_provider': ''
+  } 
+})
+
 $(function(){
 
   var credentials;
@@ -110,7 +116,8 @@ $(function(){
   App = new Backbone.Marionette.Application;
 
   App.on('initialize:before', function(options){
-    credentials = new Backbone.Model(window.auth);
+    // the `auth` object is passed in to a preceeding <script> using ERB
+    credentials = new Credentials(auth);
   });
 
   App.on('initialize:after', function(options){
@@ -199,7 +206,7 @@ $(function(){
       }});
       App.main.show(new EscrowsTableView({
         collection: escrows,
-        model: auth
+        model: credentials
       }));
     },
     index: function() {
