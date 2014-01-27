@@ -21,7 +21,7 @@ class Auth::CallbacksController < ApplicationController
   def github
     session[:auth] = {
       provider: 'github',
-      uid: auth_hash['uid'],
+      uid: auth_hash['info']['nickname'],
       access_token: auth_hash['credentials']['token']
     }
     redirect_to '/escrows'
