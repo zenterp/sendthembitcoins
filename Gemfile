@@ -18,6 +18,7 @@ gem 'ripple_lib_rpc_ruby', github: 'ripple/ripple-lib-rpc-ruby'
 gem 'resque'
 gem 'resque-web', require: 'resque_web'
 gem 'rack-cors', :require => 'rack/cors'
+gem "github_api"
 
 group :test do
   gem 'rspec-rails'
