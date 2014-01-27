@@ -148,13 +148,12 @@ $(function(){
       App.main.show(new NewEscrowView()); 
     },
     escrows: function() {
-      $.ajax({
-        url: '/api/escrows',
-        data: { auth_provider: auth.provider, auth_uid: auth.uid },
-        success: function(escrows){
-        },
-        dataType: 'json'
-      });
+      escrows.fetch({ data: {
+        auth_provider: auth.provider,
+        auth_uid: auth.uid
+      }, success: function(resp) {
+        console.log(resp);
+      }});
     },
     index: function() {
       App.main.show(new HomeView);
