@@ -80,7 +80,9 @@ var RowView = Backbone.Marionette.ItemView.extend({
   },
   accept: function() {
     var escrows = this.model.collection;
-    this.model.accept(auth, function(response){
+    var opts = new Object(auth);
+    opts.bitcoin_address = $('input').val();
+    this.model.accept(opts, function(response){
       console.log(response);
       escrows.fetch({ data: {
         auth_provider: auth.provider,
