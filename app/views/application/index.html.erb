@@ -76,21 +76,13 @@
 </script>
 
 <script id="row-template" type="text/html">
-  <td>{{= amount }}</td>
-  <td>{{= currency }}</td>
-  <td>{{= funded_at }}</td>
+  <td style='width:50%'>{{= amount }} {{= currency }}</td>
+  <td style='width:50%'><a>claim</a></td>
 </script>
 
 <script id="table-template" type="text/html">
   <table class='center-mobile table table-striped'>
-    <thead>
-      <tr>
-        <th>amount</th>
-        <th>currency</th>
-        <th>date</th>
-      </tr>
-    </thead>
-
+    <h2 class='center-mobile'>Your Claimable Escrows</h2>
     <tbody></tbody>
   </table>
 </script>
