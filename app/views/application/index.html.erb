@@ -1,5 +1,5 @@
 <script type='text/template' id='homeView'>
-<div class='center-mobile' id='homePage'>
+<div class='center-mobile'>
   <div id='sendViaButtons'>
     <a id='sendViaTwitter' href="/escrows/new" class='sendViaButton sexyButton' style='margin-left:0px'>
       Send Bitcoins to a Twitter user
@@ -25,7 +25,7 @@
 
 <script type='text/template' id='newEscrowForm'>
   <div class='center-mobile'>
-    <form id='escrowForm'>
+    <form>
       <div class='form-group'>
         <label for='auth_provider'>Select Social Network</label>
         <select class='center-mobile' name='auth_provider' form='escrowForm' style='margin:10px 0'>
@@ -51,7 +51,7 @@
 </script>
 
 <script type='text/template' id='rippleDeposit'>
-<form class='center-mobile' method='post' id='rippleBridgeForm' action='https://www.sendthembitcoins.com/api/ripple/bridge_invoices' novalidate>
+<form class='center-mobile' method='post' action='/api/ripple/bridge_invoices' novalidate>
   <p class='input'>Enter the number of bitcoins</p>
   <input class='center-mobile' name='amount' step='0.001' required='true' type='text'></input>
   <p class='input'>Enter the destination ripple address</p>
@@ -62,10 +62,15 @@
 </script>
 
 <script type='text/template' id='rippleWithdraw'>
-<form id='withdrawFromRipple' novalidate>
+<form class='center-mobile' novalidate>
   <p class='input center-mobile'>Enter the destination bitcoin address</p>
-  <input class='center-mobile' id='destinationBitcoinAddress' placeholder='recipient bitcoin address' name='amount' step='0.001' required='true' type='text' style='margin-top:30px; margin-bottom:30px'></input>
-  <p class='well input center-mobile' style='width:500px;' id='bridgeRippleAddress'></p>
-  <input type='submit' style='font-size: 1em; margin-top:2em' class='sexyButton center-mobile' id='rippleNext' value='submit'/>
+  <input placeholder='recipient bitcoin address' name='amount' step='0.001' required='true' type='text' style='margin-top:30px; margin-bottom:30px'></input>
+  <p id='bridgeRippleAddress'></p>
+  <input type='submit' class='sexyButton' value='submit'/>
 </form>
+</script>
+
+<script type='text/template' id='headerTemplate'>
+  <a href='/' style='color:#eee'>Send Them Bitcoins</a>
+  <span style='font-size:50%'> beta</span>
 </script>
