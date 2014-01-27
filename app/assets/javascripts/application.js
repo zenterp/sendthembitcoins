@@ -19,6 +19,7 @@
 //= require_tree ./collections
 //= require_tree .
 //= require_self  
+
 $.fn.serializeObject = function()
 {
     var o = {};
@@ -79,7 +80,7 @@ var RowView = Backbone.Marionette.ItemView.extend({
   },
   accept: function() {
     var escrows = this.model.collection;
-    this.model.accept(function(response){
+    this.model.accept(auth, function(response){
       console.log(response);
       escrows.fetch({ data: {
         auth_provider: auth.provider,
@@ -119,11 +120,12 @@ $(function(){
     url: function() {
       return '/api/escrows/'+this.get('id')+'/accept';
     },
-    accept: function(fn) {
+    accept: function(opts, fn) {
       $.ajax({
         type: 'post',
         dataType: 'json',
         url: this.url(),
+        data: opts,
         success: fn
       }); 
     }
