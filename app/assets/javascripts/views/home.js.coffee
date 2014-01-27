@@ -5,5 +5,9 @@ window.HomeView = Marionette.ItemView.extend
   click: (e) ->
     e.preventDefault()
     url = $(e.target).attr('href')
-    Backbone.history.navigate(url, trigger: true)
+    if url.match(/^\/auth/)
+      $('#loading').show()
+      document.location.href = url
+    else
+      Backbone.history.navigate(url, trigger: true)
       
