@@ -78,7 +78,14 @@ var RowView = Backbone.Marionette.ItemView.extend({
     'click a': 'accept'
   },
   accept: function() {
-    console.log('accept clicked for ', this);
+    var escrows = this.model.collection;
+    this.model.accept(function(response){
+      console.log(response);
+      escrows.fetch({ data: {
+        auth_provider: auth.provider,
+        auth_uid: auth.uid
+      }});
+    });
   }
 });
 
@@ -109,8 +116,16 @@ $(function(){
   });
 
   var Escrow = Backbone.Model.extend({ 
-    claim: function() {
-      console.log('claim called for ', this);
+    url: function() {
+      return '/api/escrows/'+this.get('id')+'/accept';
+    },
+    accept: function(fn) {
+      $.ajax({
+        type: 'post',
+        dataType: 'json',
+        url: this.url(),
+        success: fn
+      }); 
     }
   });
 
