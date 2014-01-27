@@ -1,7 +1,7 @@
 <script type='text/template' id='homeView'>
 <div class='center-mobile' id='homePage'>
   <div id='sendViaButtons'>
-    <a id='sendViaTwitter' href="/twitter/gifts/new" class='sendViaButton sexyButton' style='margin-left:0px'>
+    <a id='sendViaTwitter' href="/escrows/new" class='sendViaButton sexyButton' style='margin-left:0px'>
       Send Bitcoins to a Twitter user
     </a>
     <a id='sendViaTwitter' href="/auth/twitter" class='sendViaButton sexyButton'>
@@ -12,11 +12,11 @@
   <div style='clear:both'/>
 
   <div id='loginToClaim'>
-    <a href="/ripple-bridge" style='font-size:160%;margin-top:30px;padding:10px;display:block;color:white;background-color:#397dae;' class='sexyButton'>
+    <a href="/ripple/deposit" style='font-size:160%;margin-top:30px;padding:10px;display:block;color:white;background-color:#397dae;' class='sexyButton'>
       Send to Ripple Wallet
     </a>
 
-    <a href="/ripple-bridge/withdraw" style='font-size:160%;padding:10px;display:block;background-color:#ddd;color:#666;' class='sexyButton'>
+    <a href="/ripple/withdraw" style='font-size:160%;padding:10px;display:block;background-color:#ddd;color:#666;' class='sexyButton'>
       Withdraw <img src='/assets/bitcoin-tiny.png' /> from Ripple
     </a>
   </div>
@@ -57,7 +57,7 @@
   <p class='input'>Enter the destination ripple address</p>
   <input class='center-mobile' name='ripple_address' step='0.001' min='0.001' required='true' type='text'></input>
 
-  <input type='submit' style='font-size: 1em; margin-top:2em' class='sexyButton' id='rippleNext' value='next'/>
+  <input type='submit' style='font-size: 1em; margin-top:2em' class='center-mobile sexyButton' id='rippleNext' value='next'/>
 </form>
 
 <script type='text/template' id='rippleBridgeForm'>
