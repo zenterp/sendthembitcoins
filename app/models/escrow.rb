@@ -13,10 +13,10 @@ class Escrow < ActiveRecord::Base
 private
 
   def generate_invoice
-    invoice = bitcoin_client.create_button(
-      "an escrow of bitcoin to be claimed by #{auth_uid} on #{auth_provider}",
+    bitcoin_client.create_button(
+      "an escrow of bitcoin"
       bitcoin_amount.to_f * 1.01,
-      nil, # description
+      "claimable by #{auth_uid} on #{auth_provider}",
       { escrow_id: id }.to_json,
       { variable_price: false }
     )
