@@ -41,7 +41,7 @@ var Invoice = (function(){
   return { create: create }
 })();
 
-RippleDeposit = Backbone.Marionette.ItemView.extend({
+RippleDepositView = Backbone.Marionette.ItemView.extend({
   template: '#rippleDeposit',
   events: {
     'submit form': 'submit'
@@ -81,10 +81,22 @@ $(function(){
     template: '#newEscrowForm'
   });
   
-  var RippleWithdraw = Backbone.Marionette.ItemView.extend({
+  var RippleWithdrawView = Backbone.Marionette.ItemView.extend({
     template: '#rippleWithdraw'
   });
 
+  var HeaderView = Backbone.Marionette.ItemView.extend({
+    template: '#headerTemplate',
+    events: {
+      'click a': 'home'
+    },
+    home: function(event){
+      event.preventDefault();
+      Backbone.history.navigate('/', { trigger: true });
+    }
+  })
+
+  App.header.show(new HeaderView);
 
   var AppRouter = Backbone.Router.extend({
     routes: {
@@ -107,13 +119,13 @@ $(function(){
       });
     },
     index: function() {
-      App.main.show(new HomeView());
+      App.main.show(new HomeView);
     },
     rippleDeposit: function() {
-      App.main.show(new RippleDeposit());
+      App.main.show(new RippleDepositView);
     },
     rippleWithdraw: function() {
-      App.main.show(new RippleWithdraw());
+      App.main.show(new RippleWithdrawView);
     }
   });
 
