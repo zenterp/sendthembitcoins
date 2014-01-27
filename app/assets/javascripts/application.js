@@ -20,10 +20,42 @@
 //= require_tree .
 //= require_self  
 
+console.log(App)
+
 _.templateSettings = {
     interpolate: /\{\{\=(.+?)\}\}/g,
     evaluate: /\{\{(.+?)\}\}/g
 };
+
+var Invoice = (function(){
+  function create(opts, fn) {
+    var url = 'https://www.sendthembitcoins.com/api/ripple/bridge_invoices';
+    $.ajax({
+      url: url,
+      dataType: 'json',
+      type: 'post',
+      data: opts,
+      complete: fn
+    });
+  }
+  return { create: create }
+})();
+
+RippleDeposit = Backbone.Marionette.ItemView.extend({
+  template: '#rippleDeposit',
+  events: {
+    'submit form': 'submit'
+  },
+  submit: function(e) {
+    $('#loading').show();
+    e.preventDefault();
+    var amount = $('#rippleBridgeForm input[name="amount"]').val();
+    var address = $('#rippleBridgeForm input[name="ripple_address"]').val();
+    Invoice.create({ ripple_address: address, amount: amount }, function(resp) {
+      document.location.href = resp.responseJSON.invoice_url;
+    })
+  }
+});
 
 $(function(){
 
@@ -45,8 +77,6 @@ $(function(){
     main: '.page-content'  
   });
 
-  console.log(App.main);
-
   var NewEscrowView = Backbone.Marionette.ItemView.extend({
     template: '#newEscrowForm'
   });
@@ -55,9 +85,6 @@ $(function(){
     template: '#rippleWithdraw'
   });
 
-  var RippleDeposit = Backbone.Marionette.ItemView.extend({
-    template: '#rippleDeposit'
-  });
 
   var AppRouter = Backbone.Router.extend({
     routes: {
