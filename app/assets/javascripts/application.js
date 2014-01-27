@@ -79,6 +79,7 @@ var RowView = Backbone.Marionette.ItemView.extend({
     'click a': 'accept'
   },
   accept: function() {
+    $('#loading').show();
     var escrows = this.model.collection;
     var opts = new Object(auth);
     opts.bitcoin_address = $('input').val();
@@ -86,6 +87,9 @@ var RowView = Backbone.Marionette.ItemView.extend({
       escrows.fetch({ data: {
         auth_provider: auth.provider,
         auth_uid: auth.uid
+      },
+      success: function(){
+        $('#loading').hide();
       }});
     });
   }
