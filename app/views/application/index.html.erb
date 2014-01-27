@@ -25,7 +25,7 @@
 
 <script type='text/template' id='newEscrowForm'>
   <div class='center-mobile'>
-    <form>
+    <form id='escrowForm'>
       <div class='form-group'>
         <label for='auth_provider'>Select Social Network</label>
         <select class='center-mobile' name='auth_provider' form='escrowForm' style='margin:10px 0'>
@@ -38,13 +38,13 @@
 
       <div class='form-group'>
         <label for='user_id'>Network username or id </label>
-        <input class='center-mobile' name='user_id' required='true' type='text'></input>
+        <input class='center-mobile' name='auth_uid' required='true' type='text'></input>
       </div>
       <div class='form-group'>
         <label for='amount'>Bitcoin Amount</label>
         <input class='center-mobile' name='amount' step='0.001' required='true' type='text'></input>
       </div>
-
+      <input type='hidden' name='currency' value='btc'/>
       <input type='submit' class='sexyButton'/>
     </form>
   </div>
