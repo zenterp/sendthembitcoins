@@ -50,6 +50,10 @@ private
   end
   
   def accept_github
+    verifier = OauthVerifier::Github.new
+    if verifier.validate(@escrow.auth_uid, @access_token)
+      @escrow.accept(@bitcoin_address)
+    end
   end
   
   def accept_facebook
