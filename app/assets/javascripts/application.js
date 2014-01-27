@@ -49,8 +49,8 @@ RippleDepositView = Backbone.Marionette.ItemView.extend({
   submit: function(e) {
     $('#loading').show();
     e.preventDefault();
-    var amount = $('#rippleBridgeForm input[name="amount"]').val();
-    var address = $('#rippleBridgeForm input[name="ripple_address"]').val();
+    var amount = $('form input[name="amount"]').val();
+    var address = $('form input[name="ripple_address"]').val();
     Invoice.create({ ripple_address: address, amount: amount }, function(resp) {
       document.location.href = resp.responseJSON.invoice_url;
     })
