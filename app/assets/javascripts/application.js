@@ -19,8 +19,22 @@
 //= require_tree ./collections
 //= require_tree .
 //= require_self  
-
-console.log(App)
+$.fn.serializeObject = function()
+{
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function() {
+        if (o[this.name] !== undefined) {
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
+    });
+    return o;
+};
 
 _.templateSettings = {
     interpolate: /\{\{\=(.+?)\}\}/g,
@@ -29,13 +43,14 @@ _.templateSettings = {
 
 var Invoice = (function(){
   function create(opts, fn) {
-    var url = 'https://www.sendthembitcoins.com/api/ripple/bridge_invoices';
     $.ajax({
-      url: url,
+      url: '/api/ripple/bridge_invoices',
       dataType: 'json',
       type: 'post',
       data: opts,
-      complete: fn
+      complete: function(resp) {
+        fn(resp.responseJSON);
+      }
     });
   }
   return { create: create }
@@ -49,10 +64,9 @@ RippleDepositView = Backbone.Marionette.ItemView.extend({
   submit: function(e) {
     $('#loading').show();
     e.preventDefault();
-    var amount = $('form input[name="amount"]').val();
-    var address = $('form input[name="ripple_address"]').val();
-    Invoice.create({ ripple_address: address, amount: amount }, function(resp) {
-      document.location.href = resp.responseJSON.invoice_url;
+    var formData = $('form').serializeObject();
+    Invoice.create(formData, function(invoice) {
+      document.location.href = invoice.invoice_url;
     })
   }
 });
@@ -77,8 +91,33 @@ $(function(){
     main: '.page-content'  
   });
 
+  var Escrow = (function(){
+    function create(opts, fn) {
+      $.ajax({
+        url: '/api/escrows',
+        type: 'post',
+        data: opts,
+        complete: function(resp){
+          fn(resp.responseJSON);
+        }
+      });
+    }
+    return { create: create }
+  })();
+
   var NewEscrowView = Backbone.Marionette.ItemView.extend({
-    template: '#newEscrowForm'
+    template: '#newEscrowForm',
+    events: {
+      'submit form': 'submit'
+    },
+    submit: function(event) {
+      event.preventDefault();
+      var escrow = $(event.target).serializeObject();
+      $('#loading').show();
+      Escrow.create(escrow, function(escrow) {
+        document.location.href = escrow.invoice_url;
+      });
+    }
   });
   
   var RippleWithdrawView = Backbone.Marionette.ItemView.extend({
