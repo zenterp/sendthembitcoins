@@ -110,8 +110,7 @@ h1 {
 
   input[type='text'], input[type='number'], input[type='email'] {
    font-size:100%;
-   padding:5px; 
-   padding-left:10px;
+   margin:10px 0;
    font-size:120%;
    border-radius:5px;
   }
