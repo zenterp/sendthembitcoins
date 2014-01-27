@@ -71,10 +71,15 @@ RippleDepositView = Backbone.Marionette.ItemView.extend({
   }
 });
 
-
 var RowView = Backbone.Marionette.ItemView.extend({
   tagName: "tr",
-  template: "#row-template"
+  template: "#row-template",
+  events: {
+    'click a': 'accept'
+  },
+  accept: function() {
+    console.log('accept clicked for ', this);
+  }
 });
 
 var EscrowsTableView = Backbone.Marionette.CompositeView.extend({
@@ -103,8 +108,10 @@ $(function(){
     main: '.page-content'  
   });
 
-  var Escrow = Backbone.Model.extend({
-
+  var Escrow = Backbone.Model.extend({ 
+    claim: function() {
+      console.log('claim called for ', this);
+    }
   });
 
   var Escrows = Backbone.Collection.extend({
@@ -160,15 +167,13 @@ $(function(){
       App.main.show(new NewEscrowView()); 
     },
     escrows: function() {
-      App.main.show(new EscrowsTableView({
-        collection: escrows
-      }));
       escrows.fetch({ data: {
         auth_provider: auth.provider,
         auth_uid: auth.uid
-      }, success: function(resp) {
-        console.log(resp);
       }});
+      App.main.show(new EscrowsTableView({
+        collection: escrows
+      }));
     },
     index: function() {
       App.main.show(new HomeView);
