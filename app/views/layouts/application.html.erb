@@ -95,6 +95,8 @@
         <a href='/' style='color:#eee'>Send Them Bitcoins</a>
         <span style='font-size:50%'> beta</span>
       </div>  
+  
+      <div class='page-content'></div>
 
     </div>
 
@@ -151,8 +153,7 @@ UserVoice.push(['showTab', 'classic_widget', {
 }]);
 </script>
   </body>
-      <div class='page-content'><%= yield %></div>
+    <%= yield %>
     <%= javascript_include_tag :application %>
-    <script src="/js/bootstrap.js"></script>
 
 </html>
