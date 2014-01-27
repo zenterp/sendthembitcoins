@@ -15,8 +15,12 @@
 //= require underscore-min
 //= require backbone-min
 //= require backbone.marionette.min
+//= require_tree ./models
+//= require_tree ./collections
 //= require_tree .
 //= require_self  
+
+console.log('HomeView', HomeView);
 
 _.templateSettings = {
     interpolate: /\{\{\=(.+?)\}\}/g,
@@ -54,18 +58,6 @@ $(function(){
   
   window.RippleBridgeForm = Backbone.Marionette.ItemView.extend({
     template: '#rippleBridgeForm'
-  });
-
-  window.HomeView = Backbone.Marionette.ItemView.extend({
-    template: '#homeView'
-  });
-
-  var Escrow = Backbone.Model.extend({
-     
-  });
-
-  var Escrows = Backbone.Collection.extend({
-
   });
 
   var Gift = Backbone.Model.extend({
