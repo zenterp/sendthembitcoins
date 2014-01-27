@@ -23,6 +23,7 @@ class Api::EscrowsController < ApplicationController
     when 'github'
       accept_github
     end
+    render json: @escrow
   end
 
   def create
@@ -46,11 +47,9 @@ private
     if verifier.validate(@escrow.auth_uid, @access_token, access_token_secret)
       @escrow.accept(@bitcoin_address)
     end
-    render json: @escrow
   end
   
   def accept_github
-    render json: @escrow
   end
   
   def accept_facebook
@@ -61,11 +60,9 @@ private
     if verifier.validate(@escrow.auth_uid, @access_token) 
       @escrow.accept(@bitcoin_address)
     end
-    render json: @escrow
   end
   
   def accept_linkedin
     access_token_secret = params.require(:access_token_secret)
-    render json: @escrow
   end
 end
