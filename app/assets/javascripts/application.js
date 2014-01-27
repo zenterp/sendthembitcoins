@@ -90,6 +90,9 @@ var RowView = Backbone.Marionette.ItemView.extend({
       },
       success: function(){
         $('#loading').hide();
+      },
+      error: function(){
+        $('#loading').hide();
       }});
     });
   }
