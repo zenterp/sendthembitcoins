@@ -17,9 +17,7 @@ class Api::EscrowsController < ApplicationController
       auth_provider: params.require(:auth_provider),
       auth_uid: params.require(:auth_uid),
       amount: params.require(:amount),
-      currency: params.require(:currency),
-      invoice_id: params[:invoice_id],
-      invoice_provider: params[:invoice_provider]
+      currency: params.require(:currency)
     )
     render json: @escrow
   end
