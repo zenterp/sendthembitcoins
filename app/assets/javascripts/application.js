@@ -92,15 +92,22 @@ var RowView = Backbone.Marionette.ItemView.extend({
   }
 });
 
+var NoItemsView = Marionette.ItemView.extend({
+  template: '#noEscrowsTemplate'
+});
+
 var EscrowsTableView = Backbone.Marionette.CompositeView.extend({
   itemView: RowView,
   itemViewContainer: "tbody",
-  template: "#table-template"
+  template: "#table-template",
+  emptyView: NoItemsView
 });
 
 $(function(){
 
   var credentials;
+
+  App = new Backbone.Marionette.Application;
 
   App.on('initialize:before', function(options){
     credentials = new Backbone.Model(window.auth);
@@ -191,7 +198,8 @@ $(function(){
         auth_uid: auth.uid
       }});
       App.main.show(new EscrowsTableView({
-        collection: escrows
+        collection: escrows,
+        model: auth
       }));
     },
     index: function() {
