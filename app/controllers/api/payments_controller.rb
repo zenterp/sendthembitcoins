@@ -2,13 +2,17 @@ class Api::PaymentsController < ApplicationController
   protect_from_forgery :except => [:notification]
   before_filter :verify_completed
   def notification
-    custom = JSON.parse(params['order']['custom'])
-    if custom['invoice_id']
-      handle_ripple_payment(custom)
-    elsif (escrow = Escrow.find(custom['escrow_id'].to_i))
-      escrow.update_attributes(funded_at: Time.now)  
+    begin
+      custom = JSON.parse(params['order']['custom'])
+      if custom['invoice_id']
+        handle_ripple_payment(custom)
+      elsif (escrow = Escrow.find(custom['escrow_id'].to_i))
+        escrow.update_attributes(funded_at: Time.now)  
+      end
+    rescue => error
+      puts error
     end
-    render text: 'success'
+    render status: 200
   end
 
   def verify_completed
