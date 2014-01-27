@@ -71,6 +71,18 @@ RippleDepositView = Backbone.Marionette.ItemView.extend({
   }
 });
 
+
+var RowView = Backbone.Marionette.ItemView.extend({
+  tagName: "tr",
+  template: "#row-template"
+});
+
+var EscrowsTableView = Backbone.Marionette.CompositeView.extend({
+  itemView: RowView,
+  itemViewContainer: "tbody",
+  template: "#table-template"
+});
+
 $(function(){
 
   var credentials;
@@ -148,6 +160,9 @@ $(function(){
       App.main.show(new NewEscrowView()); 
     },
     escrows: function() {
+      App.main.show(new EscrowsTableView({
+        collection: escrows
+      }));
       escrows.fetch({ data: {
         auth_provider: auth.provider,
         auth_uid: auth.uid
