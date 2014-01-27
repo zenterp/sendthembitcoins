@@ -1,3 +1,5 @@
+require "#{Rails.root}/lib/ripple/payment_worker"
+
 class Api::PaymentsController < ApplicationController
   protect_from_forgery :except => [:notification]
   before_filter :verify_completed
