@@ -74,3 +74,24 @@
   <a href='/' style='color:#eee'>Send Them Bitcoins</a>
   <span style='font-size:50%'> beta</span>
 </script>
+
+<script id="row-template" type="text/html">
+  <td>{{= amount }}</td>
+  <td>{{= currency }}</td>
+  <td>{{= funded_at }}</td>
+</script>
+
+<script id="table-template" type="text/html">
+  <table class='center-mobile table table-striped'>
+    <thead>
+      <tr>
+        <th>amount</th>
+        <th>currency</th>
+        <th>date</th>
+      </tr>
+    </thead>
+
+    <tbody></tbody>
+  </table>
+</script>
+
