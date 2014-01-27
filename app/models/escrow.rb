@@ -14,7 +14,7 @@ private
 
   def generate_invoice
     bitcoin_client.create_button(
-      "an escrow of bitcoin"
+      "an escrow of bitcoin",
       bitcoin_amount.to_f * 1.01,
       "claimable by #{auth_uid} on #{auth_provider}",
       { escrow_id: id }.to_json,
