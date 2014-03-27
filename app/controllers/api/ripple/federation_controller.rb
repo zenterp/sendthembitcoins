@@ -31,7 +31,7 @@ class Api::Ripple::FederationController < ApplicationController
       h[:result] = 'success'
       h[:quote] = {}.tap {|q|
         q[:destination_tag] = @tag
-        q[:invoice_id] = SecureRandom.hex
+        q[:invoice_id] = "#{SecureRandom.hex}#{SecureRandom.hex}"
         q[:send] = [
           { currency: 'BTC', value: @amount, issuer: @account } 
         ]
